@@ -1,8 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BrinHack 2025 - Official Website
 
-## Getting Started
+![BrinHack 2025](./BrinHack-Banner.png)
 
-First, run the development server:
+## 🚀 About
+
+BrinHack 2025 is a premier hackathon featuring innovative tracks including IoT, CyberSecurity, Blockchain, Sustainability, and Open Innovation. This repository contains the source code for its official website.
+
+## ✨ Features
+
+- **Interactive Cloud-Based UI**: Unique, immersive interface with animated clouds representing hackathon tracks
+- **Dynamic Timeline**: Visual representation of the hackathon schedule with animated elements
+- **Sponsor Showcase**: City skyline visualization representing different tiers of sponsorship
+- **Fully Responsive**: Optimized for all devices from mobile to desktop
+- **Accessibility Focused**: Designed with inclusivity in mind
+
+## 🛠️ Built With
+
+- [Next.js 15](https://nextjs.org/) - React framework for production
+- [Tailwind CSS](https://tailwindcss.com/) - For responsive styling
+- [Framer Motion](https://www.framer.com/motion/) - For smooth animations
+- [TypeScript](https://www.typescriptlang.org/) - Type safety and developer experience
+
+## 📱 Mobile Optimization
+
+The site is fully responsive with special optimizations for mobile devices:
+
+- Adaptive cloud layouts for different screen sizes
+- Simplified animations on low-power devices
+- Touch-friendly navigation
+- Responsive typography and spacing
+
+## 🚀 Getting Started
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/AskitEndo/BrinHack2025-site
+cd BrinHack2025-site
+```
+
+Then, install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +57,20 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/app` - Next.js app directory structure
+- `/components` - Reusable React components
+  - `HeroSection.tsx` - Landing page hero section
+  - `TrackSection.tsx` - Hackathon tracks with cloud visualization
+  - `TimelineSection.tsx` - Event timeline display
+  - `SponsorSection.tsx` - Sponsor showcase with building visualization
+- `/public` - Static assets including images and icons
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed with ❤️ for BrinHack 2025 by [AskitEndo](https://github.com/AskitEndo/)
