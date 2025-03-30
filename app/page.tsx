@@ -1,10 +1,11 @@
 "use client"; // Add 'use client' at the top because we're using hooks (useState, useEffect)
 
 import React, { useState, useEffect } from "react";
-// Note: This has a typo, but keeping as is
+
 import HeroSection from "@/components/HeroSection";
 import FloatingNavbar from "@/components/FloatingNavbar";
-import TracksSection from "@/components/TrackSection"; // Import the Tracks section
+import TracksSection from "@/components/TrackSection"; // Keep your original import
+import TimelineSection from "@/components/TimelineSection"; // Import the Timeline section
 
 export default function Home() {
   const [showNavbarLogo, setShowNavbarLogo] = useState(false);
@@ -33,8 +34,7 @@ export default function Home() {
   }, [SCROLL_THRESHOLD]); // Re-run effect if threshold calculation changes (though it's constant here)
 
   return (
-    <main className="relative min-h-screen">
-      {/* Background with stars and gradient */}
+    <main className="relative flex flex-col items-center min-h-screen">
       {/* Pass the state down as a prop */}
       <FloatingNavbar showLogo={showNavbarLogo} />
       {/* Hero Section - takes full viewport height */}
@@ -42,18 +42,22 @@ export default function Home() {
       {/* Hero logo shows when navbar logo *doesn't* */}
       {/* Tracks Section */}
       <TracksSection />
-      {/* Other sections will be added below here */}
-      <div className="h-screen bg-purple-900/30 w-full z-10 flex items-center justify-center">
-        {/* Keep this temporarily for scrolling */}
+      {/* Timeline Section */}
+      <TimelineSection /> {/* Add Timeline Section here */}
+      {/* Sponsors Section */}
+      <div
+        id="sponsors-section"
+        className="h-screen bg-yellow-900/30 w-full z-10 flex items-center justify-center"
+      >
         <h2 className="text-4xl text-white font-[var(--font-major-mono)]">
-          Timeline Section Placeholder
+          Sponsors Section Placeholder
         </h2>
       </div>
+      {/* About Section - keep existing id for navigation */}
       <div
         id="about-section"
         className="h-screen bg-green-900/30 w-full z-10 flex items-center justify-center"
       >
-        {/* Keep this temporarily for scrolling */}
         <h2 className="text-4xl text-white font-[var(--font-major-mono)]">
           About Section Placeholder
         </h2>

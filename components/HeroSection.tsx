@@ -151,7 +151,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
           );
         })}
 
-        <div className="container mx-auto flex flex-col items-center gap-12 text-center lg:flex-row lg:text-left">
+        {/* Make the container taller to add more space for content */}
+        <div className="container mx-auto flex flex-col items-center gap-12 text-center lg:flex-row lg:text-left pb-32">
           {/* Left Column: Text Content & Buttons */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start space-y-6">
             <header className="w-full flex justify-center lg:justify-start py-6">
@@ -184,8 +185,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
               </Link>
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fadeIn animation-delay-600">
-              {/* For the button text */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fadeIn animation-delay-600 mb-10">
+              {/* For the button text - Adding Link and href */}
               <Button
                 asChild
                 variant="default"
@@ -193,9 +194,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
                 className="bg-gradient-to-r from-pink-500 to-blue-400 hover:from-pink-800 hover:to-blue-800 hover:text-white transition-colors duration-300 text-black shadow-lg hover:shadow-xl"
                 style={{ fontFamily: "'Silkscreen', monospace" }}
               >
-                <a target="_blank" rel="noopener noreferrer">
-                  Register Now!
-                </a>
+                <Link href="https://github.com/askitendo">Register Now!</Link>
               </Button>
             </div>
           </div>
@@ -234,7 +233,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
           </div>
         </div>
 
-        {/* Smooth transition to next section */}
+        {/* Move transition elements to absolute bottom with higher z-index */}
         <div
           className="absolute bottom-0 left-0 right-0 h-24 z-20"
           style={{
@@ -245,8 +244,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
         ></div>
 
         <div
-          className="section-transition-mask hero-tracks-mask"
+          className="section-transition-mask hero-tracks-mask absolute bottom-0 left-0 right-0"
           aria-hidden="true"
+          style={{ height: "180px", bottom: "-90px" }}
         ></div>
       </section>
     </>
