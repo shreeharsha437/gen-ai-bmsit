@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   description:
     "Brinhack 2025: Innovate Beyond Boundaries! Join the 24-hour hackathon.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "./favicon.ico",
     apple: "/favicon.ico",
   },
 };

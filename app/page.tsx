@@ -43,6 +43,12 @@ export default function Home() {
       {/* Tracks Section */}
       <TracksSection />
       {/* Other sections will be added below here */}
+      <div className="h-screen bg-purple-900/30 w-full z-10 flex items-center justify-center">
+        {/* Keep this temporarily for scrolling */}
+        <h2 className="text-4xl text-white font-[var(--font-major-mono)]">
+          Timeline Section Placeholder
+        </h2>
+      </div>
       <div
         id="about-section"
         className="h-screen bg-green-900/30 w-full z-10 flex items-center justify-center"
@@ -50,12 +56,6 @@ export default function Home() {
         {/* Keep this temporarily for scrolling */}
         <h2 className="text-4xl text-white font-[var(--font-major-mono)]">
           About Section Placeholder
-        </h2>
-      </div>
-      <div className="h-screen bg-purple-900/30 w-full z-10 flex items-center justify-center">
-        {/* Keep this temporarily for scrolling */}
-        <h2 className="text-4xl text-white font-[var(--font-major-mono)]">
-          Timeline Section Placeholder
         </h2>
       </div>
     </main>

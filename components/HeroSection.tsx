@@ -190,10 +190,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
                 asChild
                 variant="default"
                 size="lg"
-                className="bg-gradient-to-r from-pink-500 to-yellow-500 text-black hover:from-pink-600 hover:to-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-pink-500 to-blue-400 hover:from-pink-800 hover:to-blue-800 hover:text-white transition-colors duration-300 text-black shadow-lg hover:shadow-xl"
                 style={{ fontFamily: "'Silkscreen', monospace" }}
               >
-                <a href="#register" target="_blank" rel="noopener noreferrer">
+                <a target="_blank" rel="noopener noreferrer">
                   Register Now!
                 </a>
               </Button>
@@ -242,6 +242,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
               "radial-gradient(ellipse at 50% 100%, #0c1445 50%, transparent 100%)",
             clipPath: "ellipse(70% 100% at 50% 100%)",
           }}
+        ></div>
+
+        <div
+          className="section-transition-mask hero-tracks-mask"
+          aria-hidden="true"
         ></div>
       </section>
     </>
