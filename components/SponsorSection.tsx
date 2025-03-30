@@ -3,7 +3,6 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Award, Trophy, Star, LucideIcon } from "lucide-react";
 
 // Define Sponsor interface
 interface Sponsor {
@@ -348,13 +347,13 @@ const SponsorsSection: React.FC = () => {
 
   // Generate positions for left and right sides based on the grouped sponsors
   const leftSideSponsors = [
-    ...(groupedSponsors.gold || []),
-    ...(groupedSponsors.silver || []),
+    ...(groupedSponsors[tierOrder[0]] || []),
+    ...(groupedSponsors[tierOrder[1]] || []),
   ];
 
   const rightSideSponsors = [
-    ...(groupedSponsors.bronze || []),
-    ...(groupedSponsors.micro || []),
+    ...(groupedSponsors[tierOrder[2]] || []),
+    ...(groupedSponsors[tierOrder[3]] || []),
   ];
 
   return (
@@ -489,7 +488,7 @@ const SponsorsSection: React.FC = () => {
       <div className="absolute bottom-0 left-0 right-0 h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] z-20">
         {/* Left side buildings container with optimized spacing for mobile */}
         <div className="absolute bottom-0 left-1 sm:left-2 md:left-4 lg:left-8 flex items-end space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-4">
-          {leftSideSponsors.map((sponsor, _) => (
+          {leftSideSponsors.map((sponsor, _index) => (
             <BuildingComponent
               key={sponsor.id}
               sponsor={sponsor}
@@ -500,7 +499,7 @@ const SponsorsSection: React.FC = () => {
 
         {/* Right side buildings container with optimized spacing for mobile */}
         <div className="absolute bottom-0 right-1 sm:right-2 md:right-4 lg:right-8 flex items-end space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-4">
-          {rightSideSponsors.map((sponsor, _) => (
+          {rightSideSponsors.map((sponsor, _index) => (
             <BuildingComponent
               key={sponsor.id}
               sponsor={sponsor}

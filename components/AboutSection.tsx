@@ -120,7 +120,7 @@ const CompactTeamMember: React.FC<{
         <div className=" font-silkscreen text-lg text-amber-400 ">{role}</div>
         <h4 className=" font-silkscreen text-sm text-white">{name}</h4>
         <p className="text-gray-300 font-bitwise text-xs italic mt-1">
-          "{quote}"
+          &quot;{quote}&quot;
         </p>
       </div>
     </div>
@@ -171,7 +171,7 @@ const TeamMemberCard: React.FC<{
           </div>
           <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
             <p className="text-gray-300 font-bitwise text-center text-sm italic">
-              "{quote}"
+              &quot;{quote}&quot;
             </p>
           </div>
           <span className="absolute bottom-2 right-2 text-amber-500 animate-pulse">
