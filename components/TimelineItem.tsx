@@ -98,7 +98,7 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
           } transition-opacity duration-300`}
           priority
           onLoadingComplete={() => setImageLoaded(true)}
-          onError={(e) => {
+          onError={() => {
             console.error(`Failed to load image: ${imagePath}`);
           }}
         />

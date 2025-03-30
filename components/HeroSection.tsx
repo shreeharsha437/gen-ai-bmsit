@@ -93,13 +93,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
     easing: "cubic-bezier(.03,.98,.52,.99)",
   };
 
-  const handleKnowMoreClick = () => {
-    const aboutSection = document.getElementById("about-section");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <>
       <section

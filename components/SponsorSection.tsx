@@ -3,16 +3,7 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  Code,
-  Coffee,
-  Search,
-  Presentation,
-  Award,
-  Trophy,
-  Star,
-  LucideIcon,
-} from "lucide-react";
+import { Award, Trophy, Star, LucideIcon } from "lucide-react";
 
 // Define Sponsor interface
 interface Sponsor {
@@ -118,14 +109,6 @@ const Bird: React.FC<{
       />
     </motion.div>
   );
-};
-
-// Map tiers to icon types with more appropriate icons
-const tierIcons: Record<string, LucideIcon> = {
-  gold: Trophy,
-  silver: Award,
-  bronze: Star,
-  micro: Coffee,
 };
 
 // Building colors based on tier
@@ -363,12 +346,15 @@ const SponsorsSection: React.FC = () => {
   // Define order for display
   const tierOrder: Sponsor["tier"][] = ["gold", "silver", "bronze", "micro"];
 
-  // Generate positions for left and right sides
+  // Generate positions for left and right sides based on the grouped sponsors
   const leftSideSponsors = [
-    ...sponsorData.filter((s) => s.tier === "gold" || s.tier === "silver"),
+    ...(groupedSponsors.gold || []),
+    ...(groupedSponsors.silver || []),
   ];
+
   const rightSideSponsors = [
-    ...sponsorData.filter((s) => s.tier === "bronze" || s.tier === "micro"),
+    ...(groupedSponsors.bronze || []),
+    ...(groupedSponsors.micro || []),
   ];
 
   return (
@@ -503,7 +489,7 @@ const SponsorsSection: React.FC = () => {
       <div className="absolute bottom-0 left-0 right-0 h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] z-20">
         {/* Left side buildings container with optimized spacing for mobile */}
         <div className="absolute bottom-0 left-1 sm:left-2 md:left-4 lg:left-8 flex items-end space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-4">
-          {leftSideSponsors.map((sponsor, index) => (
+          {leftSideSponsors.map((sponsor, _) => (
             <BuildingComponent
               key={sponsor.id}
               sponsor={sponsor}
@@ -514,7 +500,7 @@ const SponsorsSection: React.FC = () => {
 
         {/* Right side buildings container with optimized spacing for mobile */}
         <div className="absolute bottom-0 right-1 sm:right-2 md:right-4 lg:right-8 flex items-end space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-4">
-          {rightSideSponsors.map((sponsor, index) => (
+          {rightSideSponsors.map((sponsor, _) => (
             <BuildingComponent
               key={sponsor.id}
               sponsor={sponsor}
