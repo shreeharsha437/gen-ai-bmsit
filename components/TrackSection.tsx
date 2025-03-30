@@ -303,11 +303,14 @@ const TracksSection: React.FC = () => {
         })}
 
       {/* Center everything */}
-      <div className="container mx-auto px-6 text-center relative z-10">
+      <div className="container mb-16 md:mb-20  mx-auto px-6 text-center relative z-10">
         {/* Section Heading - centered with increased bottom margin */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-16 md:mb-20 font-major-mono">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-major-mono">
           Tracks & Themes
         </h2>
+        <p className="text-lg text-purple-300 mt-4 max-w-2xl mx-auto font-silkscreen">
+          Innovate, Collaborate, Elevate!
+        </p>
 
         {/* Cloud Container - Now clouds are guaranteed to be below title */}
         <div className="relative w-full" style={{ minHeight: "70vh" }}>

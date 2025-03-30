@@ -194,7 +194,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
                 className="bg-gradient-to-r from-pink-500 to-blue-400 hover:from-pink-800 hover:to-blue-800 hover:text-white transition-colors duration-300 text-black shadow-lg hover:shadow-xl"
                 style={{ fontFamily: "'Silkscreen', monospace" }}
               >
-                <Link href="https://github.com/askitendo">Register Now!</Link>
+                <Link href="https://github.com/askitendo" target="_blank">
+                  Register Now!
+                </Link>
               </Button>
             </div>
           </div>
