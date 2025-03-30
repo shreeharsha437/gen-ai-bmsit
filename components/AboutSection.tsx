@@ -126,96 +126,96 @@ const CompactTeamMember: React.FC<{
   );
 };
 
-const TeamMemberCard: React.FC<{
-  name: string;
-  role: string;
-  quote: string;
-  imageUrl: string;
-}> = ({ name, role, quote, imageUrl }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+// const TeamMemberCard: React.FC<{
+//   name: string;
+//   role: string;
+//   quote: string;
+//   imageUrl: string;
+// }> = ({ name, role, quote, imageUrl }) => {
+//   const [isFlipped, setIsFlipped] = useState(false);
 
-  return (
-    <div
-      className="relative h-72 w-full max-w-xs mx-auto perspective-1000"
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
-    >
-      <div
-        className={`relative w-full h-full transition-transform duration-700 preserve-3d ${
-          isFlipped ? "rotate-y-180" : ""
-        }`}
-      >
-        {/* Front side */}
-        <div
-          className="absolute inset-0 backface-hidden bg-gray-900/80 border-2 border-amber-800 p-4 flex flex-col items-center"
-          style={{
-            clipPath:
-              "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
-          }}
-        >
-          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-amber-600 mb-4">
-            <Image
-              src={imageUrl}
-              alt={name}
-              width={96}
-              height={96}
-              className="object-cover w-full h-full"
-            />
-          </div>
-          <h4 className="font-silkscreen text-amber-400 text-lg mb-1">
-            {name}
-          </h4>
-          <div className="font-silkscreen text-gray-400 text-xs py-1 px-2 bg-gray-800 rounded-md mb-2">
-            {role}
-          </div>
-          <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
-            <p className="text-gray-300 font-bitwise text-center text-sm italic">
-              &quot;{quote}&quot;
-            </p>
-          </div>
-          <span className="absolute bottom-2 right-2 text-amber-500 animate-pulse">
-            <ChevronDown className="w-5 h-5" />
-          </span>
-        </div>
+//   return (
+//     <div
+//       className="relative h-72 w-full max-w-xs mx-auto perspective-1000"
+//       onMouseEnter={() => setIsFlipped(true)}
+//       onMouseLeave={() => setIsFlipped(false)}
+//     >
+//       <div
+//         className={`relative w-full h-full transition-transform duration-700 preserve-3d ${
+//           isFlipped ? "rotate-y-180" : ""
+//         }`}
+//       >
+//         {/* Front side */}
+//         <div
+//           className="absolute inset-0 backface-hidden bg-gray-900/80 border-2 border-amber-800 p-4 flex flex-col items-center"
+//           style={{
+//             clipPath:
+//               "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
+//           }}
+//         >
+//           <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-amber-600 mb-4">
+//             <Image
+//               src={imageUrl}
+//               alt={name}
+//               width={96}
+//               height={96}
+//               className="object-cover w-full h-full"
+//             />
+//           </div>
+//           <h4 className="font-silkscreen text-amber-400 text-lg mb-1">
+//             {name}
+//           </h4>
+//           <div className="font-silkscreen text-gray-400 text-xs py-1 px-2 bg-gray-800 rounded-md mb-2">
+//             {role}
+//           </div>
+//           <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
+//             <p className="text-gray-300 font-bitwise text-center text-sm italic">
+//               &quot;{quote}&quot;
+//             </p>
+//           </div>
+//           <span className="absolute bottom-2 right-2 text-amber-500 animate-pulse">
+//             <ChevronDown className="w-5 h-5" />
+//           </span>
+//         </div>
 
-        {/* Back side - rotated */}
-        <div
-          className="absolute inset-0 backface-hidden bg-gray-900/80 border-2 border-amber-800 p-4 rotate-y-180 flex flex-col justify-center"
-          style={{
-            clipPath:
-              "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
-          }}
-        >
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Coffee className="w-5 h-5 text-amber-500" />
-              <p className="text-gray-300 font-bitwise text-sm">
-                Runs on: Coffee &amp; Enthusiasm
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-amber-500" />
-              <p className="text-gray-300 font-bitwise text-sm">
-                Superpower: Creative Problem-Solving
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Briefcase className="w-5 h-5 text-amber-500" />
-              <p className="text-gray-300 font-bitwise text-sm">
-                Expertise: {role.split("of")[1] || "Technology Innovation"}
-              </p>
-            </div>
-          </div>
-          <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
-            <p className="text-amber-400 font-silkscreen text-center text-sm">
-              Flip to see photo
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+//         {/* Back side - rotated */}
+//         <div
+//           className="absolute inset-0 backface-hidden bg-gray-900/80 border-2 border-amber-800 p-4 rotate-y-180 flex flex-col justify-center"
+//           style={{
+//             clipPath:
+//               "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
+//           }}
+//         >
+//           <div className="space-y-3">
+//             <div className="flex items-center gap-2">
+//               <Coffee className="w-5 h-5 text-amber-500" />
+//               <p className="text-gray-300 font-bitwise text-sm">
+//                 Runs on: Coffee &amp; Enthusiasm
+//               </p>
+//             </div>
+//             <div className="flex items-center gap-2">
+//               <Star className="w-5 h-5 text-amber-500" />
+//               <p className="text-gray-300 font-bitwise text-sm">
+//                 Superpower: Creative Problem-Solving
+//               </p>
+//             </div>
+//             <div className="flex items-center gap-2">
+//               <Briefcase className="w-5 h-5 text-amber-500" />
+//               <p className="text-gray-300 font-bitwise text-sm">
+//                 Expertise: {role.split("of")[1] || "Technology Innovation"}
+//               </p>
+//             </div>
+//           </div>
+//           <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
+//             <p className="text-amber-400 font-silkscreen text-center text-sm">
+//               Flip to see photo
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 const AboutSection: React.FC = () => {
   const [showComingSoon, setShowComingSoon] = useState(false);
