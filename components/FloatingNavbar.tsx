@@ -21,6 +21,7 @@ const navItems = [
 
 const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   // Scroll listener for background transparency
   useEffect(() => {
@@ -59,94 +60,128 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        isScrolled ? "bg-black/70 backdrop-blur-md shadow-lg" : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-6 py-3 flex items-center justify-between h-16 md:h-20">
-        {/* Left Side: Logo Placeholder/Area */}
-        <div className="flex items-center h-full">
-          {/* This div now renders the small logo conditionally */}
-          <div
-            id="navbar-logo-placeholder"
-            className={`relative h-full flex items-center transition-opacity duration-500 ease-in-out ${
-              showLogo ? "opacity-100" : "opacity-0 pointer-events-none" // Control visibility
-            }`}
-            aria-hidden={!showLogo} // Accessibility hint
-          >
-            {/* Small Logo - Now clickable */}
-            <a
-              href="#"
-              onClick={scrollToHero}
-              className="flex items-center group hover:scale-105 transition-transform duration-300"
-              aria-label="Back to top"
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+          isScrolled
+            ? "bg-black/70 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="container mx-auto px-6 py-3 flex items-center justify-between h-16 md:h-20">
+          {/* Left Side: Logo Placeholder/Area */}
+          <div className="flex items-center h-full">
+            {/* This div now renders the small logo conditionally */}
+            <div
+              id="navbar-logo-placeholder"
+              className={`relative h-full flex items-center transition-opacity duration-500 ease-in-out ${
+                showLogo ? "opacity-100" : "opacity-0 pointer-events-none" // Control visibility
+              }`}
+              aria-hidden={!showLogo} // Accessibility hint
             >
-              <div className="h-8 w-8 md:h-10 md:w-10 relative overflow-hidden rounded-lg group-hover:shadow-md group-hover:shadow-blue-400/30 transition-shadow duration-300">
-                <div className="absolute inset-0" />
-                <Image
-                  src="/logo.png"
-                  alt="Brinhack Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain w-full h-full relative z-10"
-                />
-              </div>
-              <span className="text-white font-major-mono ml-2 hidden sm:inline group-hover:text-blue-200 transition-colors duration-300">
-                <span className="text-[#ff00c0] group-hover:text-pink-400">
-                  Brin
+              {/* Small Logo - Now clickable */}
+              <a
+                href="#"
+                onClick={scrollToHero}
+                className="flex items-center group hover:scale-105 transition-transform duration-300"
+                aria-label="Back to top"
+              >
+                <div className="h-8 w-8 md:h-10 md:w-10 relative overflow-hidden rounded-lg group-hover:shadow-md group-hover:shadow-blue-400/30 transition-shadow duration-300">
+                  <div className="absolute inset-0" />
+                  <Image
+                    src="/logo.png"
+                    alt="Brinhack Logo"
+                    width={40}
+                    height={40}
+                    className="object-contain w-full h-full relative z-10"
+                  />
+                </div>
+                <span className="text-white font-major-mono ml-2 hidden sm:inline  transition-colors duration-300">
+                  <span className="text-[#ff00c0] group-hover:text-pink-400">
+                    Brin
+                  </span>
+                  <span className="text-[#26bffd] group-hover:text-blue-300">
+                    HAck
+                  </span>
                 </span>
-                <span className="text-[#26bffd] group-hover:text-blue-300">
-                  HAck
-                </span>
-              </span>
-            </a>
+              </a>
+            </div>
+          </div>
+
+          {/* Right Side: Navigation Links */}
+          <div className="flex items-center space-x-1 md:space-x-2">
+            {navItems.map((item) => (
+              <Button
+                key={item.name}
+                variant="ghost"
+                size="sm"
+                asChild
+                className="text-gray-300 hover:text-white hover:bg-white/10 font-silkscreen text-xs md:text-sm transition-colors duration-200"
+              >
+                {item.external ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">
+                    {item.name}
+                  </a>
+                ) : (
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      if (item.href.startsWith("#")) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(item.href);
+                        targetElement?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </Button>
+            ))}
+
+            {/* Extras Button */}
+            <Button
+              variant="default"
+              size="sm"
+              className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen ml-2"
+              onClick={() => setShowComingSoon(true)}
+            >
+              <span className="block sm:hidden">E!</span>
+              <span className="hidden sm:block">EXTRA'S!</span>
+            </Button>
           </div>
         </div>
+      </nav>
 
-        {/* Right Side: Navigation Links */}
-        <div className="flex items-center space-x-1 md:space-x-2">
-          {navItems.map((item) => (
-            <Button
-              key={item.name}
-              variant="ghost"
-              size="sm"
-              asChild
-              className="text-gray-300 hover:text-white hover:bg-white/10 font-silkscreen text-xs md:text-sm transition-colors duration-200"
-            >
-              {item.external ? (
-                <a href={item.href} target="_blank" rel="noopener noreferrer">
-                  {item.name}
-                </a>
-              ) : (
-                <a
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.href.startsWith("#")) {
-                      e.preventDefault();
-                      const targetElement = document.querySelector(item.href);
-                      targetElement?.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                >
-                  {item.name}
-                </a>
-              )}
-            </Button>
-          ))}
-
-          {/* Registration Button */}
-          <Button
-            variant="default"
-            size="sm"
-            asChild
-            className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen ml-2"
+      {/* Coming Soon Modal */}
+      {showComingSoon && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div
+            className="bg-gray-900 border-4 border-purple-600 p-6 max-w-sm mx-auto rounded-lg"
+            style={{
+              clipPath:
+                "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
+            }}
           >
-            <a>EXTRA'S</a>
-          </Button>
+            <h3 className="font-silkscreen text-2xl text-purple-400 mb-4">
+              Coming Soon!
+            </h3>
+            <p className="font-bitwise text-gray-300 mb-6">
+              We're working on making this feature available. Stay tuned for
+              updates!
+            </p>
+            <div className="text-center">
+              <button
+                onClick={() => setShowComingSoon(false)}
+                className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white font-silkscreen text-sm border-2 border-purple-500 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      )}
+    </>
   );
 };
 

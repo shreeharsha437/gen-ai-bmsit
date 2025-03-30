@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import TimelineItem from "./TimelineItem";
 import { Cloud } from "./TrackSection"; // Import Cloud from TrackSection
@@ -177,10 +177,12 @@ const backgroundClouds = [
 ];
 
 // Generate random positions for background clouds
-const generateCloudPositions = () => {
+const generateCloudPositions = (isMobile = false) => {
   return backgroundClouds.map(() => ({
-    horizontalPos: `${Math.random() * 80 + 10}%`, // 10-90% horizontal position
-    verticalPos: `${Math.random() * 60 + 5}%`, // 5-65% vertical position
+    horizontalPos: `${
+      Math.random() * (isMobile ? 70 : 80) + (isMobile ? 15 : 10)
+    }%`, // 15-85% horizontal on mobile, 10-90% on desktop
+    verticalPos: `${Math.random() * (isMobile ? 40 : 60) + 5}%`, // 5-45% vertical on mobile (more compact), 5-65% on desktop
     wiggleIntensity: ["gentle", "medium", "intense"][
       Math.floor(Math.random() * 3)
     ],
@@ -189,9 +191,30 @@ const generateCloudPositions = () => {
 
 const TimelineSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Generate cloud positions once
-  const cloudPositions = React.useMemo(() => generateCloudPositions(), []);
+  // Check if we're on mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Check on mount
+    checkMobile();
+
+    // Listen for resize events
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  // Generate cloud positions once, with responsive layout
+  const cloudPositions = React.useMemo(
+    () => generateCloudPositions(isMobile),
+    [isMobile]
+  );
 
   // Framer Motion hook to track scroll progress within the container
   const { scrollYProgress } = useScroll({
@@ -205,7 +228,7 @@ const TimelineSection: React.FC = () => {
   return (
     <section
       id="event-timeline" // Change from "timeline" to "event-timeline" to match navbar link
-      className="relative w-full py-20 md:py-32 px-4 md:px-6 z-10 overflow-hidden"
+      className="relative w-full py-16 sm:py-20 md:py-32 px-3 sm:px-4 md:px-6 z-10 overflow-hidden"
       ref={containerRef}
     >
       {/* Sky gradient background - from dark blue (#2C77D1) to white */}
@@ -214,8 +237,11 @@ const TimelineSection: React.FC = () => {
       {/* Semi-transparent overlay for better text readability */}
       <div className="absolute inset-0 bg-black/5 backdrop-blur-[1px] -z-5" />
 
-      {/* Background clouds */}
+      {/* Background clouds - more spaced out and fewer on mobile */}
       {backgroundClouds.map((cloud, index) => {
+        // Skip some clouds on mobile to reduce visual clutter
+        if (isMobile && index % 2 === 0 && index > 2) return null;
+
         const position = cloudPositions[index];
         if (!position) return null;
 
@@ -226,7 +252,7 @@ const TimelineSection: React.FC = () => {
             style={{
               left: position.horizontalPos,
               top: position.verticalPos,
-              opacity: cloud.opacity,
+              opacity: cloud.opacity * (isMobile ? 0.8 : 1), // Slightly more transparent on mobile
             }}
           >
             <Cloud
@@ -239,25 +265,25 @@ const TimelineSection: React.FC = () => {
               wiggleIntensity={
                 position.wiggleIntensity as "gentle" | "medium" | "intense"
               }
-              opacity={cloud.opacity}
+              opacity={cloud.opacity * (isMobile ? 0.8 : 1)}
               hoverDelay="0s"
             />
           </div>
         );
       })}
 
-      {/* Section heading */}
-      <div className="container relative mx-auto text-center mb-16 md:mb-24 z-20">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl text-white font-major-mono drop-shadow-lg">
+      {/* Section heading - smaller padding on mobile */}
+      <div className="container relative mx-auto text-center mb-10 sm:mb-12 md:mb-16 lg:mb-24 z-20">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-major-mono drop-shadow-lg">
           HaCkAthOn TImelInE
         </h2>
-        <p className="text-lg text-purple-200 mt-4 max-w-2xl mx-auto font-silkscreen drop-shadow">
+        <p className="text-sm sm:text-base md:text-lg text-purple-200 mt-2 sm:mt-4 max-w-2xl mx-auto font-silkscreen drop-shadow">
           The journey from registration to celebration
         </p>
       </div>
 
-      {/* Timeline Container */}
-      <div className="relative w-full max-w-3xl mx-auto z-20">
+      {/* Timeline Container - narrower on mobile for better visibility */}
+      <div className="relative w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto z-20">
         {/* Background Line (Semi-transparent) */}
         <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/30 rounded-full -translate-x-1/2"></div>
 
@@ -267,8 +293,8 @@ const TimelineSection: React.FC = () => {
           style={{ scaleY: gradientScaleY }} // Animate scaleY based on scroll
         />
 
-        {/* Timeline Items */}
-        <div className="relative flex flex-col items-center z-30">
+        {/* Timeline Items - smaller vertical spacing on mobile */}
+        <div className="relative flex flex-col items-center z-30 space-y-6 sm:space-y-4 md:space-y-4">
           {timelineData.map((event, index) => (
             <TimelineItem
               key={event.id}
@@ -281,7 +307,7 @@ const TimelineSection: React.FC = () => {
       </div>
 
       {/* Bottom decorative element to transition to white */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent -z-5" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-28 md:h-32 bg-gradient-to-t from-white to-transparent -z-5" />
     </section>
   );
 };

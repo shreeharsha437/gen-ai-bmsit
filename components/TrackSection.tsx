@@ -7,14 +7,14 @@ import Image from "next/image";
 const tracks = [
   // TOP LAYER - 3 clouds above the date
   {
-    name: "Internet of Things (IoT)",
+    name: "[IoT] - Internet of Things",
     size: "large",
     cloudType: "c1n",
     layer: "top",
     hoverDelay: "0s",
   },
   {
-    name: "CyberSecurity",
+    name: "Cyber -Security",
     size: "medium",
     cloudType: "c2n",
     layer: "top",
@@ -83,20 +83,20 @@ const Cloud: React.FC<{
   wiggleIntensity = "medium",
   opacity = 1,
 }) => {
-  // Size classes now more differentiated
+  // Improved size classes with better mobile scaling - slightly smaller on mobile
   const sizeClasses = {
-    tiny: "w-12 h-8 md:w-16 md:h-12", // Tiny (for background clouds)
-    small: "w-24 h-18 md:w-32 md:h-24", // Small
-    medium: "w-36 h-28 md:w-48 md:h-36", // Medium
-    large: "w-48 h-36 md:w-64 md:h-48", // Large
+    tiny: "w-8 h-6 sm:w-10 sm:h-7 md:w-16 md:h-12", // Reduced size on mobile
+    small: "w-16 h-12 sm:w-20 sm:h-16 md:w-32 md:h-24", // Reduced size on mobile
+    medium: "w-24 h-18 sm:w-28 sm:h-22 md:w-48 md:h-36", // Reduced size on mobile
+    large: "w-32 h-24 sm:w-36 sm:h-28 md:w-64 md:h-48", // Reduced size on mobile
   };
 
-  // Determine font size based on cloud size
+  // Enhanced font sizing for better readability on mobile - significantly smaller text
   const fontSizeClass = {
-    tiny: "text-xs",
-    small: "text-xs md:text-xs",
-    medium: "text-xs md:text-sm",
-    large: "text-sm md:text-base",
+    tiny: "text-[8px] sm:text-[9px] md:text-xs",
+    small: "text-[8px] sm:text-[9px] md:text-xs",
+    medium: "text-[9px] sm:text-xs md:text-sm",
+    large: "text-[10px] sm:text-xs md:text-base",
   };
 
   // Choose the appropriate animation class based on wiggle intensity
@@ -132,9 +132,9 @@ const Cloud: React.FC<{
           priority={layer === "top"}
         />
 
-        {/* Track Text Overlay - Only for main track clouds */}
+        {/* Track Text Overlay - Only for main track clouds - Repositioned below cloud */}
         {trackName && (
-          <div className="absolute inset-x-0 -bottom-1 md:bottom-3 flex justify-center">
+          <div className="absolute inset-x-0 -bottom-6 sm:-bottom-5 md:-bottom-2 flex justify-center">
             <span
               className={`
                 text-center 
@@ -142,19 +142,23 @@ const Cloud: React.FC<{
                 font-bold 
                 text-white 
                 font-silkscreen 
-                px-3 py-1 
-                bg-purple-900/70 
+                px-1.5 sm:px-2 py-0.5 sm:py-1 
+                bg-purple-900/90
                 backdrop-blur-sm 
                 rounded-full 
                 shadow-md 
-                border-2
+                border
                 border-white/30
-                group-hover:bg-purple-800/80
+                sm:border-2
+                group-hover:bg-purple-800/90
                 group-hover:scale-110 
                 group-hover:border-white/50
                 transition-all 
                 duration-300
-                translate-y-1/2
+                whitespace-normal
+                max-w-[95%]
+                text-ellipsis
+                leading-tight
               `}
             >
               {trackName}
@@ -190,55 +194,123 @@ const TracksSection: React.FC = () => {
     background: [],
   });
 
-  // Improved position generation with better spacing
+  // Detect if we're on a mobile device
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Check immediately
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Improved position generation with better spacing for mobile and desktop
   useEffect(() => {
     const generatePositions = () => {
-      const topLayer = [
-        // IoT (Large) - Top Left - More pronounced wiggle
+      // Mobile-optimized positions
+      const topLayerMobile = [
+        // IoT (Large) - Top Left - More visible on mobile
         {
-          horizontalPos: "15%",
-          verticalPos: "5%", // Below title
+          horizontalPos: "8%",
+          verticalPos: "5%",
           wiggleIntensity: "intense" as const,
         },
-        // CyberSecurity (Medium) - Top Right - Medium wiggle
+        // CyberSecurity (Medium) - Top Right - Better positioned for mobile
         {
           horizontalPos: "65%",
-          verticalPos: "8%", // Below title
+          verticalPos: "12%",
           wiggleIntensity: "medium" as const,
         },
-        // Blockchain (Small) - Above Middle - Gentle wiggle
+        // Blockchain (Small) - Middle - Adjusted for mobile viewing
         {
-          horizontalPos: "40%",
-          verticalPos: "12%", // Below title
+          horizontalPos: "30%",
+          verticalPos: "25%",
           wiggleIntensity: "gentle" as const,
         },
       ];
 
-      const bottomLayer = [
-        // Sustainability (Large) - Bottom Right - Medium wiggle
+      const bottomLayerMobile = [
+        // Sustainability (Large) - Bottom Right - Repositioned for mobile
         {
-          horizontalPos: "67%",
-          verticalPos: "40%", // Adjusted to fit better in the visible area
+          horizontalPos: "60%",
+          verticalPos: "45%",
           wiggleIntensity: "medium" as const,
         },
-        // Open Innovation (Medium) - Bottom Left - Intense wiggle
+        // Open Innovation (Medium) - Bottom Left - Better visibility on mobile
         {
-          horizontalPos: "20%",
-          verticalPos: "48%", // Adjusted to fit better in the visible area
+          horizontalPos: "15%",
+          verticalPos: "55%",
           wiggleIntensity: "intense" as const,
         },
       ];
 
+      // Desktop optimized positions (your original positions)
+      const topLayerDesktop = [
+        {
+          horizontalPos: "15%",
+          verticalPos: "5%",
+          wiggleIntensity: "intense" as const,
+        },
+        {
+          horizontalPos: "65%",
+          verticalPos: "8%",
+          wiggleIntensity: "medium" as const,
+        },
+        {
+          horizontalPos: "40%",
+          verticalPos: "12%",
+          wiggleIntensity: "gentle" as const,
+        },
+      ];
+
+      const bottomLayerDesktop = [
+        {
+          horizontalPos: "67%",
+          verticalPos: "40%",
+          wiggleIntensity: "medium" as const,
+        },
+        {
+          horizontalPos: "20%",
+          verticalPos: "48%",
+          wiggleIntensity: "intense" as const,
+        },
+      ];
+
+      // Choose positions based on device type
+      const topLayer = isMobile ? topLayerMobile : topLayerDesktop;
+      const bottomLayer = isMobile ? bottomLayerMobile : bottomLayerDesktop;
+
       // Generate random positions for background clouds
-      // All positioned below the title (min 15% from top)
+      // Different distribution for mobile vs desktop
       const backgroundLayer = backgroundClouds.map(() => {
-        return {
-          horizontalPos: `${Math.floor(Math.random() * 85 + 3)}%`, // 5-90% horizontal
-          verticalPos: `${Math.floor(Math.random() * 65 + 20)}%`, // 15-80% vertical (below title)
-          wiggleIntensity: ["gentle", "medium"][
-            Math.floor(Math.random() * 2)
-          ] as "gentle" | "medium", // Gentler motion for background clouds
-        };
+        if (isMobile) {
+          // Mobile - spread more vertically, less horizontally
+          return {
+            horizontalPos: `${Math.floor(Math.random() * 75 + 10)}%`, // 10-85% horizontal
+            verticalPos: `${Math.floor(Math.random() * 75 + 15)}%`, // 15-90% vertical (more spread)
+            wiggleIntensity: ["gentle", "medium"][
+              Math.floor(Math.random() * 2)
+            ] as "gentle" | "medium",
+          };
+        } else {
+          // Desktop - your original distribution
+          return {
+            horizontalPos: `${Math.floor(Math.random() * 85 + 3)}%`, // 5-90% horizontal
+            verticalPos: `${Math.floor(Math.random() * 65 + 20)}%`, // 15-80% vertical
+            wiggleIntensity: ["gentle", "medium"][
+              Math.floor(Math.random() * 2)
+            ] as "gentle" | "medium",
+          };
+        }
       });
 
       setCloudPositions({
@@ -249,13 +321,13 @@ const TracksSection: React.FC = () => {
     };
 
     generatePositions();
-  }, []);
+  }, [isMobile]); // Regenerate positions when mobile state changes
 
   return (
     // Updated the id to "tracks" to match the navbar anchor exactly
     <section
       id="tracks"
-      className="tracks-section w-full py-20 md:py-32 overflow-hidden"
+      className="tracks-section w-full py-16 sm:py-20 md:py-32 overflow-hidden"
       style={{ minHeight: "100vh" }}
     >
       {/* Smooth transition from hero section - create curve at top */}
@@ -303,17 +375,20 @@ const TracksSection: React.FC = () => {
         })}
 
       {/* Center everything */}
-      <div className="container mb-16 md:mb-20  mx-auto px-6 text-center relative z-10">
+      <div className="container mb-12 sm:mb-16 md:mb-20 mx-auto px-4 sm:px-6 text-center relative z-10">
         {/* Section Heading - centered with increased bottom margin */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-major-mono">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white font-major-mono">
           Tracks & Themes
         </h2>
-        <p className="text-lg text-purple-300 mt-4 max-w-2xl mx-auto font-silkscreen">
+        <p className="text-base sm:text-lg text-purple-300 mt-3 sm:mt-4 max-w-2xl mx-auto font-silkscreen">
           Innovate, Collaborate, Elevate!
         </p>
 
         {/* Cloud Container - Now clouds are guaranteed to be below title */}
-        <div className="relative w-full" style={{ minHeight: "70vh" }}>
+        <div
+          className="relative w-full"
+          style={{ minHeight: isMobile ? "60vh" : "70vh" }}
+        >
           {/* Render Top Layer Clouds */}
           {cloudPositions.top.length > 0 &&
             tracks
@@ -360,8 +435,8 @@ const TracksSection: React.FC = () => {
         </div>
 
         {/* Date button - centered */}
-        <div className="mt-12 z-30 relative opacity-25">
-          <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 transition-colors duration-300 text-white rounded-full backdrop-blur-sm font-silkscreen border border-white/20 shadow-lg hover:shadow-xl">
+        <div className="mt-8 sm:mt-10 md:mt-12 z-30 relative opacity-25">
+          <button className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 transition-colors duration-300 text-white rounded-full backdrop-blur-sm font-silkscreen border border-white/20 shadow-lg hover:shadow-xl text-xs sm:text-sm">
             💡[HINT] : Try Using ChatGPT for Ideas!
           </button>
         </div>

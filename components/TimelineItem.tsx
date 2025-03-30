@@ -26,7 +26,6 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
   let imagePath = "";
 
   // Special cases first - ensure these specific images only appear at their designated nodes
-
   // Special case: Last node (18th) should show p10b.png
   if (nodeIndex === 17) {
     imagePath = "/planes/p10b.png";
@@ -61,9 +60,6 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
     }
   }
 
-  // Debug to console - check what's happening
-  console.log(`Node ${nodeIndex} using image: ${imagePath}`);
-
   const animation = {
     x: isLeft ? [0, -25, 0] : [0, 25, 0], // Enhanced side-to-side movement
     y: [0, -12, 12, 0], // Enhanced bobbing movement
@@ -80,7 +76,7 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
   return (
     <motion.div
       className={`absolute ${
-        isLeft ? "right-full mr-5 md:mr-10" : "left-full ml-5 md:ml-10"
+        isLeft ? "right-full mr-3 md:mr-10" : "left-full ml-3 md:ml-10"
       } top-1/4 md:top-1/3 opacity-70 z-10`}
       initial={{ opacity: 0, scale: 0.5 }}
       whileInView={{ opacity: 0.7, scale: 1 }}
@@ -88,23 +84,20 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
       transition={{ duration: 0.5, delay: 0.3 }}
       animate={animation}
     >
-      {/* Using Next.js Image component with 2.5x larger size */}
-      <div className="w-24 h-24 md:w-32 md:h-32 relative">
+      {/* Using Next.js Image component with smaller size on mobile */}
+      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 relative">
         <Image
           src={imagePath}
           alt={`Flying object for node ${nodeIndex}`}
           fill
-          sizes="(max-width: 768px) 96px, 128px"
+          sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 128px"
           className={`object-contain filter drop-shadow-[0_0_8px_rgba(168,85,247,0.5)] ${
             imageLoaded ? "opacity-100" : "opacity-0"
           } ${
             ![17, 11, 5, 6, 7].includes(nodeIndex) ? "scale-x-[-1]" : ""
           } transition-opacity duration-300`}
           priority
-          onLoadingComplete={() => {
-            console.log(`Successfully loaded: ${imagePath}`);
-            setImageLoaded(true);
-          }}
+          onLoadingComplete={() => setImageLoaded(true)}
           onError={(e) => {
             console.error(`Failed to load image: ${imagePath}`);
           }}
@@ -136,29 +129,29 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
     <div
       className={`relative flex ${
         isLeft ? "justify-start" : "justify-end"
-      } w-full my-4`}
+      } w-full my-3 md:my-4`}
     >
       {/* Ensure the parent relative positioning works */}
-      <div className="w-full md:w-5/12">
+      <div className="w-[95%] xs:w-[85%] sm:w-[80%] md:w-5/12">
         {/* Motion div for the card animation with improved color scheme */}
         <motion.div
-          className={`relative p-4 md:p-5 rounded-lg shadow-xl border-2 border-purple-600/50 
+          className={`relative p-3 md:p-5 rounded-lg shadow-xl border-2 border-purple-600/50 
           bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-md 
-          ${isLeft ? "mr-4 md:mr-8" : "ml-4 md:ml-8"}`}
+          ${isLeft ? "mr-3 md:mr-8" : "ml-3 md:ml-8"}`}
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
           {/* Card Content with enhanced readability */}
-          <h3 className="text-lg md:text-xl mb-1 font-major-mono text-amber-300 drop-shadow-sm">
+          <h3 className="text-base sm:text-lg md:text-xl mb-1 font-major-mono text-amber-300 drop-shadow-sm line-clamp-1 sm:line-clamp-none">
             {title}
           </h3>
           <div className="pt-2 border-t border-purple-400/30">
-            <p className="text-sm text-amber-50 font-bytesize mb-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-amber-50 font-bytesize mb-1.5 sm:mb-2 leading-relaxed line-clamp-2 sm:line-clamp-none">
               {description}
             </p>
-            <time className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white font-silkscreen bg-purple-700/70 border border-purple-400/50 shadow-inner">
+            <time className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white font-silkscreen bg-purple-700/70 border border-purple-400/50 shadow-inner">
               {time}
             </time>
           </div>
@@ -169,7 +162,7 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
 
       {/* Node on the Timeline (Centred) with warmer accent color */}
       <motion.div
-        className="absolute left-1/2 top-0 -translate-x-1/2 mt-4 md:mt-5 z-10"
+        className="absolute left-1/2 top-0 -translate-x-1/2 mt-3 md:mt-5 z-10"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, amount: 0.5 }}
@@ -180,8 +173,8 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
           stiffness: 150,
         }}
       >
-        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-amber-400 to-purple-600 rounded-full flex items-center justify-center shadow-md border-2 border-white/70">
-          <EventIcon className="w-4 h-4 md:w-5 md:h-5 text-white" />
+        <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-10 md:h-10 bg-gradient-to-br from-amber-400 to-purple-600 rounded-full flex items-center justify-center shadow-md border-2 border-white/70">
+          <EventIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
         </div>
       </motion.div>
     </div>

@@ -32,8 +32,11 @@ export const metadata: Metadata = {
   description:
     "Brinhack 2025: Innovate Beyond Boundaries! Join the 24-hour hackathon.",
   icons: {
-    icon: "./favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
 };
 
@@ -77,6 +80,9 @@ export default function RootLayout({
           antialiased
           relative
           bg-black
+          [&::-webkit-scrollbar]:hidden
+          [scrollbar-width:none]
+          [-ms-overflow-style:none]
         `}
       >
         {/* Main content that scrolls normally */}
