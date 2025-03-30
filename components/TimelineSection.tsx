@@ -2,7 +2,8 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import TimelineItem from "./TimelineItem"; // Import the item component
+import TimelineItem from "./TimelineItem";
+import { Cloud } from "./TrackSection"; // Import Cloud from TrackSection
 
 import {
   CalendarCheck,
@@ -21,7 +22,7 @@ import {
   Trophy,
   PartyPopper,
   LucideIcon,
-  SmilePlusIcon, // Import the type
+  SmilePlusIcon,
 } from "lucide-react";
 
 interface TimelineEvent {
@@ -161,8 +162,36 @@ const timelineData: TimelineEvent[] = [
   },
 ];
 
+// Background cloud data - small decorative clouds with no text
+const backgroundClouds = [
+  { size: "tiny", cloudType: "c1n", opacity: 0.4, delay: "0s" },
+  { size: "tiny", cloudType: "c2n", opacity: 0.3, delay: "2.5s" },
+  { size: "tiny", cloudType: "c3n", opacity: 0.5, delay: "1.5s" },
+  { size: "small", cloudType: "c1n", opacity: 0.6, delay: "3s" },
+  { size: "tiny", cloudType: "c2n", opacity: 0.4, delay: "0.7s" },
+  { size: "small", cloudType: "c3n", opacity: 0.5, delay: "4s" },
+  { size: "tiny", cloudType: "c1n", opacity: 0.3, delay: "2s" },
+  { size: "tiny", cloudType: "c2n", opacity: 0.5, delay: "1s" },
+  { size: "small", cloudType: "c3n", opacity: 0.6, delay: "3.5s" },
+  { size: "tiny", cloudType: "c1n", opacity: 0.4, delay: "1.2s" },
+];
+
+// Generate random positions for background clouds
+const generateCloudPositions = () => {
+  return backgroundClouds.map(() => ({
+    horizontalPos: `${Math.random() * 80 + 10}%`, // 10-90% horizontal position
+    verticalPos: `${Math.random() * 60 + 5}%`, // 5-65% vertical position
+    wiggleIntensity: ["gentle", "medium", "intense"][
+      Math.floor(Math.random() * 3)
+    ],
+  }));
+};
+
 const TimelineSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Generate cloud positions once
+  const cloudPositions = React.useMemo(() => generateCloudPositions(), []);
 
   // Framer Motion hook to track scroll progress within the container
   const { scrollYProgress } = useScroll({
@@ -175,24 +204,62 @@ const TimelineSection: React.FC = () => {
 
   return (
     <section
-      id="timeline"
-      className="relative z-10 w-full py-20 md:py-32 px-4 md:px-6 bg-gradient-to-b from-transparent to-green-900/20" // Subtle bg transition
-      ref={containerRef} // Attach the ref here
+      id="event-timeline" // Change from "timeline" to "event-timeline" to match navbar link
+      className="relative w-full py-20 md:py-32 px-4 md:px-6 z-10 overflow-hidden"
+      ref={containerRef}
     >
+      {/* Sky gradient background - from dark blue (#2C77D1) to white */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#2C77D1] via-[#5c9fc0] to-[#f2f5b6] -z-10" />
+
+      {/* Semi-transparent overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/5 backdrop-blur-[1px] -z-5" />
+
+      {/* Background clouds */}
+      {backgroundClouds.map((cloud, index) => {
+        const position = cloudPositions[index];
+        if (!position) return null;
+
+        return (
+          <div
+            key={`bg-cloud-${index}`}
+            className="absolute z-0"
+            style={{
+              left: position.horizontalPos,
+              top: position.verticalPos,
+              opacity: cloud.opacity,
+            }}
+          >
+            <Cloud
+              size={cloud.size as "tiny" | "small" | "medium" | "large"}
+              zIndex={1}
+              cloudType={cloud.cloudType}
+              layer="background"
+              horizontalPos={position.horizontalPos}
+              verticalPos={position.verticalPos}
+              wiggleIntensity={
+                position.wiggleIntensity as "gentle" | "medium" | "intense"
+              }
+              opacity={cloud.opacity}
+              hoverDelay="0s"
+            />
+          </div>
+        );
+      })}
+
       {/* Section heading */}
-      <div className="container mx-auto text-center mb-16 md:mb-24">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl  text-white font-major-mono">
+      <div className="container relative mx-auto text-center mb-16 md:mb-24 z-20">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl text-white font-major-mono drop-shadow-lg">
           HaCkAthOn TImelInE
         </h2>
-        <p className="text-lg text-purple-300 mt-4 max-w-2xl mx-auto font-silkscreen">
+        <p className="text-lg text-purple-200 mt-4 max-w-2xl mx-auto font-silkscreen drop-shadow">
           The journey from registration to celebration
         </p>
       </div>
 
       {/* Timeline Container */}
-      <div className="relative w-full max-w-3xl mx-auto">
-        {/* Background Line (Grey) */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-600/50 rounded-full -translate-x-1/2"></div>
+      <div className="relative w-full max-w-3xl mx-auto z-20">
+        {/* Background Line (Semi-transparent) */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/30 rounded-full -translate-x-1/2"></div>
 
         {/* Gradient Line (Animated) */}
         <motion.div
@@ -201,7 +268,7 @@ const TimelineSection: React.FC = () => {
         />
 
         {/* Timeline Items */}
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col items-center z-30">
           {timelineData.map((event, index) => (
             <TimelineItem
               key={event.id}
@@ -212,6 +279,9 @@ const TimelineSection: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Bottom decorative element to transition to white */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent -z-5" />
     </section>
   );
 };

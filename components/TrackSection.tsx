@@ -360,9 +360,9 @@ const TracksSection: React.FC = () => {
         </div>
 
         {/* Date button - centered */}
-        <div className="mt-12 z-30 relative">
+        <div className="mt-12 z-30 relative opacity-25">
           <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 transition-colors duration-300 text-white rounded-full backdrop-blur-sm font-silkscreen border border-white/20 shadow-lg hover:shadow-xl">
-            May 10-11, 2025
+            💡[HINT] : Try Using ChatGPT for Ideas!
           </button>
         </div>
       </div>
@@ -373,4 +373,5 @@ const TracksSection: React.FC = () => {
   );
 };
 
-export default TracksSection;
+export { Cloud }; // Export Cloud directly
+export default TracksSection; // Export TracksSection as default

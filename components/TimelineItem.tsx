@@ -114,7 +114,7 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
   );
 };
 
-// Update the main TimelineItem component to pass the node index
+// Update the TimelineItem component's card styling for better visibility against blue sky
 const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
   event,
   isLeft,
@@ -140,25 +140,25 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
     >
       {/* Ensure the parent relative positioning works */}
       <div className="w-full md:w-5/12">
-        {/* Motion div for the card animation */}
+        {/* Motion div for the card animation with improved color scheme */}
         <motion.div
-          className={`relative p-4 md:p-5 rounded-lg shadow-xl border-2 border-purple-500/50 bg-gray-800/60 backdrop-blur-sm ${
-            isLeft ? "mr-4 md:mr-8" : "ml-4 md:ml-8"
-          }`}
+          className={`relative p-4 md:p-5 rounded-lg shadow-xl border-2 border-purple-600/50 
+          bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-md 
+          ${isLeft ? "mr-4 md:mr-8" : "ml-4 md:ml-8"}`}
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% is visible
+          viewport={{ once: true, amount: 0.3 }}
         >
-          {/* Card Content */}
-          <h3 className="text-lg md:text-xl mb-1 font-major-mono text-pink-400">
+          {/* Card Content with enhanced readability */}
+          <h3 className="text-lg md:text-xl mb-1 font-major-mono text-amber-300 drop-shadow-sm">
             {title}
           </h3>
-          <div className="pt-2 border-t border-purple-500/30">
-            <p className="text-sm text-gray-300 font-bytesize mb-2">
+          <div className="pt-2 border-t border-purple-400/30">
+            <p className="text-sm text-amber-50 font-bytesize mb-2 leading-relaxed">
               {description}
             </p>
-            <time className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-purple-400 font-silkscreen bg-purple-900/30 border border-purple-500/30">
+            <time className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white font-silkscreen bg-purple-700/70 border border-purple-400/50 shadow-inner">
               {time}
             </time>
           </div>
@@ -167,10 +167,9 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
         </motion.div>
       </div>
 
-      {/* Node on the Timeline (Centred) */}
-      {/* Use motion for potential animation */}
+      {/* Node on the Timeline (Centred) with warmer accent color */}
       <motion.div
-        className="absolute left-1/2 top-0 -translate-x-1/2 mt-4 md:mt-5 z-10" // Adjust top alignment as needed
+        className="absolute left-1/2 top-0 -translate-x-1/2 mt-4 md:mt-5 z-10"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, amount: 0.5 }}
@@ -181,7 +180,7 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
           stiffness: 150,
         }}
       >
-        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-pink-500 to-blue-500 rounded-full flex items-center justify-center shadow-md border-2 border-white/50">
+        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-amber-400 to-purple-600 rounded-full flex items-center justify-center shadow-md border-2 border-white/70">
           <EventIcon className="w-4 h-4 md:w-5 md:h-5 text-white" />
         </div>
       </motion.div>
