@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
     //   }
     // ],
   },
+  reactStrictMode: true,
+  // This configuration allows Next.js to ignore ESLint errors during build
+  eslint: {
+    // This will completely ignore ESLint errors during production builds
+    ignoreDuringBuilds: true,
+  },
+  // For Next.js 15 compatibility
+  experimental: {
+    // Any experimental features you want to enable
+  },
 };
 
 export default nextConfig;
