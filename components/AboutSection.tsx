@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  University,
   MapPin,
   ExternalLink,
   Code,
@@ -191,7 +190,7 @@ const TeamMemberCard: React.FC<{
             <div className="flex items-center gap-2">
               <Coffee className="w-5 h-5 text-amber-500" />
               <p className="text-gray-300 font-bitwise text-sm">
-                Runs on: Coffee & Enthusiasm
+                Runs on: Coffee &amp; Enthusiasm
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -250,7 +249,7 @@ const AboutSection: React.FC = () => {
         {/* Sponsor ribbon at top */}
         <div className="w-full mb-8 bg-green-700/80 -mt-4 py-2 px-4 text-center shadow-lg border-y-2 border-green-600">
           <p className="font-silkscreen text-white text-sm md:text-base">
-            <span className="text-yellow-300">✦</span> We're looking for
+            <span className="text-yellow-300">✦</span> We&apos;re looking for
             sponsors! Contact us to support innovation{" "}
             <span className="text-yellow-300">✦</span>
           </p>
@@ -441,13 +440,13 @@ const AboutSection: React.FC = () => {
                   className="object-contain"
                 />
                 <h3 className="font-silkscreen text-cyan-400 text-base md:text-lg leading-tight">
-                  Department of IoT & Cyber Security
+                  Department of IoT &amp; Cyber Security
                 </h3>
               </div>
               <p className="text-gray-300 font-bitwise text-sm leading-relaxed">
                 Home to innovation and cutting-edge technology, our department
                 combines IoT, Cyber Security and Blockchain to create solutions
-                for tomorrow's challenges.
+                for tomorrow&apos;s challenges.
               </p>
             </div>
 
@@ -559,16 +558,16 @@ const AboutSection: React.FC = () => {
                 </p>
 
                 <p className="text-stone-650 font-bitwise text-sm leading-relaxed">
-                  Despite being our inaugural event, we've infused BrinHack with
-                  rich cultural elements and a community spirit. We're giving
-                  100% to create an unforgettable experience where participants
-                  can learn, collaborate, and grow while building solutions for
-                  tomorrow's challenges.
+                  Despite being our inaugural event, we&apos;ve infused BrinHack
+                  with rich cultural elements and a community spirit. We&apos;re
+                  giving 100% to create an unforgettable experience where
+                  participants can learn, collaborate, and grow while building
+                  solutions for tomorrow&apos;s challenges.
                 </p>
 
                 <p className="text-emerald-800 font-bitwise text-sm leading-relaxed">
                   <span className="text-green-800 font-bold border-b border-green-500 pb-0.5 px-1">
-                    We're actively seeking sponsors
+                    We&apos;re actively seeking sponsors
                   </span>{" "}
                   who share our vision for innovation and education. If your
                   organization would like to sponsor BrinHack or has any
@@ -611,9 +610,9 @@ const AboutSection: React.FC = () => {
               >
                 <p className="text-amber-100 font-bitwise text-sm leading-relaxed">
                   Located in the tech hub of Bengaluru, our institution is
-                  affiliated with VTU Belagavi, accredited at 'B++' Level by
-                  NAAC, and approved by AICTE. We pride ourselves on fostering
-                  academic excellence and technological innovation.
+                  affiliated with VTU Belagavi, accredited at &apos;B++&apos;
+                  Level by NAAC, and approved by AICTE. We pride ourselves on
+                  fostering academic excellence and technological innovation.
                 </p>
                 <div className="flex items-center gap-3">
                   <PixelButton
@@ -683,8 +682,8 @@ const AboutSection: React.FC = () => {
               Coming Soon!
             </h3>
             <p className="font-bitwise text-gray-300 mb-6">
-              We're working on making this feature available. Stay tuned for
-              updates!
+              We&apos;re working on making this feature available. Stay tuned
+              for updates!
             </p>
             <div className="text-center">
               <button
