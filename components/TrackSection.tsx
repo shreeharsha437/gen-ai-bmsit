@@ -569,7 +569,7 @@ const TracksSection: React.FC = () => {
         {/* Add the gliding plane GIF with reduced top margin and increased width */}
         <div className="w-full flex justify-center items-center relative z-30 mb-0">
           <div
-            className="relative cloud-float-intense w-[60%]" // Increased to 80% width
+            className="relative cloud-float-intense w-[90%] md:w-[60%]" // 90% on mobile, 60% on medium screens and up
             style={{
               animationDelay: "0.5s",
               filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))",
@@ -582,7 +582,7 @@ const TracksSection: React.FC = () => {
                 alt="Plane gliding in clouds"
                 fill
                 className="object-contain"
-                sizes="(max-width: 768px) 80vw, (max-width: 1200px) 75vw, 70vw" // Responsive size hints
+                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 75vw, 70vw" // Updated responsive size hints
                 unoptimized={true} // Important: This ensures the GIF plays
                 priority
               />
