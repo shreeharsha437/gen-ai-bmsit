@@ -611,183 +611,179 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
             </motion.div>
-
-            {/* FAQ Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-8"
-            >
-              <h3 className="font-silkscreen text-xl md:text-2xl text-white mb-4 border-b-2 border-amber-500 pb-2 inline-flex items-center gap-2">
-                <div className="w-8 h-8 bg-amber-600 flex items-center justify-center rounded-full">
-                  <span className="text-black font-bold">?</span>
-                </div>
-                Frequently Asked Questions
-              </h3>
-
-              <div className="space-y-3">
-                <FAQItem
-                  question="Is registration free?"
-                  answer={
-                    <>
-                      <p className="mb-2">
-                        Yes, registration for BrinHack 2025 is completely free.
-                        There is no registration fee to apply.
-                      </p>
-                      <p className="mb-2">
-                        However,{" "}
-                        <span className="text-amber-400 font-semibold">
-                          selected teams
-                        </span>{" "}
-                        will need to pay Rs. 800 per team for accommodation and
-                        food during the 24-hour hackathon.
-                      </p>
-                      <p>
-                        This fee covers all meals, refreshments, and
-                        accommodation for the entire event duration.
-                      </p>
-                    </>
-                  }
-                />
-
-                <FAQItem
-                  question="What kind of teams can be formed?"
-                  answer={
-                    <>
-                      <p className="mb-2">
-                        Teams can consist of{" "}
-                        <span className="text-amber-400 font-semibold">
-                          2 to 4 members
-                        </span>
-                        .
-                      </p>
-                      <p className="mb-2">
-                        Students from{" "}
-                        <span className="text-amber-400 font-semibold">
-                          any academic year
-                        </span>{" "}
-                        (1st to 4th year) are eligible to participate.
-                      </p>
-                      <p>
-                        Teams can be formed across different departments and
-                        different colleges - inter-college collaboration is
-                        encouraged!
-                      </p>
-                    </>
-                  }
-                />
-
-                <FAQItem
-                  question="Are multi-college teams allowed?"
-                  answer={
-                    <>
-                      <p className="mb-2">
-                        <span className="text-amber-400 font-semibold">
-                          Yes!
-                        </span>{" "}
-                        Multi-college teams are not only allowed but actively
-                        encouraged.
-                      </p>
-                      <p className="mb-2">
-                        We believe diverse perspectives lead to better
-                        innovation. Feel free to collaborate with students from
-                        different colleges.
-                      </p>
-                      <p>
-                        Each team member should be registered individually,
-                        noting their team name consistently.
-                      </p>
-                    </>
-                  }
-                />
-
-                <FAQItem
-                  question="What facilities will be provided?"
-                  answer={
-                    <>
-                      <p className="mb-2">
-                        We provide a comprehensive set of amenities for all
-                        participants:
-                      </p>
-                      <ul className="list-disc pl-5 space-y-1 mb-2">
-                        <li>
-                          <span className="text-amber-400 font-semibold">
-                            Internet:
-                          </span>{" "}
-                          High-speed Wi-Fi throughout the venue
-                        </li>
-                        <li>
-                          <span className="text-amber-400 font-semibold">
-                            Power:
-                          </span>{" "}
-                          Multiple power outlets for all teams
-                        </li>
-                        <li>
-                          <span className="text-amber-400 font-semibold">
-                            Meals:
-                          </span>{" "}
-                          All meals and refreshments included
-                        </li>
-                        <li>
-                          <span className="text-amber-400 font-semibold">
-                            Rest Area:
-                          </span>{" "}
-                          Designated spaces for relaxation
-                        </li>
-                        <li>
-                          <span className="text-amber-400 font-semibold">
-                            Technical Support:
-                          </span>{" "}
-                          Mentors available throughout the event
-                        </li>
-                      </ul>
-                      <p>
-                        For any specific requirements, please contact us in
-                        advance.
-                      </p>
-                    </>
-                  }
-                />
-
-                <FAQItem
-                  question="Where is the event taking place?"
-                  answer={
-                    <>
-                      <p className="mb-2">
-                        BrinHack 2025 will be held at{" "}
-                        <span className="text-amber-400 font-semibold">
-                          Brindavan College of Engineering
-                        </span>
-                        , Bengaluru.
-                      </p>
-                      <p className="mb-2">
-                        Address: 33/1A, Krishnadeveraya Nagar, Channasandra,
-                        Uttarahalli Hobli, Bengaluru - 560073
-                      </p>
-                      <p>
-                        The exact venue building and rooms will be communicated
-                        to selected teams before the event.
-                      </p>
-                    </>
-                  }
-                />
-              </div>
-
-              {/* CTA button to reach out for more questions */}
-              <div className="mt-6 text-center">
-                <PixelButton
-                  color="purple"
-                  href="mailto:hodic@brindavancollege.com"
-                >
-                  <MessageSquare className="w-4 h-4 inline-block mr-2" />
-                  Have more questions? Contact us!
-                </PixelButton>
-              </div>
-            </motion.div>
           </div>
         </div>
+        {/* FAQ Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-8"
+        >
+          <h3 className="font-silkscreen text-xl md:text-2xl text-white mb-4 border-b-2 border-amber-500 pb-2 inline-flex items-center gap-2">
+            <div className="w-8 h-8 bg-amber-600 flex items-center justify-center rounded-full">
+              <span className="text-black font-bold">?</span>
+            </div>
+            Frequently Asked Questions
+          </h3>
+
+          <div className="space-y-3">
+            <FAQItem
+              question="Is registration free?"
+              answer={
+                <>
+                  <p className="mb-2">
+                    Yes, registration for BrinHack 2025 is completely free.
+                    There is no registration fee to apply.
+                  </p>
+                  <p className="mb-2">
+                    However,{" "}
+                    <span className="text-amber-400 font-semibold">
+                      selected teams
+                    </span>{" "}
+                    will need to pay Rs. 800 per team for accommodation and food
+                    during the 24-hour hackathon.
+                  </p>
+                  <p>
+                    This fee covers all meals, refreshments, and accommodation
+                    for the entire event duration.
+                  </p>
+                </>
+              }
+            />
+
+            <FAQItem
+              question="What kind of teams can be formed?"
+              answer={
+                <>
+                  <p className="mb-2">
+                    Teams can consist of{" "}
+                    <span className="text-amber-400 font-semibold">
+                      2 to 4 members
+                    </span>
+                    .
+                  </p>
+                  <p className="mb-2">
+                    Students from{" "}
+                    <span className="text-amber-400 font-semibold">
+                      any academic year
+                    </span>{" "}
+                    (1st to 4th year) are eligible to participate.
+                  </p>
+                  <p>
+                    Teams can be formed across different departments and
+                    different colleges - inter-college collaboration is
+                    encouraged!
+                  </p>
+                </>
+              }
+            />
+
+            <FAQItem
+              question="Are multi-college teams allowed?"
+              answer={
+                <>
+                  <p className="mb-2">
+                    <span className="text-amber-400 font-semibold">Yes!</span>{" "}
+                    Multi-college teams are not only allowed but actively
+                    encouraged.
+                  </p>
+                  <p className="mb-2">
+                    We believe diverse perspectives lead to better innovation.
+                    Feel free to collaborate with students from different
+                    colleges.
+                  </p>
+                  <p>
+                    Each team member should be registered individually, noting
+                    their team name consistently.
+                  </p>
+                </>
+              }
+            />
+
+            <FAQItem
+              question="What facilities will be provided?"
+              answer={
+                <>
+                  <p className="mb-2">
+                    We provide a comprehensive set of amenities for all
+                    participants:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1 mb-2">
+                    <li>
+                      <span className="text-amber-400 font-semibold">
+                        Internet:
+                      </span>{" "}
+                      High-speed Wi-Fi throughout the venue
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">
+                        Power:
+                      </span>{" "}
+                      Multiple power outlets for all teams
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">
+                        Meals:
+                      </span>{" "}
+                      All meals and refreshments included
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">
+                        Rest Area:
+                      </span>{" "}
+                      Designated spaces for relaxation
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">
+                        Technical Support:
+                      </span>{" "}
+                      Mentors available throughout the event
+                    </li>
+                  </ul>
+                  <p>
+                    For any specific requirements, please contact us in advance.
+                  </p>
+                </>
+              }
+            />
+
+            <FAQItem
+              question="Where is the event taking place?"
+              answer={
+                <>
+                  <p className="mb-2">
+                    BrinHack 2025 will be held at{" "}
+                    <span className="text-amber-400 font-semibold">
+                      Brindavan College of Engineering
+                    </span>
+                    , Bengaluru.
+                  </p>
+                  <p className="mb-2">
+                    Address: Dwarkanagar, Yelahanka, Bengaluru, Karnataka
+                    560063, India.
+                  </p>
+                  <p>
+                    The exact venue building and rooms will be communicated to
+                    selected teams before the event.
+                  </p>
+                </>
+              }
+            />
+          </div>
+
+          {/* CTA button to reach out for more questions */}
+          <div className="mt-6 text-center">
+            <PixelButton
+              color="purple"
+              href="mailto:hodic@brindavancollege.com"
+            >
+              <MessageSquare className="w-4 h-4 inline-block mr-2" />
+              Have more questions? Contact us!
+            </PixelButton>
+          </div>
+        </motion.div>
       </div>
 
       {showComingSoon && (

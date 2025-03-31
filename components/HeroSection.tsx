@@ -179,11 +179,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
               >
                 FREE
               </span>{" "}
-              premier hackathon where creativity meets technology. Push the
-              limits and build the future.
+              premier{" "}
+              <span className=" text-emerald-500 text-lg">
+                Beginer Friendly
+              </span>{" "}
+              hackathon where creativity meets technology. Push the limits and
+              build the future.
+              <br />
               <Link
                 href="#about-section"
-                className="text-purple-400 hover:text-purple-300 transition-colors duration-300 ml-1"
+                className="text-purple-400 hover:text-purple-300 relative ml-1
+                after:content-[''] after:absolute after:w-full after:h-[2px] 
+                after:bg-purple-300 after:bottom-0 after:left-0
+                after:scale-x-0 hover:after:scale-x-100
+                after:transition-transform after:duration-300
+                after:origin-left"
               >
                 Know More
               </Link>

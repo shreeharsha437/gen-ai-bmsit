@@ -28,9 +28,9 @@ const pressStart2P = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "Brinhack",
+  title: "BrinHack",
   description:
-    "Brinhack 2025: Innovate Beyond Boundaries! Join the 24-hour hackathon.",
+    "BrinHack 2025: Innovate Beyond Boundaries! Join the 24-hour hackathon.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
