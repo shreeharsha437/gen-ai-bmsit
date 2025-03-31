@@ -217,7 +217,7 @@ const AboutSection: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
                   <Image
-                    src="/banner.svg"
+                    src="/banner.png"
                     alt="BrinHack Banner"
                     width={400}
                     height={100}

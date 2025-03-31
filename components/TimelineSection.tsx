@@ -284,12 +284,22 @@ const TimelineSection: React.FC = () => {
 
       {/* Timeline Container - narrower on mobile for better visibility */}
       <div className="relative w-full max-w-md sm:max-w-xl md:max-w-3xl mx-auto z-20">
-        {/* Background Line (Semi-transparent) - thinner on mobile */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 sm:w-1 bg-white/30 rounded-full -translate-x-1/2"></div>
+        {/* Background Line - moved to left side on mobile */}
+        <div
+          className={`absolute ${
+            isMobile ? "left-[10%]" : "left-1/2"
+          } top-0 bottom-0 w-0.5 sm:w-1 bg-white/30 rounded-full ${
+            isMobile ? "-translate-x-1/2" : "-translate-x-1/2"
+          }`}
+        ></div>
 
-        {/* Gradient Line (Animated) - thinner on mobile */}
+        {/* Gradient Line (Animated) - moved to left side on mobile */}
         <motion.div
-          className="absolute left-1/2 top-0 bottom-0 w-0.5 sm:w-1 bg-gradient-to-b from-pink-500 via-purple-500 to-blue-500 rounded-full -translate-x-1/2 origin-top"
+          className={`absolute ${
+            isMobile ? "left-[10%]" : "left-1/2"
+          } top-0 bottom-0 w-0.5 sm:w-1 bg-gradient-to-b from-pink-500 via-purple-500 to-blue-500 rounded-full ${
+            isMobile ? "-translate-x-1/2" : "-translate-x-1/2"
+          } origin-top`}
           style={{ scaleY: gradientScaleY }} // Animate scaleY based on scroll
         />
 

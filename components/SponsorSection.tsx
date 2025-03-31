@@ -147,43 +147,51 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
   sponsor,
   position = "",
 }) => {
-  // Updated building sizes with better mobile scaling
+  // Updated building sizes with better mobile scaling - properly sized for small screens
   const tierSizes = {
     gold: {
-      building: "w-18 sm:w-22 md:w-28 lg:w-40 h-40 sm:h-56 md:h-72 lg:h-96", // Smaller on mobile
-      billboard: "w-16 sm:w-20 md:w-26 lg:w-36 h-14 sm:h-18 md:h-24 lg:h-32",
-      textSize: "text-xs sm:text-sm md:text-base font-bold",
+      building:
+        "w-[65px] sm:w-[85px] md:w-[110px] lg:w-[140px] h-[130px] sm:h-[170px] md:h-[220px] lg:h-[280px]",
+      billboard:
+        "w-[55px] sm:w-[75px] md:w-[100px] lg:w-[130px] h-[45px] sm:h-[60px] md:h-[75px] lg:h-[90px]",
+      textSize: "text-xs sm:text-sm md:text-base lg:text-lg font-bold",
       windowsGrid: "grid-cols-3",
       floors: 8,
       antenna: true,
-      logoSize: 36, // Smaller logo on mobile
+      logoSize: 30, // Smaller logo on mobile
     },
     silver: {
-      building: "w-14 sm:w-18 md:w-22 lg:w-32 h-32 sm:h-40 md:h-56 lg:h-72",
-      billboard: "w-12 sm:w-16 md:w-20 lg:w-28 h-12 sm:h-14 md:h-20 lg:h-26",
-      textSize: "text-[10px] sm:text-xs md:text-sm",
+      building:
+        "w-[55px] sm:w-[70px] md:w-[90px] lg:w-[110px] h-[105px] sm:h-[135px] md:h-[175px] lg:h-[220px]",
+      billboard:
+        "w-[45px] sm:w-[60px] md:w-[80px] lg:w-[100px] h-[35px] sm:h-[45px] md:h-[60px] lg:h-[75px]",
+      textSize: "text-[10px] sm:text-xs md:text-sm lg:text-base",
       windowsGrid: "grid-cols-2",
       floors: 6,
       antenna: true,
-      logoSize: 28,
+      logoSize: 24,
     },
     bronze: {
-      building: "w-12 sm:w-16 md:w-18 lg:w-24 h-28 sm:h-36 md:h-44 lg:h-60",
-      billboard: "w-10 sm:w-14 md:w-16 lg:w-22 h-10 sm:h-12 md:h-16 lg:h-22",
-      textSize: "text-[8px] sm:text-[10px] md:text-xs",
+      building:
+        "w-[45px] sm:w-[60px] md:w-[75px] lg:w-[90px] h-[85px] sm:h-[110px] md:h-[140px] lg:h-[180px]",
+      billboard:
+        "w-[40px] sm:w-[50px] md:w-[65px] lg:w-[80px] h-[30px] sm:h-[40px] md:h-[50px] lg:h-[65px]",
+      textSize: "text-[8px] sm:text-[10px] md:text-xs lg:text-sm",
       windowsGrid: "grid-cols-2",
       floors: 5,
       antenna: false,
-      logoSize: 24,
+      logoSize: 20,
     },
     micro: {
-      building: "w-10 sm:w-12 md:w-14 lg:w-20 h-24 sm:h-28 md:h-36 lg:h-48",
-      billboard: "w-8 sm:w-10 md:w-12 lg:w-18 h-8 sm:h-10 md:h-12 lg:h-16",
-      textSize: "text-[6px] sm:text-[8px] md:text-[10px]",
+      building:
+        "w-[35px] sm:w-[45px] md:w-[60px] lg:w-[75px] h-[70px] sm:h-[90px] md:h-[115px] lg:h-[145px]",
+      billboard:
+        "w-[30px] sm:w-[40px] md:w-[50px] lg:w-[65px] h-[25px] sm:h-[32px] md:h-[40px] lg:h-[50px]",
+      textSize: "text-[7px] sm:text-[9px] md:text-[11px] lg:text-xs",
       windowsGrid: "grid-cols-2",
       floors: 4,
       antenna: false,
-      logoSize: 20,
+      logoSize: 16,
     },
   };
 
@@ -288,13 +296,13 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
         )}
       </div>
 
-      {/* Billboard with pixel-style border */}
+      {/* Billboard with pixel-style border - improved text visibility */}
       <motion.div
-        className={`absolute -top-16 left-1/2 transform -translate-x-1/2 ${
+        className={`absolute -top-[40%] sm:-top-[35%] md:-top-[30%] lg:-top-[25%] left-1/2 transform -translate-x-1/2 ${
           tierSizes[sponsor.tier].billboard
         } 
                    ${buildingStyle.billboard} border-2 border-dashed rounded-sm 
-                   flex flex-col items-center justify-center px-3 overflow-hidden shadow-lg`}
+                   flex flex-col items-center justify-center px-2 sm:px-3 overflow-hidden shadow-lg`}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: Math.random() * 0.5 }}
@@ -309,7 +317,7 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
         />
 
         {/* Logo - Using QM logo for all sponsors */}
-        <div className="relative mb-2 bg-white/10 rounded-md p-1 flex items-center justify-center">
+        <div className="relative mb-1 sm:mb-2 bg-white/10 rounded-md p-1 flex items-center justify-center">
           <Image
             src="/sponsors/qm.png"
             alt={sponsor.name}
@@ -317,22 +325,24 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
             height={tierSizes[sponsor.tier].logoSize}
             className="object-contain p-1"
             priority
-            onError={(e) => {
-              console.error(`Failed to load logo for ${sponsor.name}`);
-              e.currentTarget.style.display = "none";
-            }}
           />
         </div>
 
-        {/* Sponsor Name with better text handling */}
+        {/* Sponsor Name with BETTER dynamic text handling */}
         <p
-          className={`${tierSizes[sponsor.tier].textSize} font-silkscreen ${
-            buildingStyle.text
-          } 
-                      text-center leading-tight px-1 truncate w-full
-                      drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]`}
+          className={`font-silkscreen ${buildingStyle.text} 
+                    text-center leading-tight px-1 w-full
+                    drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]`}
           style={{
-            fontSize: "clamp(6px, 2.5vw, 16px)",
+            fontSize:
+              sponsor.tier === "gold"
+                ? "clamp(9px, 1.5vw, 16px)"
+                : sponsor.tier === "silver"
+                ? "clamp(8px, 1.25vw, 14px)"
+                : sponsor.tier === "bronze"
+                ? "clamp(7px, 1vw, 12px)"
+                : "clamp(6px, 0.8vw, 10px)",
+            textShadow: "0 0 2px rgba(0,0,0,0.8)",
             wordBreak: "break-word",
             whiteSpace: "normal",
             display: "-webkit-box",
@@ -413,57 +423,57 @@ const SponsorsSection: React.FC = () => {
         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-500/20 via-orange-500/30 to-red-500/20 blur-lg -z-1 scale-150"></div>
       </div>
 
-      {/* Birds flying across the sky AND over buildings */}
+      {/* Birds flying across the sky AND over buildings - adjusted for mobile */}
       <div className="absolute inset-0 z-30 pointer-events-none">
         {/* Birds flying across the scene */}
         <Bird
-          position="top-[15%] left-1/5"
+          position="top-[10%] sm:top-[15%] left-[20%]"
           delay={2}
-          size="w-6 h-6"
+          size="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6"
           birdType="bird1"
         />
         <Bird
-          position="top-[18%] left-1/3"
+          position="top-[15%] sm:top-[18%] left-[35%]"
           delay={0}
-          size="w-5 h-5"
+          size="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5"
           birdType="bird2"
         />
         <Bird
-          position="top-[20%] right-1/4"
+          position="top-[12%] sm:top-[20%] right-[30%]"
           delay={3.5}
-          size="w-6 h-6"
+          size="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6"
           birdType="bird1"
         />
         <Bird
-          position="top-[25%] right-1/3"
+          position="top-[18%] sm:top-[25%] right-[20%]"
           delay={1.2}
-          size="w-5 h-5"
+          size="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5"
           birdType="bird2"
         />
 
         {/* Birds flying over buildings (positioned lower) */}
         <Bird
-          position="top-[65%] left-1/4"
+          position="top-[55%] sm:top-[65%] left-[30%]"
           delay={4.8}
-          size="w-6 h-6"
+          size="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6"
           birdType="bird1"
         />
         <Bird
-          position="top-[60%] right-1/5"
+          position="top-[50%] sm:top-[60%] right-[25%]"
           delay={2.5}
-          size="w-5 h-5"
+          size="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5"
           birdType="bird2"
         />
         <Bird
-          position="top-[70%] left-1/6"
+          position="top-[60%] sm:top-[70%] left-[15%]"
           delay={1.8}
-          size="w-5 h-5"
+          size="w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5"
           birdType="bird2"
         />
         <Bird
-          position="top-[55%] right-2/5"
+          position="top-[45%] sm:top-[55%] right-[35%]"
           delay={3.2}
-          size="w-6 h-6"
+          size="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6"
           birdType="bird1"
         />
       </div>
@@ -510,30 +520,26 @@ const SponsorsSection: React.FC = () => {
 
       {/* Buildings layout with improved spacing for mobile */}
       <div className="absolute bottom-0 left-0 right-0 h-[200px] sm:h-[250px] md:h-[320px] lg:h-[400px] z-20">
-        {/* Left side buildings - reduce number shown on mobile */}
-        <div className="absolute bottom-0 left-1 sm:left-2 md:left-4 lg:left-8 flex items-end space-x-2 sm:space-x-2 md:space-x-3 lg:space-x-4">
-          {leftSideSponsors
-            .slice(0, isMobile ? 2 : undefined)
-            .map((sponsor, _index) => (
-              <BuildingComponent
-                key={sponsor.id}
-                sponsor={sponsor}
-                position="mb-0"
-              />
-            ))}
+        {/* Left side buildings - keep all but with adjusted spacing */}
+        <div className="absolute bottom-0 left-1 sm:left-2 md:left-4 lg:left-8 flex items-end space-x-1 xs:space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-5">
+          {leftSideSponsors.map((sponsor, _index) => (
+            <BuildingComponent
+              key={sponsor.id}
+              sponsor={sponsor}
+              position="mb-0"
+            />
+          ))}
         </div>
 
-        {/* Right side buildings - reduce number shown on mobile */}
-        <div className="absolute bottom-0 right-1 sm:right-2 md:right-4 lg:right-8 flex items-end space-x-2 sm:space-x-2 md:space-x-3 lg:space-x-4">
-          {rightSideSponsors
-            .slice(0, isMobile ? 2 : undefined)
-            .map((sponsor, _index) => (
-              <BuildingComponent
-                key={sponsor.id}
-                sponsor={sponsor}
-                position="mb-0"
-              />
-            ))}
+        {/* Right side buildings - keep all but with adjusted spacing */}
+        <div className="absolute bottom-0 right-1 sm:right-2 md:right-4 lg:right-8 flex items-end space-x-1 xs:space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-5">
+          {rightSideSponsors.map((sponsor, _index) => (
+            <BuildingComponent
+              key={sponsor.id}
+              sponsor={sponsor}
+              position="mb-0"
+            />
+          ))}
         </div>
       </div>
 

@@ -107,7 +107,7 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
   );
 };
 
-// Update the TimelineItem component's card styling for better visibility against blue sky
+// Update the TimelineItem component for better mobile layout
 const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
   event,
   isLeft,
@@ -157,7 +157,7 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
       <div
         className={`${
           isMobile
-            ? "w-[75%] ml-[25%]"
+            ? "w-[80%] ml-[20%]"
             : "w-[95%] xs:w-[85%] sm:w-[80%] md:w-5/12"
         }`}
       >
@@ -165,14 +165,14 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
         <motion.div
           className={`relative p-2 sm:p-3 md:p-5 rounded-lg shadow-xl border-2 border-purple-600/50 
           bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-md 
-          ${isMobile ? "ml-2" : isLeft ? "mr-3 md:mr-8" : "ml-3 md:ml-8"}`}
+          ${isMobile ? "ml-3" : isLeft ? "mr-3 md:mr-8" : "ml-3 md:ml-8"}`}
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
           {/* Card Content with enhanced readability - smaller text on mobile */}
-          <h3 className="text-sm sm:text-base md:text-xl mb-1 font-major-mono text-amber-300 drop-shadow-sm line-clamp-1">
+          <h3 className="text-[clamp(0.75rem,2vw,1.25rem)] mb-1 font-major-mono text-amber-300 drop-shadow-sm line-clamp-1 overflow-hidden">
             {title}
           </h3>
           <div className="pt-1 sm:pt-2 border-t border-purple-400/30">
@@ -189,9 +189,11 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
         </motion.div>
       </div>
 
-      {/* Node on the Timeline (Centred) with warmer accent color */}
+      {/* Node on the Timeline - positioned left on mobile */}
       <motion.div
-        className="absolute left-1/2 top-0 -translate-x-1/2 mt-2 sm:mt-3 md:mt-5 z-10"
+        className={`absolute ${isMobile ? "left-[10%]" : "left-1/2"} top-0 ${
+          isMobile ? "-translate-x-1/2" : "-translate-x-1/2"
+        } mt-2 sm:mt-3 md:mt-5 z-10`}
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, amount: 0.5 }}

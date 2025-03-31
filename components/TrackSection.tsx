@@ -559,11 +559,35 @@ const TracksSection: React.FC = () => {
               })}
         </div>
 
-        {/* Date button - centered */}
-        <div className="mt-8 sm:mt-10 md:mt-12 z-30 relative opacity-25">
+        {/* Date button - centered with reduced bottom margin */}
+        <div className="mt-4 sm:mt-6 md:mt-8 z-30 relative opacity-25">
           <button className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 transition-colors duration-300 text-white rounded-full backdrop-blur-sm font-silkscreen border border-white/20 shadow-lg hover:shadow-xl text-xs sm:text-sm">
             💡[HINT] : Try Using ChatGPT for Ideas!
           </button>
+        </div>
+
+        {/* Add the gliding plane GIF with reduced top margin and increased width */}
+        <div className="w-full flex justify-center items-center relative z-30 mb-0">
+          <div
+            className="relative cloud-float-intense w-[60%]" // Increased to 80% width
+            style={{
+              animationDelay: "0.5s",
+              filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))",
+            }}
+          >
+            <div className="w-full relative" style={{ aspectRatio: "4/3" }}>
+              {/* Maintain aspect ratio */}
+              <Image
+                src="/popinfo.gif"
+                alt="Plane gliding in clouds"
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 80vw, (max-width: 1200px) 75vw, 70vw" // Responsive size hints
+                unoptimized={true} // Important: This ensures the GIF plays
+                priority
+              />
+            </div>
+          </div>
         </div>
       </div>
 
