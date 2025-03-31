@@ -527,8 +527,8 @@ const TracksSection: React.FC = () => {
           <div
             className={`absolute cloud-float-medium`}
             style={{
-              left: isMobile ? "50%" : "40%",
-              top: isMobile ? "65%" : "60%",
+              left: isMobile ? "45%" : "40%",
+              top: isMobile ? "75%" : "60%",
               zIndex: 18, // Between top and bottom layers
               animationDelay: "1.8s",
             }}
