@@ -212,7 +212,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
               >
                 <Link
-                  href="https://chat.whatsapp.com/BVzCaAQFlA39aXqvSH9VrL"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfdxUBGSlcTmYMI6oRXT5PmTjvyH8nFTjWBY-VbYYzVUkKQmg/viewform?usp=header"
                   target="_blank"
                 >
                   &gt; Register_Now! 🚀
