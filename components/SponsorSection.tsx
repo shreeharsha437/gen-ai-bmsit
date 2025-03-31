@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -150,40 +150,40 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
   // Updated building sizes with better mobile scaling
   const tierSizes = {
     gold: {
-      building: "w-22 md:w-28 lg:w-40 h-48 sm:h-64 md:h-72 lg:h-96", // Smaller on mobile
-      billboard: "w-20 md:w-26 lg:w-36 h-16 sm:h-20 md:h-24 lg:h-32",
+      building: "w-18 sm:w-22 md:w-28 lg:w-40 h-40 sm:h-56 md:h-72 lg:h-96", // Smaller on mobile
+      billboard: "w-16 sm:w-20 md:w-26 lg:w-36 h-14 sm:h-18 md:h-24 lg:h-32",
       textSize: "text-xs sm:text-sm md:text-base font-bold",
       windowsGrid: "grid-cols-3",
       floors: 8,
       antenna: true,
-      logoSize: 48, // Smaller logo on mobile
+      logoSize: 36, // Smaller logo on mobile
     },
     silver: {
-      building: "w-18 md:w-22 lg:w-32 h-40 sm:h-48 md:h-56 lg:h-72",
-      billboard: "w-16 md:w-20 lg:w-28 h-14 sm:h-16 md:h-20 lg:h-26",
+      building: "w-14 sm:w-18 md:w-22 lg:w-32 h-32 sm:h-40 md:h-56 lg:h-72",
+      billboard: "w-12 sm:w-16 md:w-20 lg:w-28 h-12 sm:h-14 md:h-20 lg:h-26",
       textSize: "text-[10px] sm:text-xs md:text-sm",
       windowsGrid: "grid-cols-2",
       floors: 6,
       antenna: true,
-      logoSize: 40,
+      logoSize: 28,
     },
     bronze: {
-      building: "w-16 md:w-18 lg:w-24 h-36 sm:h-40 md:h-44 lg:h-60",
-      billboard: "w-14 md:w-16 lg:w-22 h-12 sm:h-14 md:h-16 lg:h-22",
+      building: "w-12 sm:w-16 md:w-18 lg:w-24 h-28 sm:h-36 md:h-44 lg:h-60",
+      billboard: "w-10 sm:w-14 md:w-16 lg:w-22 h-10 sm:h-12 md:h-16 lg:h-22",
       textSize: "text-[8px] sm:text-[10px] md:text-xs",
       windowsGrid: "grid-cols-2",
       floors: 5,
       antenna: false,
-      logoSize: 32,
+      logoSize: 24,
     },
     micro: {
-      building: "w-12 md:w-14 lg:w-20 h-28 sm:h-32 md:h-36 lg:h-48",
-      billboard: "w-10 md:w-12 lg:w-18 h-10 sm:h-12 md:h-12 lg:h-16",
-      textSize: "text-[8px] md:text-[10px]",
+      building: "w-10 sm:w-12 md:w-14 lg:w-20 h-24 sm:h-28 md:h-36 lg:h-48",
+      billboard: "w-8 sm:w-10 md:w-12 lg:w-18 h-8 sm:h-10 md:h-12 lg:h-16",
+      textSize: "text-[6px] sm:text-[8px] md:text-[10px]",
       windowsGrid: "grid-cols-2",
       floors: 4,
       antenna: false,
-      logoSize: 28,
+      logoSize: 20,
     },
   };
 
@@ -324,13 +324,22 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
           />
         </div>
 
-        {/* Sponsor Name with red text using silkscreen font */}
+        {/* Sponsor Name with better text handling */}
         <p
           className={`${tierSizes[sponsor.tier].textSize} font-silkscreen ${
             buildingStyle.text
           } 
-                      text-center leading-tight truncate max-w-full 
+                      text-center leading-tight px-1 truncate w-full
                       drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]`}
+          style={{
+            fontSize: "clamp(6px, 2.5vw, 16px)",
+            wordBreak: "break-word",
+            whiteSpace: "normal",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
         >
           {sponsor.name}
         </p>
@@ -340,6 +349,21 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
 };
 
 const SponsorsSection: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Set initial state
+    setIsMobile(window.innerWidth < 640);
+
+    // Add resize listener
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const groupedSponsors = groupSponsorsByTier(sponsorData);
 
   // Define order for display
@@ -359,7 +383,7 @@ const SponsorsSection: React.FC = () => {
   return (
     <section
       id="sponsors-section"
-      className="relative z-10 w-full py-40 sm:py-48 md:py-58 lg:py-64 px-4 md:px-6 overflow-hidden" // Adjusted height responsively
+      className="relative z-10 w-full py-28 sm:py-36 md:py-48 lg:py-64 px-2 sm:px-4 md:px-6 overflow-hidden"
     >
       {/* Improved gradient transition from previous section */}
       <div className="absolute inset-0">
@@ -484,28 +508,32 @@ const SponsorsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Buildings layout with improved spacing and mobile-specific adjustments */}
-      <div className="absolute bottom-0 left-0 right-0 h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] z-20">
-        {/* Left side buildings container with optimized spacing for mobile */}
-        <div className="absolute bottom-0 left-1 sm:left-2 md:left-4 lg:left-8 flex items-end space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-4">
-          {leftSideSponsors.map((sponsor, _index) => (
-            <BuildingComponent
-              key={sponsor.id}
-              sponsor={sponsor}
-              position="mb-0" // Always at bottom
-            />
-          ))}
+      {/* Buildings layout with improved spacing for mobile */}
+      <div className="absolute bottom-0 left-0 right-0 h-[200px] sm:h-[250px] md:h-[320px] lg:h-[400px] z-20">
+        {/* Left side buildings - reduce number shown on mobile */}
+        <div className="absolute bottom-0 left-1 sm:left-2 md:left-4 lg:left-8 flex items-end space-x-2 sm:space-x-2 md:space-x-3 lg:space-x-4">
+          {leftSideSponsors
+            .slice(0, isMobile ? 2 : undefined)
+            .map((sponsor, _index) => (
+              <BuildingComponent
+                key={sponsor.id}
+                sponsor={sponsor}
+                position="mb-0"
+              />
+            ))}
         </div>
 
-        {/* Right side buildings container with optimized spacing for mobile */}
-        <div className="absolute bottom-0 right-1 sm:right-2 md:right-4 lg:right-8 flex items-end space-x-1 sm:space-x-1.5 md:space-x-2 lg:space-x-4">
-          {rightSideSponsors.map((sponsor, _index) => (
-            <BuildingComponent
-              key={sponsor.id}
-              sponsor={sponsor}
-              position="mb-0" // Always at bottom
-            />
-          ))}
+        {/* Right side buildings - reduce number shown on mobile */}
+        <div className="absolute bottom-0 right-1 sm:right-2 md:right-4 lg:right-8 flex items-end space-x-2 sm:space-x-2 md:space-x-3 lg:space-x-4">
+          {rightSideSponsors
+            .slice(0, isMobile ? 2 : undefined)
+            .map((sponsor, _index) => (
+              <BuildingComponent
+                key={sponsor.id}
+                sponsor={sponsor}
+                position="mb-0"
+              />
+            ))}
         </div>
       </div>
 

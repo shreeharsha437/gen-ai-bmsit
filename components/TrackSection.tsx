@@ -3,6 +3,141 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
+// Add this countdown timer component
+const CountdownTimer: React.FC = () => {
+  const [timeRemaining, setTimeRemaining] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const targetDate = new Date("2025-05-10T23:59:59");
+
+    const calculateTimeRemaining = () => {
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+
+      if (difference <= 0) {
+        // Registration closed
+        setTimeRemaining({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeRemaining({ days, hours, minutes, seconds });
+    };
+
+    // Calculate immediately
+    calculateTimeRemaining();
+
+    // Update every second
+    const timer = setInterval(calculateTimeRemaining, 1000);
+
+    // Cleanup
+    return () => clearInterval(timer);
+  }, []);
+
+  // Format numbers to have leading zero if needed
+  const formatNumber = (num: number): string => {
+    return num < 10 ? `0${num}` : `${num}`;
+  };
+
+  return (
+    <div className="relative">
+      {/* Cloud background */}
+      <div className="relative w-48 h-36 sm:w-56 sm:h-44 md:w-64 md:h-48">
+        <Image
+          src="/c2n.svg"
+          alt="Cloud timer background"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+
+      {/* Timer content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <h3
+          className="text-[10px] sm:text-xs md:text-sm font-silkscreen text-white mb-1 sm:mb-2 
+                      px-2 py-0.5 bg-purple-900/90 rounded-full border border-white/30"
+        >
+          TIME REMAINING TO REGISTER
+        </h3>
+
+        <div className="flex justify-center space-x-1 sm:space-x-2 mt-1">
+          {/* Days */}
+          <div className="flex flex-col items-center">
+            <div
+              className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-black/70 backdrop-blur-sm 
+                          border border-blue-400/50 rounded-md flex items-center justify-center
+                          text-[10px] sm:text-xs md:text-sm font-silkscreen text-blue-300 
+                        "
+            >
+              {formatNumber(timeRemaining.days)}
+            </div>
+            <span className="text-[6px] sm:text-[8px] md:text-[10px] font-silkscreen text-black mt-0.5">
+              DAYS
+            </span>
+          </div>
+
+          {/* Hours */}
+          <div className="flex flex-col items-center">
+            <div
+              className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-black/70 backdrop-blur-sm 
+                          border border-blue-400/50 rounded-md flex items-center justify-center
+                          text-[10px] sm:text-xs md:text-sm font-silkscreen text-blue-300
+                         delay-300"
+            >
+              : {formatNumber(timeRemaining.hours)}
+            </div>
+            <span className="text-[6px] sm:text-[8px] md:text-[10px] font-silkscreen text-black mt-0.5">
+              HRS
+            </span>
+          </div>
+
+          {/* Minutes */}
+          <div className="flex flex-col items-center">
+            <div
+              className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-black/70 backdrop-blur-sm 
+                          border border-blue-400/50 rounded-md flex items-center justify-center
+                          text-[10px] sm:text-xs md:text-sm font-silkscreen text-blue-300
+                         delay-500"
+            >
+              : {formatNumber(timeRemaining.minutes)}
+            </div>
+            <span className="text-[6px] sm:text-[8px] md:text-[10px] font-silkscreen text-black mt-0.5">
+              MIN
+            </span>
+          </div>
+
+          {/* Seconds */}
+          <div className="flex flex-col items-center">
+            <div
+              className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-black/70 backdrop-blur-sm 
+                          border border-blue-400/50 rounded-md flex items-center justify-center
+                          text-[10px] sm:text-xs md:text-sm font-silkscreen text-blue-300
+                         delay-700"
+            >
+              :{formatNumber(timeRemaining.seconds)}
+            </div>
+            <span className="text-[6px] sm:text-[8px] md:text-[10px] font-silkscreen text-black mt-0.5">
+              SEC
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Tracks data remains the same
 const tracks = [
   // TOP LAYER - 3 clouds above the date
@@ -136,30 +271,7 @@ const Cloud: React.FC<{
         {trackName && (
           <div className="absolute inset-x-0 -bottom-6 sm:-bottom-5 md:-bottom-2 flex justify-center">
             <span
-              className={`
-                text-center 
-                ${fontSizeClass[size]} 
-                font-bold 
-                text-white 
-                font-silkscreen 
-                px-1.5 sm:px-2 py-0.5 sm:py-1 
-                bg-purple-900/90
-                backdrop-blur-sm 
-                rounded-full 
-                shadow-md 
-                border
-                border-white/30
-                sm:border-2
-                group-hover:bg-purple-800/90
-                group-hover:scale-110 
-                group-hover:border-white/50
-                transition-all 
-                duration-300
-                whitespace-normal
-                max-w-[95%]
-                text-ellipsis
-                leading-tight
-              `}
+              className={`text-center ${fontSizeClass[size]} font-bold text-white font-silkscreen px-1.5 sm:px-2 py-0.5 sm:py-1 bg-purple-900/90 backdrop-blur-sm rounded-full shadow-md border border-white/30 sm:border-2 group-hover:bg-purple-800/90 group-hover:scale-110 group-hover:border-white/50 transition-all duration-300 whitespace-normal max-w-[95%] text-ellipsis leading-tight`}
             >
               {trackName}
             </span>
@@ -410,6 +522,19 @@ const TracksSection: React.FC = () => {
                   />
                 );
               })}
+
+          {/* Add the countdown timer - positioned in the center below blockchain */}
+          <div
+            className={`absolute cloud-float-medium`}
+            style={{
+              left: isMobile ? "50%" : "40%",
+              top: isMobile ? "75%" : "60%",
+              zIndex: 18, // Between top and bottom layers
+              animationDelay: "1.8s",
+            }}
+          >
+            <CountdownTimer />
+          </div>
 
           {/* Render Bottom Layer Clouds */}
           {cloudPositions.bottom.length > 0 &&

@@ -168,8 +168,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
               className="text-md md:text-lg text-gray-300 max-w-md lg:max-w-none animate-fadeIn animation-delay-300"
               style={{ fontFamily: "'Silkscreen', monospace" }}
             >
-              Join Brinhack 2025, the premier hackathon where creativity meets
-              technology. Push the limits and build the future.
+              Join Brinhack 2025, the{" "}
+              <span
+                className="text-lg md:text-xl text-amber-400  font-['Press_Start_2P'] inline-block relative cursor-pointer 
+                hover:text-[#26bffd] transition-colors duration-100
+                hover:animate-pulse
+                before:content-['✦'] before:absolute before:-left-2 before:opacity-0 before:hover:opacity-100
+                after:content-['✦'] after:absolute after:-right-2 after:opacity-0 after:hover:opacity-100
+                group"
+              >
+                FREE
+              </span>{" "}
+              premier hackathon where creativity meets technology. Push the
+              limits and build the future.
               <Link
                 href="#about-section"
                 className="text-purple-400 hover:text-purple-300 transition-colors duration-300 ml-1"
@@ -184,14 +195,34 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
                 asChild
                 variant="default"
                 size="lg"
-                className="bg-gradient-to-r from-pink-500 to-blue-400 hover:from-pink-800 hover:to-blue-800 hover:text-white transition-colors duration-300 text-black shadow-lg hover:shadow-xl"
-                style={{ fontFamily: "'Silkscreen', monospace" }}
+                className="bg-gradient-to-r from-[#ff00c0] to-[#26bffd] hover:from-[#b700ff] hover:to-[#00a2ff] 
+                text-gray-800 border-2 border-transparent hover:border-[#ff00c0] shadow-[0_0_15px_rgba(255,0,192,0.5)]
+                hover:shadow-[0_0_20px_rgba(38,191,253,0.7)] transition-all duration-300 
+                px-8 py-4 tracking-wider"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
               >
                 <Link
                   href="https://chat.whatsapp.com/BVzCaAQFlA39aXqvSH9VrL"
                   target="_blank"
                 >
-                  Register Now!
+                  &gt; Register_Now! 🚀
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="default"
+                size="lg"
+                className="bg-gradient-to-r from-[#26bffd] to-[#ff00c0] hover:from-[#00a2ff] hover:to-[#b700ff]
+                text-gray-800 border-2 border-transparent hover:border-[#26bffd] shadow-[0_0_15px_rgba(38,191,253,0.5)]
+                hover:shadow-[0_0_20px_rgba(255,0,192,0.7)] transition-all duration-300
+                px-8 py-4 tracking-wider"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                <Link
+                  href="https://drive.google.com/file/d/1uh6kjjQDC5Dz8wih9ilP8B1WTNiTLmEA/view?usp=sharing"
+                  target="_blank"
+                >
+                  &gt; Brochure.exe 📡
                 </Link>
               </Button>
             </div>
@@ -199,7 +230,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
 
           {/* Right Column: Logo with conditional visibility and fixed Tilt component */}
           <div className="w-full lg:w-1/2 flex items-center justify-center mt-10 lg:mt-0">
-            {/* Make sure Tilt is properly wrapped */}
+            {/* Make sure Tilt is pro</Link>perly wrapped */}
             <div
               className={`transition-all duration-500 ease-in-out ${
                 showLogo

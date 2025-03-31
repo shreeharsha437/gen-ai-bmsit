@@ -126,96 +126,42 @@ const CompactTeamMember: React.FC<{
   );
 };
 
-// const TeamMemberCard: React.FC<{
-//   name: string;
-//   role: string;
-//   quote: string;
-//   imageUrl: string;
-// }> = ({ name, role, quote, imageUrl }) => {
-//   const [isFlipped, setIsFlipped] = useState(false);
+// Add this FAQ Accordion component before the AboutSection component definition
 
-//   return (
-//     <div
-//       className="relative h-72 w-full max-w-xs mx-auto perspective-1000"
-//       onMouseEnter={() => setIsFlipped(true)}
-//       onMouseLeave={() => setIsFlipped(false)}
-//     >
-//       <div
-//         className={`relative w-full h-full transition-transform duration-700 preserve-3d ${
-//           isFlipped ? "rotate-y-180" : ""
-//         }`}
-//       >
-//         {/* Front side */}
-//         <div
-//           className="absolute inset-0 backface-hidden bg-gray-900/80 border-2 border-amber-800 p-4 flex flex-col items-center"
-//           style={{
-//             clipPath:
-//               "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
-//           }}
-//         >
-//           <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-amber-600 mb-4">
-//             <Image
-//               src={imageUrl}
-//               alt={name}
-//               width={96}
-//               height={96}
-//               className="object-cover w-full h-full"
-//             />
-//           </div>
-//           <h4 className="font-silkscreen text-amber-400 text-lg mb-1">
-//             {name}
-//           </h4>
-//           <div className="font-silkscreen text-gray-400 text-xs py-1 px-2 bg-gray-800 rounded-md mb-2">
-//             {role}
-//           </div>
-//           <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
-//             <p className="text-gray-300 font-bitwise text-center text-sm italic">
-//               &quot;{quote}&quot;
-//             </p>
-//           </div>
-//           <span className="absolute bottom-2 right-2 text-amber-500 animate-pulse">
-//             <ChevronDown className="w-5 h-5" />
-//           </span>
-//         </div>
+// Create a new FAQ component
+const FAQItem: React.FC<{
+  question: string;
+  answer: string | React.ReactNode;
+}> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-//         {/* Back side - rotated */}
-//         <div
-//           className="absolute inset-0 backface-hidden bg-gray-900/80 border-2 border-amber-800 p-4 rotate-y-180 flex flex-col justify-center"
-//           style={{
-//             clipPath:
-//               "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
-//           }}
-//         >
-//           <div className="space-y-3">
-//             <div className="flex items-center gap-2">
-//               <Coffee className="w-5 h-5 text-amber-500" />
-//               <p className="text-gray-300 font-bitwise text-sm">
-//                 Runs on: Coffee &amp; Enthusiasm
-//               </p>
-//             </div>
-//             <div className="flex items-center gap-2">
-//               <Star className="w-5 h-5 text-amber-500" />
-//               <p className="text-gray-300 font-bitwise text-sm">
-//                 Superpower: Creative Problem-Solving
-//               </p>
-//             </div>
-//             <div className="flex items-center gap-2">
-//               <Briefcase className="w-5 h-5 text-amber-500" />
-//               <p className="text-gray-300 font-bitwise text-sm">
-//                 Expertise: {role.split("of")[1] || "Technology Innovation"}
-//               </p>
-//             </div>
-//           </div>
-//           <div className="border-t border-amber-800/50 w-full pt-3 mt-auto">
-//             <p className="text-amber-400 font-silkscreen text-center text-sm">
-//               Flip to see photo
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div className="mb-3 border-2 border-amber-800/50 bg-gray-900/60">
+      <button
+        className="w-full p-3 flex justify-between items-center text-left font-silkscreen text-amber-200 hover:bg-gray-800/50 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-sm md:text-base">{question}</span>
+        <ChevronDown
+          className={`w-5 h-5 transform transition-transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          className="p-3 pt-0 border-t border-amber-800/30 bg-gray-800/30 font-bitwise text-gray-300 text-sm"
+          style={{
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 5% 100%, 0 95%)",
+          }}
+        >
+          <div className="p-3">{answer}</div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const AboutSection: React.FC = () => {
   const [showComingSoon, setShowComingSoon] = useState(false);
@@ -515,7 +461,7 @@ const AboutSection: React.FC = () => {
                 className="flex items-center gap-3 mb-4"
               >
                 <div className="flex-shrink-0"></div>
-                <h2 className="font-silkscreen text-2xl md:text-3xl text-white inline-flex items-center bg-gray-800/50 px-4 py-1 rounded-md border-l-4 border-purple-600">
+                <h2 className="font-silkscreen text-2xl md:text-3xl text-white inline-flex items-center bg-gray-800/50 px-4 py-1 rounded-md border-l-4 border-purple-600 ">
                   <Image
                     src="/logo.png"
                     alt="BrinHack Logo"
@@ -663,6 +609,181 @@ const AboutSection: React.FC = () => {
                     title="Brindavan College of Engineering"
                   ></iframe>
                 </div>
+              </div>
+            </motion.div>
+
+            {/* FAQ Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-8"
+            >
+              <h3 className="font-silkscreen text-xl md:text-2xl text-white mb-4 border-b-2 border-amber-500 pb-2 inline-flex items-center gap-2">
+                <div className="w-8 h-8 bg-amber-600 flex items-center justify-center rounded-full">
+                  <span className="text-black font-bold">?</span>
+                </div>
+                Frequently Asked Questions
+              </h3>
+
+              <div className="space-y-3">
+                <FAQItem
+                  question="Is registration free?"
+                  answer={
+                    <>
+                      <p className="mb-2">
+                        Yes, registration for BrinHack 2025 is completely free.
+                        There is no registration fee to apply.
+                      </p>
+                      <p className="mb-2">
+                        However,{" "}
+                        <span className="text-amber-400 font-semibold">
+                          selected teams
+                        </span>{" "}
+                        will need to pay Rs. 800 per team for accommodation and
+                        food during the 24-hour hackathon.
+                      </p>
+                      <p>
+                        This fee covers all meals, refreshments, and
+                        accommodation for the entire event duration.
+                      </p>
+                    </>
+                  }
+                />
+
+                <FAQItem
+                  question="What kind of teams can be formed?"
+                  answer={
+                    <>
+                      <p className="mb-2">
+                        Teams can consist of{" "}
+                        <span className="text-amber-400 font-semibold">
+                          2 to 4 members
+                        </span>
+                        .
+                      </p>
+                      <p className="mb-2">
+                        Students from{" "}
+                        <span className="text-amber-400 font-semibold">
+                          any academic year
+                        </span>{" "}
+                        (1st to 4th year) are eligible to participate.
+                      </p>
+                      <p>
+                        Teams can be formed across different departments and
+                        different colleges - inter-college collaboration is
+                        encouraged!
+                      </p>
+                    </>
+                  }
+                />
+
+                <FAQItem
+                  question="Are multi-college teams allowed?"
+                  answer={
+                    <>
+                      <p className="mb-2">
+                        <span className="text-amber-400 font-semibold">
+                          Yes!
+                        </span>{" "}
+                        Multi-college teams are not only allowed but actively
+                        encouraged.
+                      </p>
+                      <p className="mb-2">
+                        We believe diverse perspectives lead to better
+                        innovation. Feel free to collaborate with students from
+                        different colleges.
+                      </p>
+                      <p>
+                        Each team member should be registered individually,
+                        noting their team name consistently.
+                      </p>
+                    </>
+                  }
+                />
+
+                <FAQItem
+                  question="What facilities will be provided?"
+                  answer={
+                    <>
+                      <p className="mb-2">
+                        We provide a comprehensive set of amenities for all
+                        participants:
+                      </p>
+                      <ul className="list-disc pl-5 space-y-1 mb-2">
+                        <li>
+                          <span className="text-amber-400 font-semibold">
+                            Internet:
+                          </span>{" "}
+                          High-speed Wi-Fi throughout the venue
+                        </li>
+                        <li>
+                          <span className="text-amber-400 font-semibold">
+                            Power:
+                          </span>{" "}
+                          Multiple power outlets for all teams
+                        </li>
+                        <li>
+                          <span className="text-amber-400 font-semibold">
+                            Meals:
+                          </span>{" "}
+                          All meals and refreshments included
+                        </li>
+                        <li>
+                          <span className="text-amber-400 font-semibold">
+                            Rest Area:
+                          </span>{" "}
+                          Designated spaces for relaxation
+                        </li>
+                        <li>
+                          <span className="text-amber-400 font-semibold">
+                            Technical Support:
+                          </span>{" "}
+                          Mentors available throughout the event
+                        </li>
+                      </ul>
+                      <p>
+                        For any specific requirements, please contact us in
+                        advance.
+                      </p>
+                    </>
+                  }
+                />
+
+                <FAQItem
+                  question="Where is the event taking place?"
+                  answer={
+                    <>
+                      <p className="mb-2">
+                        BrinHack 2025 will be held at{" "}
+                        <span className="text-amber-400 font-semibold">
+                          Brindavan College of Engineering
+                        </span>
+                        , Bengaluru.
+                      </p>
+                      <p className="mb-2">
+                        Address: 33/1A, Krishnadeveraya Nagar, Channasandra,
+                        Uttarahalli Hobli, Bengaluru - 560073
+                      </p>
+                      <p>
+                        The exact venue building and rooms will be communicated
+                        to selected teams before the event.
+                      </p>
+                    </>
+                  }
+                />
+              </div>
+
+              {/* CTA button to reach out for more questions */}
+              <div className="mt-6 text-center">
+                <PixelButton
+                  color="purple"
+                  href="mailto:hodic@brindavancollege.com"
+                >
+                  <MessageSquare className="w-4 h-4 inline-block mr-2" />
+                  Have more questions? Contact us!
+                </PixelButton>
               </div>
             </motion.div>
           </div>

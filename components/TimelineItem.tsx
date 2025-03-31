@@ -114,6 +114,23 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
   nodeIndex,
 }) => {
   const { time, title, description, icon: EventIcon } = event;
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // Detect mobile screen on mount and resize
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    // Check immediately
+    checkMobile();
+
+    // Listen for resize
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const itemVariants = {
     hidden: { opacity: 0, x: isLeft ? -50 : 50, scale: 0.9 },
@@ -125,44 +142,56 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
     },
   };
 
+  // On mobile, always position to the right side of timeline
+  const mobileAlignment = isMobile
+    ? "justify-start"
+    : isLeft
+    ? "justify-start"
+    : "justify-end";
+
   return (
     <div
-      className={`relative flex ${
-        isLeft ? "justify-start" : "justify-end"
-      } w-full my-3 md:my-4`}
+      className={`relative flex ${mobileAlignment} w-full my-2 sm:my-3 md:my-4`}
     >
       {/* Ensure the parent relative positioning works */}
-      <div className="w-[95%] xs:w-[85%] sm:w-[80%] md:w-5/12">
+      <div
+        className={`${
+          isMobile
+            ? "w-[75%] ml-[25%]"
+            : "w-[95%] xs:w-[85%] sm:w-[80%] md:w-5/12"
+        }`}
+      >
         {/* Motion div for the card animation with improved color scheme */}
         <motion.div
-          className={`relative p-3 md:p-5 rounded-lg shadow-xl border-2 border-purple-600/50 
+          className={`relative p-2 sm:p-3 md:p-5 rounded-lg shadow-xl border-2 border-purple-600/50 
           bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-md 
-          ${isLeft ? "mr-3 md:mr-8" : "ml-3 md:ml-8"}`}
+          ${isMobile ? "ml-2" : isLeft ? "mr-3 md:mr-8" : "ml-3 md:ml-8"}`}
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          {/* Card Content with enhanced readability */}
-          <h3 className="text-base sm:text-lg md:text-xl mb-1 font-major-mono text-amber-300 drop-shadow-sm line-clamp-1 sm:line-clamp-none">
+          {/* Card Content with enhanced readability - smaller text on mobile */}
+          <h3 className="text-sm sm:text-base md:text-xl mb-1 font-major-mono text-amber-300 drop-shadow-sm line-clamp-1">
             {title}
           </h3>
-          <div className="pt-2 border-t border-purple-400/30">
-            <p className="text-xs sm:text-sm text-amber-50 font-bytesize mb-1.5 sm:mb-2 leading-relaxed line-clamp-2 sm:line-clamp-none">
+          <div className="pt-1 sm:pt-2 border-t border-purple-400/30">
+            <p className="text-[10px] sm:text-xs md:text-sm text-amber-50 font-bytesize mb-1 sm:mb-1.5 md:mb-2 leading-relaxed line-clamp-2">
               {description}
             </p>
-            <time className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white font-silkscreen bg-purple-700/70 border border-purple-400/50 shadow-inner">
+            <time className="inline-block px-1.5 sm:px-2 md:px-3 py-0.5 rounded-full text-[8px] sm:text-[10px] md:text-xs font-bold uppercase tracking-wider text-white font-silkscreen bg-purple-700/70 border border-purple-400/50 shadow-inner">
               {time}
             </time>
           </div>
-          {/* Decorative Flying Object with nodeIndex */}
-          <FlyingObject isLeft={isLeft} nodeIndex={nodeIndex} />
+
+          {/* Only show flying objects on tablets and larger screens */}
+          {!isMobile && <FlyingObject isLeft={isLeft} nodeIndex={nodeIndex} />}
         </motion.div>
       </div>
 
       {/* Node on the Timeline (Centred) with warmer accent color */}
       <motion.div
-        className="absolute left-1/2 top-0 -translate-x-1/2 mt-3 md:mt-5 z-10"
+        className="absolute left-1/2 top-0 -translate-x-1/2 mt-2 sm:mt-3 md:mt-5 z-10"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, amount: 0.5 }}
@@ -173,8 +202,8 @@ const TimelineItem: React.FC<TimelineItemProps & { nodeIndex: number }> = ({
           stiffness: 150,
         }}
       >
-        <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-10 md:h-10 bg-gradient-to-br from-amber-400 to-purple-600 rounded-full flex items-center justify-center shadow-md border-2 border-white/70">
-          <EventIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
+        <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 bg-gradient-to-br from-amber-400 to-purple-600 rounded-full flex items-center justify-center shadow-md border-2 border-white/70">
+          <EventIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-5 md:h-5 text-white" />
         </div>
       </motion.div>
     </div>

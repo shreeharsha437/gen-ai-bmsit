@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react"; // Import icons for mobile menu
 
 // Define the prop type
 interface FloatingNavbarProps {
-  showLogo: boolean; // Controls visibility of the small navbar logo
+  showLogo: boolean;
 }
 
 // Define navigation items
@@ -21,11 +22,11 @@ const navItems = [
 const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Scroll listener for background transparency
   useEffect(() => {
     const handleScroll = () => {
-      // Add background when scrolled down even slightly
       if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
@@ -33,13 +34,9 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
       }
     };
 
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
-
-    // Check initial scroll position
     handleScroll();
 
-    // Clean up
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -48,37 +45,39 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
   // Handle scroll to hero section
   const scrollToHero = (e: React.MouseEvent) => {
     e.preventDefault();
-    // Scroll to the top of the page smoothly
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setMobileMenuOpen(false);
+  };
 
-    // Alternative: Find hero section by ID and scroll to it
-    // const heroSection = document.getElementById("hero");
-    // if (heroSection) {
-    //   heroSection.scrollIntoView({ behavior: "smooth" });
-    // }
+  // Close mobile menu when clicking a link
+  const handleNavItemClick = (e: React.MouseEvent, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetElement = document.querySelector(href);
+      targetElement?.scrollIntoView({ behavior: "smooth" });
+      setMobileMenuOpen(false); // Close mobile menu after clicking
+    }
   };
 
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-          isScrolled
+          isScrolled || mobileMenuOpen
             ? "bg-black/70 backdrop-blur-md shadow-lg"
             : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-6 py-3 flex items-center justify-between h-16 md:h-20">
+        <div className="container mx-auto px-3 sm:px-6 py-3 flex items-center justify-between h-14 sm:h-16 md:h-20">
           {/* Left Side: Logo Placeholder/Area */}
           <div className="flex items-center h-full">
-            {/* This div now renders the small logo conditionally */}
             <div
               id="navbar-logo-placeholder"
               className={`relative h-full flex items-center transition-opacity duration-500 ease-in-out ${
-                showLogo ? "opacity-100" : "opacity-0 pointer-events-none" // Control visibility
+                showLogo ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
-              aria-hidden={!showLogo} // Accessibility hint
+              aria-hidden={!showLogo}
             >
-              {/* Small Logo - Now clickable */}
               <a
                 href="#"
                 onClick={scrollToHero}
@@ -95,7 +94,7 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                     className="object-contain w-full h-full relative z-10"
                   />
                 </div>
-                <span className="text-white font-major-mono ml-2 hidden sm:inline  transition-colors duration-300">
+                <span className="text-white font-major-mono ml-2 text-xs sm:text-sm transition-colors duration-300">
                   <span className="text-[#ff00c0] group-hover:text-pink-400">
                     Brin
                   </span>
@@ -107,15 +106,15 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
             </div>
           </div>
 
-          {/* Right Side: Navigation Links */}
-          <div className="flex items-center space-x-1 md:space-x-2">
+          {/* Desktop Navigation - Hidden on mobile */}
+          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navItems.map((item) => (
               <Button
                 key={item.name}
                 variant="ghost"
                 size="sm"
                 asChild
-                className="text-gray-300 hover:text-white hover:bg-white/10 font-silkscreen text-xs md:text-sm transition-colors duration-200"
+                className="text-gray-300 hover:text-white hover:bg-white/10 font-silkscreen text-xs lg:text-sm transition-colors duration-200"
               >
                 {item.external ? (
                   <a href={item.href} target="_blank" rel="noopener noreferrer">
@@ -124,13 +123,7 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                 ) : (
                   <a
                     href={item.href}
-                    onClick={(e) => {
-                      if (item.href.startsWith("#")) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(item.href);
-                        targetElement?.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }}
+                    onClick={(e) => handleNavItemClick(e, item.href)}
                   >
                     {item.name}
                   </a>
@@ -142,14 +135,52 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
             <Button
               variant="default"
               size="sm"
-              className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen ml-2"
+              className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen ml-2 text-xs lg:text-sm"
               onClick={() => setShowComingSoon(true)}
             >
-              <span className="block sm:hidden">E!</span>
-              <span className="hidden sm:block">EXTRA'S!</span>
+              EXTRA'S!
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button - Shown only on mobile */}
+          <div className="flex items-center space-x-2 md:hidden">
+            <Button
+              variant="default"
+              size="sm"
+              className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen text-xs"
+              onClick={() => setShowComingSoon(true)}
+            >
+              E!
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+              className="text-white hover:bg-white/10"
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </Button>
           </div>
         </div>
+
+        {/* Mobile Menu - Slides in from top */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-black/90 backdrop-blur-lg border-t border-gray-800 px-4 py-3 shadow-lg">
+            <div className="flex flex-col space-y-2">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => handleNavItemClick(e, item.href)}
+                  className="text-gray-300 hover:text-white py-2 font-silkscreen text-sm transition-colors duration-200 border-b border-gray-800"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Coming Soon Modal */}
