@@ -128,37 +128,71 @@ const CompactTeamMember: React.FC<{
 
 // Add this FAQ Accordion component before the AboutSection component definition
 
-// Create a new FAQ component
+// Create a new FAQ component with animations
 const FAQItem: React.FC<{
   question: string;
   answer: string | React.ReactNode;
 }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Animation variants for the content
+  const contentVariants = {
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    },
+    open: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <div className="mb-3 border-2 border-amber-800/50 bg-gray-900/60">
       <button
         className="w-full p-3 flex justify-between items-center text-left font-silkscreen text-amber-200 hover:bg-gray-800/50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
       >
         <span className="text-sm md:text-base">{question}</span>
-        <ChevronDown
-          className={`w-5 h-5 transform transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
       </button>
 
-      {isOpen && (
+      <motion.div
+        initial="closed"
+        animate={isOpen ? "open" : "closed"}
+        variants={contentVariants}
+        className="overflow-hidden"
+      >
         <div
           className="p-3 pt-0 border-t border-amber-800/30 bg-gray-800/30 font-bitwise text-gray-300 text-sm"
           style={{
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 5% 100%, 0 95%)",
           }}
         >
-          <div className="p-3">{answer}</div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 10 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="p-3"
+          >
+            {answer}
+          </motion.div>
         </div>
-      )}
+      </motion.div>
     </div>
   );
 };

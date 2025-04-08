@@ -97,7 +97,7 @@ const FlyingObject: React.FC<{ isLeft: boolean; nodeIndex: number }> = ({
             ![17, 11, 5, 6, 7].includes(nodeIndex) ? "scale-x-[-1]" : ""
           } transition-opacity duration-300`}
           priority
-          onLoadingComplete={() => setImageLoaded(true)}
+          onLoad={() => setImageLoaded(true)}
           onError={() => {
             console.error(`Failed to load image: ${imagePath}`);
           }}
