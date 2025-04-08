@@ -461,18 +461,18 @@ const AboutSection: React.FC = () => {
                 className="flex items-center gap-3 mb-4"
               >
                 <div className="flex-shrink-0"></div>
-                <h2 className="font-silkscreen text-2xl md:text-3xl text-white inline-flex items-center bg-gray-800/50 px-4 py-1 rounded-md border-l-4 border-purple-600 ">
+                <h2 className="font-silkscreen text-xl md:text-2xl text-white inline-flex items-center bg-gray-800/50 px-4 py-1 rounded-md border-l-4 border-purple-600 overflow-hidden">
                   <Image
                     src="/logo.png"
                     alt="BrinHack Logo"
-                    width={45}
-                    height={45}
+                    width={35}
+                    height={35}
                     className="object-contain"
                     onLoad={() => handleImageLoad("logo")}
                   />
                   <span>About </span>{" "}
                   <span className="text-[#ff00c0] ml-2">Brin</span>
-                  <span className="text-[#26bffd]">HAck</span>
+                  <span className="text-[#26bffd]">Hack</span>
                   <span className="text-yellow-400 ml-1">2025</span>
                 </h2>
               </motion.div>
