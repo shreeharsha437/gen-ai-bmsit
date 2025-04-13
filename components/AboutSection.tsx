@@ -201,6 +201,7 @@ const AboutSection: React.FC = () => {
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [showWhatsappInfo, setShowWhatsappInfo] = useState(false);
   const [showEmailInfo, setShowEmailInfo] = useState(false);
+  const [showInstagramInfo, setShowInstagramInfo] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState({
     logo: false,
     banner: false,
@@ -299,7 +300,10 @@ const AboutSection: React.FC = () => {
                   onMouseEnter={() => setShowEmailInfo(true)}
                   onMouseLeave={() => setShowEmailInfo(false)}
                 >
-                  <a href="mailto:hodic@brindavancollege.com" className="block">
+                  <a
+                    href="mailto:brinhackathon@brindavancollege.com"
+                    className="block"
+                  >
                     <div
                       className="w-12 h-12 bg-gray-800 border-2 border-red-500 hover:bg-gray-700 hover:border-red-400 
                                hover:shadow-[0_0_15px_rgba(239,68,68,0.6)] transition-all duration-300
@@ -324,7 +328,7 @@ const AboutSection: React.FC = () => {
                         Contact via Email:
                       </p>
                       <p className="font-bitwise text-xs text-red-300 truncate">
-                        hodic@brindavancollege.com
+                        brinhackathon@brindavancollege.com
                       </p>
                     </div>
                   )}
@@ -375,30 +379,43 @@ const AboutSection: React.FC = () => {
                 {/* Instagram Icon */}
                 <div
                   className="relative"
-                  onMouseEnter={() => setShowEmailInfo(false)}
-                  onMouseLeave={() => setShowEmailInfo(false)}
-                  onClick={() => setShowComingSoon(true)}
+                  onMouseEnter={() => setShowInstagramInfo(true)}
+                  onMouseLeave={() => setShowInstagramInfo(false)}
                 >
-                  <div
-                    className="w-12 h-12 bg-gray-800 border-2 border-purple-500 hover:bg-gray-700 hover:border-purple-400 
-                             hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300 cursor-pointer
-                             flex items-center justify-center group"
-                    style={{
-                      clipPath:
-                        "polygon(0% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%)",
-                    }}
+                  <a
+                    href="https://www.instagram.com/brinhack"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
                   >
-                    <Image
-                      src="/instagram.png"
-                      alt="Instagram"
-                      width={24}
-                      height={24}
-                      className="object-contain"
-                    />
-                    <span className="hidden group-hover:block absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-purple-300 font-silkscreen whitespace-nowrap">
-                      Coming Soon
-                    </span>
-                  </div>
+                    <div
+                      className="w-12 h-12 bg-gray-800 border-2 border-purple-500 hover:bg-gray-700 hover:border-purple-400 
+                               hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300
+                               flex items-center justify-center"
+                      style={{
+                        clipPath:
+                          "polygon(0% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%)",
+                      }}
+                    >
+                      <Image
+                        src="/instagram.png"
+                        alt="Instagram"
+                        width={24}
+                        height={24}
+                        className="object-contain"
+                      />
+                    </div>
+                  </a>
+                  {showInstagramInfo && (
+                    <div className="absolute left-0 top-14 w-48 bg-gray-900 border-2 border-purple-500 p-2 z-30 rounded-md">
+                      <p className="font-silkscreen text-xs text-white mb-1">
+                        Instagram:
+                      </p>
+                      <p className="font-bitwise text-xs text-purple-300">
+                        Follow @brinhack for updates!
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -811,7 +828,7 @@ const AboutSection: React.FC = () => {
           <div className="mt-6 text-center">
             <PixelButton
               color="purple"
-              href="mailto:hodic@brindavancollege.com"
+              href="mailto:brinhackathon@brindavancollege.com"
             >
               <MessageSquare className="w-4 h-4 inline-block mr-2" />
               Have more questions? Contact us!
