@@ -14,7 +14,7 @@ interface Sponsor {
   tier: "gold" | "silver" | "bronze" | "micro";
 }
 
-// Example Sponsor Data
+// Updated Sponsor Data with real sponsors
 const sponsorData: Sponsor[] = [
   {
     id: "g1",
@@ -32,9 +32,9 @@ const sponsorData: Sponsor[] = [
   },
   {
     id: "s1",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-silver.png",
-    websiteUrl: "#",
+    name: "GeeksforGeeks", // Updated with real sponsor name
+    logoUrl: "/sponsors/gfglogo.png", // Using the actual logo
+    websiteUrl: "https://www.geeksforgeeks.org/",
     tier: "silver",
   },
   {
@@ -46,8 +46,8 @@ const sponsorData: Sponsor[] = [
   },
   {
     id: "b1",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-bronze.png",
+    name: "Fastdy", // Updated with real sponsor name
+    logoUrl: "/sponsors/fastdylogo.png", // Using the actual logo
     websiteUrl: "#",
     tier: "bronze",
   },

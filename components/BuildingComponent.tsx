@@ -57,44 +57,36 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
         "w-[65px] sm:w-[85px] md:w-[110px] lg:w-[140px] h-[130px] sm:h-[170px] md:h-[220px] lg:h-[280px]",
       billboard:
         "w-[55px] sm:w-[75px] md:w-[100px] lg:w-[130px] h-[45px] sm:h-[60px] md:h-[75px] lg:h-[90px]",
-      textSize: "text-xs sm:text-sm md:text-base lg:text-lg font-bold",
       windowsGrid: "grid-cols-3",
       floors: 8,
       antenna: true,
-      logoSize: 30, // Smaller logo on mobile
     },
     silver: {
       building:
         "w-[55px] sm:w-[70px] md:w-[90px] lg:w-[110px] h-[105px] sm:h-[135px] md:h-[175px] lg:h-[220px]",
       billboard:
         "w-[45px] sm:w-[60px] md:w-[80px] lg:w-[100px] h-[35px] sm:h-[45px] md:h-[60px] lg:h-[75px]",
-      textSize: "text-[10px] sm:text-xs md:text-sm lg:text-base",
       windowsGrid: "grid-cols-2",
       floors: 6,
       antenna: true,
-      logoSize: 24,
     },
     bronze: {
       building:
         "w-[45px] sm:w-[60px] md:w-[75px] lg:w-[90px] h-[85px] sm:h-[110px] md:h-[140px] lg:h-[180px]",
       billboard:
         "w-[40px] sm:w-[50px] md:w-[65px] lg:w-[80px] h-[30px] sm:h-[40px] md:h-[50px] lg:h-[65px]",
-      textSize: "text-[8px] sm:text-[10px] md:text-xs lg:text-sm",
       windowsGrid: "grid-cols-2",
       floors: 5,
       antenna: false,
-      logoSize: 20,
     },
     micro: {
       building:
         "w-[35px] sm:w-[45px] md:w-[60px] lg:w-[75px] h-[70px] sm:h-[90px] md:h-[115px] lg:h-[145px]",
       billboard:
         "w-[30px] sm:w-[40px] md:w-[50px] lg:w-[65px] h-[25px] sm:h-[32px] md:h-[40px] lg:h-[50px]",
-      textSize: "text-[7px] sm:text-[9px] md:text-[11px] lg:text-xs",
       windowsGrid: "grid-cols-2",
       floors: 4,
       antenna: false,
-      logoSize: 16,
     },
   };
 
@@ -103,6 +95,29 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
   const hasSpire = sponsor.tier === "gold";
   const hasSatellite = sponsor.tier === "gold" || sponsor.tier === "silver";
   const floors = tierSizes[sponsor.tier].floors;
+
+  // Helper function to determine font size based on name length
+  const getTextSize = () => {
+    const nameLength = sponsor.name.length;
+
+    if (sponsor.tier === "gold") {
+      return nameLength > 10
+        ? "clamp(6px, 0.9vw, 13px)"
+        : "clamp(7px, 1vw, 14px)";
+    } else if (sponsor.tier === "silver") {
+      return nameLength > 12
+        ? "clamp(5px, 0.8vw, 11px)"
+        : "clamp(6px, 0.9vw, 12px)";
+    } else if (sponsor.tier === "bronze") {
+      return nameLength > 15
+        ? "clamp(4px, 0.7vw, 9px)"
+        : "clamp(5px, 0.8vw, 10px)";
+    } else {
+      return nameLength > 20
+        ? "clamp(3px, 0.5vw, 7px)"
+        : "clamp(4px, 0.6vw, 8px)";
+    }
+  };
 
   // Fix TypeScript issue by defining proper types for window colors
   type WindowColorType = "yellow" | "blue" | "gray";
@@ -205,7 +220,7 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
           tierSizes[sponsor.tier].billboard
         } 
                    ${buildingStyle.billboard} border-2 border-dashed rounded-sm 
-                   flex flex-col items-center justify-center px-2 sm:px-3 overflow-hidden shadow-lg`}
+                   flex flex-col items-center justify-center p-1 sm:p-1.5 overflow-hidden shadow-lg`}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: Math.random() * 0.5 }}
@@ -219,32 +234,35 @@ const BuildingComponent: React.FC<{ sponsor: Sponsor; position?: string }> = ({
           }}
         />
 
-        {/* Logo - Using QM logo for all sponsors */}
-        <div className="relative mb-1 sm:mb-2 bg-white/10 rounded-md p-1 flex items-center justify-center">
-          <Image
-            src="/sponsors/qm.png"
-            alt={sponsor.name}
-            width={tierSizes[sponsor.tier].logoSize}
-            height={tierSizes[sponsor.tier].logoSize}
-            className="object-contain p-1"
-            priority
-          />
+        {/* Logo - Larger size filling the billboard */}
+        <div className="relative mb-0.5 sm:mb-1 flex items-center justify-center w-[95%] h-[65%]">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <Image
+              src={
+                sponsor.name === "SOON" ? "/sponsors/qm.png" : sponsor.logoUrl
+              }
+              alt={sponsor.name}
+              fill
+              sizes="100%"
+              className="object-contain p-0 drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]"
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+              priority
+              onLoad={() => console.log(`Loaded logo for ${sponsor.name}`)}
+              onError={(e) => {
+                console.error(`Failed to load logo for ${sponsor.name}`);
+                e.currentTarget.src = "/sponsors/qm.png";
+              }}
+            />
+          </div>
         </div>
 
-        {/* Sponsor Name with BETTER dynamic text handling */}
+        {/* Sponsor Name with responsive text sizing */}
         <p
           className={`font-silkscreen ${buildingStyle.text} 
-                    text-center leading-tight px-1 w-full
+                    text-center leading-tight px-0.5 w-full
                     drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]`}
           style={{
-            fontSize:
-              sponsor.tier === "gold"
-                ? "clamp(9px, 1.5vw, 16px)"
-                : sponsor.tier === "silver"
-                ? "clamp(8px, 1.25vw, 14px)"
-                : sponsor.tier === "bronze"
-                ? "clamp(7px, 1vw, 12px)"
-                : "clamp(6px, 0.8vw, 10px)",
+            fontSize: getTextSize(),
             textShadow: "0 0 2px rgba(0,0,0,0.8)",
             wordBreak: "break-word",
             whiteSpace: "normal",

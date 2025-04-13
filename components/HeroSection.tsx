@@ -181,7 +181,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
               </span>{" "}
               premier{" "}
               <span className=" text-emerald-500 text-lg">
-                Beginer Friendly
+                Beginner Friendly
               </span>{" "}
               hackathon where creativity meets technology. Push the limits and
               build the future.
@@ -229,7 +229,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
               >
                 <Link
-                  href="https://drive.google.com/file/d/1uh6kjjQDC5Dz8wih9ilP8B1WTNiTLmEA/view?usp=sharing"
+                  href="https://www.canva.com/design/DAGkVsC9q2Y/1zCsc8iRLjbrpdrsP-eX_g/view"
                   target="_blank"
                 >
                   &gt; Brochure.exe 📡
