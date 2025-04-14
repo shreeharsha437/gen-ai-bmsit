@@ -14,7 +14,7 @@ interface Sponsor {
   tier: "gold" | "silver" | "bronze" | "micro";
 }
 
-// Updated Sponsor Data with real sponsors
+// Updated Sponsor Data with real sponsors including ETHIndia
 const sponsorData: Sponsor[] = [
   {
     id: "g1",
@@ -32,22 +32,22 @@ const sponsorData: Sponsor[] = [
   },
   {
     id: "s1",
-    name: "GeeksforGeeks", // Updated with real sponsor name
-    logoUrl: "/sponsors/gfglogo.png", // Using the actual logo
+    name: "GeeksforGeeks",
+    logoUrl: "/sponsors/gfglogo.png",
     websiteUrl: "https://www.geeksforgeeks.org/",
     tier: "silver",
   },
   {
     id: "s2",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-silver.png",
-    websiteUrl: "#",
+    name: "ETHIndia",
+    logoUrl: "/sponsors/ethindialogo.png",
+    websiteUrl: "https://ethindia.co/",
     tier: "silver",
   },
   {
     id: "b1",
-    name: "Fastdy", // Updated with real sponsor name
-    logoUrl: "/sponsors/fastdylogo.png", // Using the actual logo
+    name: "Fastdy",
+    logoUrl: "/sponsors/fastdylogo.png",
     websiteUrl: "#",
     tier: "bronze",
   },

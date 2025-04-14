@@ -202,6 +202,7 @@ const AboutSection: React.FC = () => {
   const [showWhatsappInfo, setShowWhatsappInfo] = useState(false);
   const [showEmailInfo, setShowEmailInfo] = useState(false);
   const [showInstagramInfo, setShowInstagramInfo] = useState(false);
+  const [showDevfolioInfo, setShowDevfolioInfo] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState({
     logo: false,
     banner: false,
@@ -413,6 +414,48 @@ const AboutSection: React.FC = () => {
                       </p>
                       <p className="font-bitwise text-xs text-purple-300">
                         Follow @brinhack for updates!
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* DevFolio Icon */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => setShowDevfolioInfo(true)}
+                  onMouseLeave={() => setShowDevfolioInfo(false)}
+                >
+                  <a
+                    href="https://brinhack.devfolio.co/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <div
+                      className="w-12 h-12 bg-gray-800 border-2 border-blue-500 hover:bg-gray-700 hover:border-blue-400 
+                               hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300
+                               flex items-center justify-center"
+                      style={{
+                        clipPath:
+                          "polygon(0% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%)",
+                      }}
+                    >
+                      <Image
+                        src="/devfolio.png"
+                        alt="Devfolio"
+                        width={24}
+                        height={24}
+                        className="object-contain"
+                      />
+                    </div>
+                  </a>
+                  {showDevfolioInfo && (
+                    <div className="absolute left-0 top-14 w-48 bg-gray-900 border-2 border-blue-500 p-2 z-30 rounded-md">
+                      <p className="font-silkscreen text-xs text-white mb-1">
+                        Devfolio:
+                      </p>
+                      <p className="font-bitwise text-xs text-blue-300">
+                        Official Devfolio page for BrinHack 2025
                       </p>
                     </div>
                   )}
