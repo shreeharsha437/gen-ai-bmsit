@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import teamsData from "@/data/teams.json";
+import Link from "next/link";
 
 interface Team {
   id: string;
@@ -190,6 +191,26 @@ const Final2025 = () => {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#000000] via-[#05051a] to-[#0a0b25] text-white py-10 sm:py-16 px-3 sm:px-4 md:px-6 relative overflow-hidden">
+      {/* BrinHack Logo - Top Left Corner */}
+      <Link
+        href="/"
+        className="absolute top-4 left-4 z-20 flex items-center group hover:scale-105 transition-all duration-300"
+      >
+        <div className="h-8 w-8 md:h-10 md:w-10 relative overflow-hidden rounded-lg hover:shadow-md hover:shadow-blue-400/30 transition-shadow duration-300">
+          <Image
+            src="/logo.png"
+            alt="BrinHack Logo"
+            width={40}
+            height={40}
+            className="object-contain w-full h-full"
+          />
+        </div>
+        <span className="text-white font-major-mono ml-2 text-xs sm:text-sm hidden sm:inline-block">
+          <span className="text-[#ff00c0] group-hover:text-pink-400">Brin</span>
+          <span className="text-[#26bffd] group-hover:text-blue-300">Hack</span>
+        </span>
+      </Link>
+
       {/* Stars background */}
       <div className="absolute inset-0 z-0">
         <div className="stars-small"></div>
@@ -215,21 +236,49 @@ const Final2025 = () => {
       </div>
 
       <div className="container mx-auto relative z-10">
-        <motion.h1
-          className="text-2xl sm:text-3xl md:text-5xl text-center font-major-mono mb-4 sm:mb-6 text-purple-300"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Final {teamsData.teams.length} Teams
-        </motion.h1>
+        {/* Back button and heading area */}
+        <div className="flex flex-col items-center justify-center mb-4 sm:mb-6 relative">
+          <div className="w-full flex justify-center items-center relative">
+            <Link
+              href="/"
+              className="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 flex items-center text-purple-300 hover:text-purple-400 transition-colors group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="group-hover:-translate-x-1 transition-transform duration-300"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              <span className="ml-1 font-silkscreen text-xs sm:text-sm hidden sm:inline-block">
+                Back
+              </span>
+            </Link>
 
-        <motion.div
-          className="w-24 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto mb-8 sm:mb-12"
-          initial={{ width: 0 }}
-          animate={{ width: 96 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        ></motion.div>
+            <motion.h1
+              className="text-2xl sm:text-3xl md:text-5xl text-center font-major-mono text-purple-300"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              Final {teamsData.teams.length} Teams
+            </motion.h1>
+          </div>
+
+          <motion.div
+            className="w-24 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto mt-4 mb-8 sm:mb-12"
+            initial={{ width: 0 }}
+            animate={{ width: 96 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          ></motion.div>
+        </div>
 
         {/* Search and Filter UI */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 sm:mb-8">
