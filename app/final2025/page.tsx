@@ -70,6 +70,20 @@ const shouldExpandTeam = (team: Team, searchTerm: string) => {
   );
 };
 
+// Simple deterministic "random" function to avoid hydration issues
+const seededRandom = (seed: number) => {
+  return ((seed * 9301 + 49297) % 233280) / 233280;
+};
+
+// Add this near your other helper functions - more subtle approach
+const getSatelliteTintClass = (track: string) => {
+  // Only apply tinting when we have a valid track
+  if (!track) return "";
+
+  const formattedTrack = track.replace(" ", "-");
+  return `satellite-tint-${formattedTrack}`;
+};
+
 const Final2025 = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [filteredTeams, setFilteredTeams] = useState<Team[]>([]);
@@ -101,14 +115,16 @@ const Final2025 = () => {
   }, []);
 
   useEffect(() => {
-    // Generate star field
-    const starArray = Array.from({ length: 100 }, () => ({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 0.5,
-      delay: Math.random() * 3,
-    }));
-    setStars(starArray);
+    // Generate star field with deterministic values on client-side only
+    if (typeof window !== "undefined") {
+      const starArray = Array.from({ length: 100 }, (_, i) => ({
+        x: seededRandom(i * 3) * 100,
+        y: seededRandom(i * 7) * 100,
+        size: seededRandom(i * 13) * 2 + 0.5,
+        delay: seededRandom(i * 19) * 3,
+      }));
+      setStars(starArray);
+    }
 
     // Set teams data
     setTeams(teamsData.teams);
@@ -232,7 +248,7 @@ const Final2025 = () => {
                   alt="Search Satellite"
                   width={32}
                   height={32}
-                  className={`object-contain ${
+                  className={`object-contain transition-all duration-300 ${
                     searchTerm ? "animate-spin-slow" : ""
                   }`}
                 />
@@ -287,21 +303,25 @@ const Final2025 = () => {
                   "polygon(0% 0%, 97% 0%, 100% 3%, 100% 97%, 97% 100%, 3% 100%, 0% 97%, 0% 3%)",
               }}
             >
-              <span className="flex items-center">
+              <span className="flex flex-wrap items-center gap-2 overflow-hidden">
                 <Image
                   src="/s2n.png"
                   alt="Filter"
                   width={20}
                   height={20}
-                  className={`mr-2 ${isFilterOpen ? "animate-spin-slow" : ""}`}
+                  className={`flex-shrink-0 ${
+                    isFilterOpen ? "animate-spin-slow" : ""
+                  }`}
                 />
                 {activeFilter ? (
-                  <span className="flex items-center">
-                    <span className="mr-2">{activeFilter}</span>
+                  <span className="flex flex-wrap items-center gap-1">
+                    <span className="truncate max-w-[80px] sm:max-w-[120px]">
+                      {activeFilter}
+                    </span>
                     <div
                       className={`${
                         trackColors[activeFilter as keyof typeof trackColors]
-                      } px-2 py-0.5 text-xs rounded-md border font-silkscreen inline-flex items-center`}
+                      } px-1 py-0.5 text-xs rounded-md border font-silkscreen inline-flex flex-shrink-0 items-center`}
                     >
                       {trackBadges[activeFilter as keyof typeof trackBadges]}
                     </div>
@@ -312,7 +332,7 @@ const Final2025 = () => {
               </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className={`h-4 w-4 transition-transform duration-300 ${
+                className={`h-4 w-4 flex-shrink-0 transition-transform duration-300 ml-1 ${
                   isFilterOpen ? "transform rotate-180" : ""
                 }`}
                 fill="none"
@@ -419,20 +439,20 @@ const Final2025 = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <span className="inline-flex items-center">
-            <span className="mr-2">
+          <div className="inline-flex flex-wrap justify-center items-center gap-2">
+            <span>
               Showing {filteredTeams.length} of {teams.length} teams
             </span>
             {activeFilter && (
               <div
                 className={`${
                   trackColors[activeFilter as keyof typeof trackColors]
-                } px-1.5 py-0.5 text-xs rounded-md border inline-flex items-center`}
+                } px-1.5 py-0.5 text-xs rounded-md border inline-flex items-center flex-shrink-0`}
               >
                 {trackBadges[activeFilter as keyof typeof trackBadges]}
               </div>
             )}
-          </span>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 gap-4 sm:gap-6 mt-4 sm:mt-6">
@@ -448,38 +468,37 @@ const Final2025 = () => {
               >
                 {/* Main team card with satellite */}
                 <div
-                  className={`relative flex items-center bg-gray-900/50 backdrop-blur-sm border ${
+                  className={`team-card relative flex items-center bg-gray-900/50 backdrop-blur-sm border ${
                     expandedTeam === team.id
-                      ? "border-purple-500"
+                      ? "border-purple-500 team-expanded-shadow"
                       : "border-gray-700"
                   } transition-all duration-300 rounded-lg overflow-hidden cursor-pointer hover:border-gray-500`}
                   onClick={() => toggleTeam(team.id)}
                   style={{
                     clipPath:
                       "polygon(0% 0%, 97% 0%, 100% 3%, 100% 97%, 97% 100%, 3% 100%, 0% 97%, 0% 3%)",
-                    boxShadow:
-                      expandedTeam === team.id
-                        ? "0 0 15px rgba(168,85,247,0.4)"
-                        : "none",
                   }}
                 >
-                  {/* Satellite image on the left */}
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex-shrink-0 relative overflow-hidden pl-1 sm:pl-2">
+                  {/* Satellite image on the left with subtle track-based tinting */}
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex-shrink-0 relative overflow-hidden pl-1 sm:pl-2 flex items-center justify-center transition-all duration-300">
                     <Image
                       src={`/${team.satelliteType}.png`}
                       alt="Satellite"
-                      width={80}
-                      height={80}
-                      className={`object-contain ${
-                        expandedTeam === team.id ? "animate-spin-slow" : ""
+                      width={96}
+                      height={96}
+                      className={`satellite-image object-contain w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 transition-all duration-300 ${
+                        expandedTeam === team.id
+                          ? "expanded-satellite"
+                          : getSatelliteTintClass(team.track)
                       }`}
                     />
                   </div>
 
-                  {/* Team name and track badge */}
-                  <div className="flex-grow py-3 sm:py-4 px-2 sm:px-3">
-                    <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 mb-1">
-                      <h2 className="text-center font-silkscreen text-sm sm:text-base md:text-lg text-cyan-300">
+                  {/* Team name and track badge - Always visible */}
+                  <div className="flex-grow py-2 sm:py-3 px-1 sm:px-3 overflow-hidden">
+                    <div className="flex flex-col items-center justify-center gap-1 mb-1">
+                      {/* Team name always stays visible */}
+                      <h2 className="text-center font-major-mono text-sm sm:text-base md:text-lg text-cyan-300 truncate w-full">
                         {searchTerm
                           ? highlightMatch(team.name, searchTerm)
                           : team.name}
@@ -493,27 +512,38 @@ const Final2025 = () => {
                       >
                         {trackBadges[team.track as keyof typeof trackBadges]}
                       </div>
-                    </div>
 
-                    {expandedTeam !== team.id && (
-                      <p className="text-xs text-gray-400 text-center font-bitwise truncate sm:max-w-[32rem]">
-                        {searchTerm
-                          ? highlightMatch(team.project, searchTerm)
-                          : team.project}
-                      </p>
-                    )}
+                      {/* Project name - only visible when collapsed */}
+                      <AnimatePresence mode="wait">
+                        {expandedTeam !== team.id ? (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="text-xs text-gray-400 text-center font-bitwise truncate max-w-full px-1"
+                          >
+                            {searchTerm
+                              ? highlightMatch(team.project, searchTerm)
+                              : team.project}
+                          </motion.p>
+                        ) : (
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-xs text-purple-300 text-center font-silkscreen"
+                          >
+                            [Details Below]
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
 
                   {/* Expand indicator */}
-                  <div className="mr-3 sm:mr-4 text-purple-400">
-                    <motion.span
-                      initial={false}
-                      animate={{ rotate: expandedTeam === team.id ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="font-silkscreen text-xs inline-block"
-                    >
-                      {expandedTeam === team.id ? "▲" : "▼"}
-                    </motion.span>
+                  <div className="mr-2 sm:mr-4 text-purple-400 flex-shrink-0">
+                    <span className="font-silkscreen text-xs inline-block">
+                      {expandedTeam === team.id ? "[-]" : "[+]"}
+                    </span>
                   </div>
                 </div>
 
@@ -526,9 +556,9 @@ const Final2025 = () => {
                       exit={{
                         opacity: 0,
                         height: 0,
-                        transition: { duration: 0.5 },
+                        transition: { duration: 0.3 },
                       }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.3 }}
                       className="mt-2 bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-md p-3 sm:p-4 font-bitwise"
                       style={{
                         clipPath:
@@ -536,11 +566,11 @@ const Final2025 = () => {
                       }}
                     >
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                        <div className="overflow-hidden">
                           <h3 className="text-amber-300 text-xs sm:text-sm mb-1 sm:mb-2">
                             Project:
                           </h3>
-                          <p className="text-white text-xs sm:text-sm mb-3">
+                          <p className="text-white text-xs sm:text-sm mb-3 break-words">
                             {searchTerm
                               ? highlightMatch(team.project, searchTerm)
                               : team.project}
@@ -562,11 +592,11 @@ const Final2025 = () => {
                           </div>
                         </div>
 
-                        <div>
+                        <div className="overflow-hidden">
                           <h3 className="text-amber-300 text-xs sm:text-sm mb-1 sm:mb-2 mt-3 md:mt-0">
                             Team Leader:
                           </h3>
-                          <p className="text-white text-xs sm:text-sm mb-3">
+                          <p className="text-white text-xs sm:text-sm mb-3 break-words">
                             {searchTerm
                               ? highlightMatch(team.leader, searchTerm)
                               : team.leader}
@@ -578,7 +608,7 @@ const Final2025 = () => {
                           </h3>
                           <ul className="text-gray-300 text-xs sm:text-sm list-disc pl-5">
                             {team.members.map((member, i) => (
-                              <li key={i}>
+                              <li key={i} className="break-words">
                                 {searchTerm
                                   ? highlightMatch(member, searchTerm)
                                   : member}
