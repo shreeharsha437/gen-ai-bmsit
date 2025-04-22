@@ -1,14 +1,14 @@
 [
   {
     "id": "v1",
-    "name": "SnehaPriyadarshy",
+    "name": "Sneha Priyadarshy",
     "role": "FORK",
     "quote": "Push past limits, break the mold, and show them what you're made of",
     "pokemon_no": 174
   },
   {
     "id": "v2",
-    "name": "SharanPatil",
+    "name": "Sharan Patil",
     "role": "FORK",
     "quote": "You're stronger than you think—keep pushing forward.",
     "pokemon_no": 25
@@ -50,21 +50,21 @@
   },
   {
     "id": "v8",
-    "name": "ShreeRaksha",
+    "name": "Shree Raksha",
     "role": "SPOON",
     "quote": "Chasing dreams in high heels",
     "pokemon_no": 181
   },
   {
     "id": "v9",
-    "name": "ChayaHG",
+    "name": "Chaya H G",
     "role": "SPOON",
     "quote": "I build what I wish existed",
     "pokemon_no": 257
   },
   {
     "id": "v10",
-    "name": "YashRaghav",
+    "name": "Yash Raghav",
     "role": "FORK",
     "quote": "No one's existence is a sin",
     "pokemon_no": 643
@@ -154,7 +154,7 @@
     "pokemon_no": 359
   },
   {
-    "id": "vcL00",
+    "id": "vcl",
     "name": "Aditya Srivastava",
     "role": "COLEAD",
     "quote": "Domain Expansion",

@@ -88,7 +88,7 @@ const getVolunteerImage = (id: string) => {
   try {
     // For special leadership roles
     if (id === "vL00") return "/team/vL00.png";
-    if (id === "vcL00") return "/team/vcL00.png";
+    if (id === "vcl") return "/team/vcl.png";
 
     // For regular volunteers, ensure we're using the exact ID for the image path
     // Use a direct path matching the exact volunteer ID
