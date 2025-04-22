@@ -905,7 +905,7 @@ const VolunteersPage = () => {
               <Image src="/pokeball.png" alt="Loading" width={64} height={64} />
             </div>
             <p className="ml-4 font-silkscreen text-blue-300">
-              Loading Pokémon data...
+              Loading Volunteer data...
             </p>
           </motion.div>
         ) : (

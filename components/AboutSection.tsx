@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   MapPin,
@@ -525,19 +526,20 @@ const AboutSection: React.FC = () => {
                   pokemonId={9} // Blastoise
                 />
 
-                {/* More Coming Soon Button */}
+                {/* More Team Members Button - Navigate to /volunteers page */}
                 <div className="text-center mt-4">
-                  <button
-                    onClick={() => setShowComingSoon(true)}
-                    className="font-silkscreen text-xs bg-gray-800 text-amber-400 px-3 py-1.5 border border-amber-700 hover:bg-gray-700 transition-colors rounded-sm"
-                    style={{
-                      clipPath:
-                        "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
-                    }}
-                  >
-                    <Users className="inline-block mr-1 w-3 h-3" />
-                    More Team Members Coming Soon...
-                  </button>
+                  <Link href="/volunteers">
+                    <button
+                      className="font-silkscreen text-xs bg-gray-800 text-amber-400 px-3 py-1.5 border border-amber-700 hover:bg-gray-700 transition-colors rounded-sm flex items-center justify-center mx-auto"
+                      style={{
+                        clipPath:
+                          "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
+                      }}
+                    >
+                      <Users className="inline-block mr-1 w-3 h-3" />
+                      View All Team Members
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
