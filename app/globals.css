@@ -1260,6 +1260,48 @@ body::before {
   transform: rotateY(180deg);
 }
 
+/* Card flip animations */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Pixel character bounce animation */
+@keyframes bounce-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+/* Text shadow for better readability */
+.text-shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Pixelated rendering for sprite images */
+.pixelated {
+  image-rendering: pixelated;
+}
+
 /* Add this to the existing animations section */
 
 @keyframes spin-slow {

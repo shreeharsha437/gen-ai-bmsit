@@ -511,16 +511,16 @@ const AboutSection: React.FC = () => {
                 <CompactTeamMember
                   name="Ankit Kumar Singh"
                   role="Event Lead"
-                  quote="The best way to predict the future is to create it!"
+                  quote="I’m not a hero because I want your approval. I do it because I want to."
                   imageUrl="/team/event-lead.jpg"
-                  pokemonId={937}
+                  pokemonId={359}
                 />
 
                 {/* Event Co-Lead Card */}
                 <CompactTeamMember
                   name="Aditya Srivastava"
                   role="Event Co-Lead"
-                  quote="Code is poetry written for machines to execute."
+                  quote="Domain Expansion"
                   imageUrl="/team/event-colead.jpg"
                   pokemonId={9} // Blastoise
                 />
