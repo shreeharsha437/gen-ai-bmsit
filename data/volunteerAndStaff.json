@@ -11,7 +11,7 @@
     "name": "Sharan Patil",
     "role": "FORK",
     "quote": "You're stronger than you think—keep pushing forward.",
-    "pokemon_no": 25
+    "pokemon_no": 150
   },
   {
     "id": "v3",
@@ -24,8 +24,8 @@
     "id": "v4",
     "name": "Lohith",
     "role": "FORK",
-    "quote": "Don’t wait for permission to shine. Do it anyway.",
-    "pokemon_no": 356
+    "quote": "The only thing that overcomes hard luck is hard work.",
+    "pokemon_no": 94
   },
   {
     "id": "v5",
@@ -158,6 +158,6 @@
     "name": "Aditya Srivastava",
     "role": "COLEAD",
     "quote": "Domain Expansion",
-    "pokemon_no": 9
+    "pokemon_no": 4
   }
 ]
