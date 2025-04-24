@@ -54,7 +54,7 @@ const roleColors = {
 // Define role badges
 const roleBadges = {
   LEAD: "KNIFE",
-  COLEAD: "SPATULA",
+  COLEAD: "CHOPSTICK",
   FORK: "FORK",
   SPOON: "SPOON",
 };
@@ -258,7 +258,7 @@ const VolunteerCard = ({
       case "LEAD":
         return "KNIFE - Event Lead";
       case "COLEAD":
-        return "SPATULA - Event Co-Lead";
+        return "CHOPSTICK - Event Co-Lead";
       default:
         return "Volunteer";
     }

@@ -513,8 +513,8 @@ const AboutSection: React.FC = () => {
                   name="Ankit Kumar Singh"
                   role="Event Lead"
                   quote="I’m not a hero because I want your approval. I do it because I want to."
-                  imageUrl="/team/event-lead.jpg"
-                  pokemonId={359}
+                  imageUrl="/team/vL00.png"
+                  pokemonId={381}
                 />
 
                 {/* Event Co-Lead Card */}
@@ -522,7 +522,7 @@ const AboutSection: React.FC = () => {
                   name="Aditya Srivastava"
                   role="Event Co-Lead"
                   quote="Domain Expansion"
-                  imageUrl="/team/event-colead.jpg"
+                  imageUrl="/team/vcl.png"
                   pokemonId={9} // Blastoise
                 />
 
