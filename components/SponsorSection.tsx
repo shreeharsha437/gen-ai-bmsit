@@ -45,6 +45,13 @@ const sponsorData: Sponsor[] = [
     tier: "silver",
   },
   {
+    id: "s3",
+    name: "CodeCrafters.io",
+    logoUrl: "/sponsors/codecrafterslogo.png",
+    websiteUrl: "https://codecrafters.io/",
+    tier: "silver",
+  },
+  {
     id: "b1",
     name: "Fastdy",
     logoUrl: "/sponsors/fastdylogo.png",
