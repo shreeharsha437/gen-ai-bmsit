@@ -53,7 +53,7 @@ const sponsorData: Sponsor[] = [
   },
   {
     id: "b2",
-    name: "LI Reatail",
+    name: "LI Retail",
     logoUrl: "/sponsors/liretailslogo.png",
     websiteUrl: "#",
     tier: "bronze",
