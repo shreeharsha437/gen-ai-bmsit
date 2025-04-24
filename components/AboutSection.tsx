@@ -523,7 +523,7 @@ const AboutSection: React.FC = () => {
                   role="Event Co-Lead"
                   quote="Domain Expansion"
                   imageUrl="/team/vcl.png"
-                  pokemonId={9} // Blastoise
+                  pokemonId={4} // Charmander
                 />
 
                 {/* More Team Members Button - Navigate to /volunteers page */}
