@@ -18,9 +18,9 @@ interface Sponsor {
 const sponsorData: Sponsor[] = [
   {
     id: "g1",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-gold.png",
-    websiteUrl: "#",
+    name: "Brindavan Group of Institutions",
+    logoUrl: "/sponsors/bgilogo.png",
+    websiteUrl: "https://brindavangroup.edu.in/",
     tier: "gold",
   },
   {
