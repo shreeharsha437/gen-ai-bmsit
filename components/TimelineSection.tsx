@@ -43,14 +43,14 @@ const timelineData: TimelineEvent[] = [
   },
   {
     id: 2,
-    time: "Apr 30",
+    time: "May 5",
     title: "Registration Closes",
     description: "Last chance to register for Brinhack!",
     icon: CalendarCheck,
   },
   {
     id: 3,
-    time: "May 1",
+    time: "May 1 onwards",
     title: "Teams Announced",
     description: "Check your email & WhatsApp!",
     icon: Users,
