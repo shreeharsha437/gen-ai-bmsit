@@ -83,6 +83,22 @@ const typeColors: Record<string, string> = {
   unknown: "bg-gray-500",
 };
 
+// Add this helper function to map role values to badge filenames
+const getBadgeImage = (role: string) => {
+  switch (role) {
+    case "LEAD":
+      return "/badges/lead.png";
+    case "COLEAD":
+      return "/badges/colead.png";
+    case "FORK":
+      return "/badges/tech.png";
+    case "SPOON":
+      return "/badges/nontech.png";
+    default:
+      return "/badges/nontech.png";
+  }
+};
+
 // Completely reworked volunteer image handling function
 const getVolunteerImage = (id: string) => {
   try {
@@ -113,6 +129,14 @@ const getOfficialArtwork = (pokemon: Pokemon | null) =>
   pokemon?.sprites?.other?.["official-artwork"]?.front_default ||
   pokemon?.sprites?.front_default ||
   "/pokeball.png";
+
+// Update the getTruncatedName function to handle dynamic font size instead of truncating
+const getNameFontSize = (name: string) => {
+  if (name.length > 25) return "text-sm sm:text-lg";
+  if (name.length > 20) return "text-base sm:text-lg";
+  if (name.length > 15) return "text-lg sm:text-xl";
+  return "text-lg sm:text-xl";
+};
 
 // --- Updated VolunteerCard with window-like styling for special cards ---
 const VolunteerCard = ({
@@ -247,11 +271,6 @@ const VolunteerCard = ({
     }
   };
 
-  // Truncate name if too long
-  const getTruncatedName = (name: string) => {
-    return name.length > 18 ? name.substring(0, 16) + "..." : name;
-  };
-
   // Window title based on role - for special cards
   const getWindowTitle = (role: string) => {
     switch (role) {
@@ -298,6 +317,26 @@ const VolunteerCard = ({
 
       {/* Pixelated background overlay */}
       <div className="absolute inset-0 bg-[url('/pixel-grid.png')] opacity-10"></div>
+
+      <div
+        className={`absolute top-2 right-2 ${
+          volunteer.role === "LEAD" || volunteer.role === "COLEAD"
+            ? "w-16 h-16"
+            : "w-12 h-12"
+        } z-30 transition-all duration-300 group`}
+      >
+        <Image
+          src={getBadgeImage(volunteer.role)}
+          alt={`${volunteer.role} Badge`}
+          width={
+            volunteer.role === "LEAD" || volunteer.role === "COLEAD" ? 64 : 48
+          }
+          height={
+            volunteer.role === "LEAD" || volunteer.role === "COLEAD" ? 64 : 48
+          }
+          className="object-contain w-full h-full transition-transform duration-300 group-hover:animate-spin"
+        />
+      </div>
 
       {/* Mac OS-style window controls for special cards */}
       {isSpecial && (
@@ -531,9 +570,13 @@ const VolunteerCard = ({
             transition={{ duration: 0.3 }}
           >
             {/* Name with better styling and visibility */}
-            <h3 className="font-major-mono text-lg sm:text-xl text-white mb-1.5 line-clamp-1 pr-2">
-              <span className="bg-gradient-to-r from-cyan-200 to-white bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
-                {getTruncatedName(volunteer.name)}
+            <h3
+              className={`font-major-mono ${getNameFontSize(
+                volunteer.name
+              )} text-white mb-1.5 pr-2`}
+            >
+              <span className="bg-gradient-to-r from-cyan-200 to-white bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)] break-words">
+                {volunteer.name}
               </span>
             </h3>
 
@@ -593,9 +636,7 @@ const VolunteerCard = ({
                   <p className="text-[10px] text-gray-300 flex items-center">
                     <span className="inline-block w-1 h-1 bg-blue-400 mr-1 rounded-full"></span>
                     <span className="font-silkscreen">TRAINER:</span>{" "}
-                    <span className="ml-1 truncate">
-                      {getTruncatedName(volunteer.name)}
-                    </span>
+                    <span className="ml-1 break-words">{volunteer.name}</span>
                   </p>
                 </div>
               </div>
