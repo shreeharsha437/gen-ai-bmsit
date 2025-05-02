@@ -5,7 +5,6 @@
       "name": "Quantum Coders",
       "leader": "Alex Johnson",
       "members": ["Sarah Kim", "Michael Chen", "Leila Patel"],
-      "project": "IoT-based Smart Agriculture System",
       "track": "IoT",
       "satelliteType": "s1n"
     },
@@ -14,7 +13,6 @@
       "name": "Cyber Sentinels",
       "leader": "Ethan Williams",
       "members": ["Olivia Martinez", "Noah Garcia", "Emma Wilson"],
-      "project": "Zero-Trust Network Security Framework",
       "track": "CyberSecurity",
       "satelliteType": "s2n"
     },
@@ -23,7 +21,6 @@
       "name": "Block Innovators",
       "leader": "Sophia Lee",
       "members": ["William Brown", "Ava Thompson", "James Davis"],
-      "project": "Decentralized Carbon Credit Trading Platform",
       "track": "Blockchain",
       "satelliteType": "s4n"
     },
@@ -32,7 +29,6 @@
       "name": "Green Tech",
       "leader": "Liam Anderson",
       "members": ["Isabella Thomas", "Lucas White", "Mia Harris"],
-      "project": "Solar-Powered Edge Computing Nodes",
       "track": "Sustainability",
       "satelliteType": "s1n"
     },

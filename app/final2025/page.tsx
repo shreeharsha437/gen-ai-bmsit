@@ -11,7 +11,6 @@ interface Team {
   name: string;
   leader: string;
   members: string[];
-  project: string;
   track: string;
   satelliteType: string;
 }
@@ -63,7 +62,6 @@ const shouldExpandTeam = (team: Team, searchTerm: string) => {
 
   return (
     team.name.toLowerCase().includes(searchTermLower) ||
-    team.project.toLowerCase().includes(searchTermLower) ||
     team.leader.toLowerCase().includes(searchTermLower) ||
     team.members.some((member) =>
       member.toLowerCase().includes(searchTermLower)
@@ -141,7 +139,6 @@ const Final2025 = () => {
       results = results.filter(
         (team) =>
           team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          team.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
           team.leader.toLowerCase().includes(searchTerm.toLowerCase()) ||
           team.members.some((member) =>
             member.toLowerCase().includes(searchTerm.toLowerCase())
@@ -553,30 +550,6 @@ const Final2025 = () => {
                       >
                         {trackBadges[team.track as keyof typeof trackBadges]}
                       </div>
-
-                      {/* Project name - only visible when collapsed */}
-                      <AnimatePresence mode="wait">
-                        {expandedTeam !== team.id ? (
-                          <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="text-xs text-gray-400 text-center font-bitwise truncate max-w-full px-1"
-                          >
-                            {searchTerm
-                              ? highlightMatch(team.project, searchTerm)
-                              : team.project}
-                          </motion.p>
-                        ) : (
-                          <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-xs text-purple-300 text-center font-silkscreen"
-                          >
-                            [Details Below]
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
                     </div>
                   </div>
 
@@ -608,15 +581,6 @@ const Final2025 = () => {
                     >
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="overflow-hidden">
-                          <h3 className="text-amber-300 text-xs sm:text-sm mb-1 sm:mb-2">
-                            Project:
-                          </h3>
-                          <p className="text-white text-xs sm:text-sm mb-3 break-words">
-                            {searchTerm
-                              ? highlightMatch(team.project, searchTerm)
-                              : team.project}
-                          </p>
-
                           <h3 className="text-amber-300 text-xs sm:text-sm mb-1 sm:mb-2">
                             Track:
                           </h3>
