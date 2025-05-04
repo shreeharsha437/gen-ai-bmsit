@@ -69,7 +69,7 @@ const CountdownTimer: React.FC = () => {
           className="text-[10px] sm:text-xs md:text-sm font-silkscreen text-white mb-1 sm:mb-2 
                       px-2 py-0.5 bg-purple-900/90 rounded-full border border-white/30"
         >
-          TIME REMAINING TO REGISTER
+          TIME REMAINING FOR HACKATHON
         </h3>
 
         <div className="flex justify-center space-x-1 sm:space-x-2 mt-1">

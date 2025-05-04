@@ -59,8 +59,8 @@
     {
       "id": "team8",
       "name": "Astral Aces",
-      "leader": "Harshitha T.U",
-      "members": ["Usha Gowda", "Dheekshita Gouda", "Dhanya Hegde"],
+      "leader": "Dhanya Hegde",
+      "members": ["Usha Gowda", "Dheekshita Gouda", "Harshitha T.U"],
       "track": "Open Innovation",
       "satelliteType": "s2n"
     },
@@ -106,10 +106,10 @@
     },
     {
       "id": "team14",
-      "name": "Krimabhitenics",
-      "leader": "Hiten",
-      "members": ["Brinda Yadav", "Manya kR", "Kishan d"],
-      "track": "IoT",
+      "name": "RedHat Squad",
+      "leader": "Arjun Pal",
+      "members": ["Koustubha", "Kareena U", "Tamanna Jadon"],
+      "track": "Open Innovation",
       "satelliteType": "s4n"
     },
     {
@@ -154,10 +154,10 @@
     },
     {
       "id": "team20",
-      "name": "Codecrew",
-      "leader": "Vinay Kumar",
-      "members": ["Salvi Nama", "Arya Pathak", "Archie Tansaria"],
-      "track": "Blockchain",
+      "name": "Crazy developers",
+      "leader": "Mahalakshmi J",
+      "members": ["Santhosh S", "Nisha yadav", "Saranya"],
+      "track": "Open Innovation",
       "satelliteType": "s2n"
     },
     {
@@ -170,9 +170,9 @@
     },
     {
       "id": "team22",
-      "name": "TouchGrass",
-      "leader": "Chetan R",
-      "members": ["Kavya K.M", "Ashfaq Hyder C.S", "Shreyank B.R"],
+      "name": "Deadpool and wolverine",
+      "leader": "Sreekanth NM",
+      "members": ["Yashwanth DR", "Dhanush S"],
       "track": "Open Innovation",
       "satelliteType": "s2n"
     },
@@ -202,18 +202,18 @@
     },
     {
       "id": "team26",
-      "name": "soil_sync",
-      "leader": "Abhijeet Yadav",
-      "members": ["Adarsh"],
-      "track": "Sustainability",
+      "name": "Byte Chain",
+      "leader": "Altamash Shaikh",
+      "members": ["YousufKhan Pathan", "Syed Khizer", "Syed Sadiq Ahamed"],
+      "track": "Blockchain",
       "satelliteType": "s4n"
     },
     {
       "id": "team27",
-      "name": "Outliers",
-      "leader": "Raksha BV",
-      "members": ["Aditya Anand"],
-      "track": "Blockchain",
+      "name": "Money minds",
+      "leader": "Darsh vithlani",
+      "members": ["Shripad patil", "Swamil Choudhury"],
+      "track": "Open Innovation",
       "satelliteType": "s2n"
     },
     {

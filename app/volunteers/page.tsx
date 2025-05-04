@@ -321,8 +321,8 @@ const VolunteerCard = ({
       <div
         className={`absolute top-2 right-2 ${
           volunteer.role === "LEAD" || volunteer.role === "COLEAD"
-            ? "w-16 h-16"
-            : "w-12 h-12"
+            ? "w-16 h-16 md:w-16 md:h-16"
+            : "w-8 h-8 md:w-12 md:h-12"
         } z-30 transition-all duration-300 group`}
       >
         <Image
@@ -334,7 +334,7 @@ const VolunteerCard = ({
           height={
             volunteer.role === "LEAD" || volunteer.role === "COLEAD" ? 64 : 48
           }
-          className="object-contain w-full h-full transition-transform duration-300 group-hover:animate-spin"
+          className="object-contain w-full h-full transition-transform duration-300 group-hover:animate-spin opacity-80 md:opacity-100"
         />
       </div>
 
