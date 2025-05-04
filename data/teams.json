@@ -37,7 +37,6 @@
       "name": "Data Pioneers",
       "leader": "Charlotte Jackson",
       "members": ["Benjamin Lewis", "Amelia Clark", "Henry Walker"],
-      "project": "AI-Powered Healthcare Diagnostics Tool",
       "track": "Open Innovation",
       "satelliteType": "s2n"
     },
@@ -46,7 +45,6 @@
       "name": "Neural Nexus",
       "leader": "Oliver Moore",
       "members": ["Ella Hill", "Daniel Allen", "Sofia Young"],
-      "project": "Brain-Computer Interface for Accessibility",
       "track": "IoT",
       "satelliteType": "s4n"
     },
@@ -55,7 +53,6 @@
       "name": "Shield Guardians",
       "leader": "Elijah King",
       "members": ["Avery Wright", "Mason Scott", "Scarlett Green"],
-      "project": "AI-Enhanced Threat Detection System",
       "track": "CyberSecurity",
       "satelliteType": "s1n"
     },
@@ -64,7 +61,6 @@
       "name": "Chain Weavers",
       "leader": "Luna Adams",
       "members": ["Sebastian Baker", "Aria Hall", "Carter Nelson"],
-      "project": "Blockchain-Based Supply Chain Verification",
       "track": "Blockchain",
       "satelliteType": "s2n"
     },
@@ -73,7 +69,6 @@
       "name": "EcoSolve",
       "leader": "Leo Mitchell",
       "members": ["Stella Carter", "Theodore Phillips", "Ruby Morgan"],
-      "project": "Smart Waste Management System",
       "track": "Sustainability",
       "satelliteType": "s4n"
     },
@@ -82,7 +77,6 @@
       "name": "CodeCraft",
       "leader": "Zoe Cooper",
       "members": ["David Torres", "Penelope Rivera", "Jack Roberts"],
-      "project": "AR Collaborative Development Environment",
       "track": "Open Innovation",
       "satelliteType": "s1n"
     },
@@ -91,7 +85,6 @@
       "name": "IoT Wizards",
       "leader": "Hazel Reed",
       "members": ["Gabriel Wood", "Madison Cox", "Owen Ross"],
-      "project": "Disaster Response Drone Network",
       "track": "IoT",
       "satelliteType": "s2n"
     },
@@ -100,7 +93,6 @@
       "name": "Secure Logic",
       "leader": "Aaron Parker",
       "members": ["Nora Murphy", "Eli Watson", "Lily Peterson"],
-      "project": "Quantum-Resistant Encryption Protocol",
       "track": "CyberSecurity",
       "satelliteType": "s4n"
     },
@@ -109,7 +101,6 @@
       "name": "BlockMatrix",
       "leader": "Eva Collins",
       "members": ["Miles Bennett", "Riley Cook", "Violet Sanders"],
-      "project": "NFT-Based Digital Identity System",
       "track": "Blockchain",
       "satelliteType": "s1n"
     },
@@ -118,7 +109,6 @@
       "name": "Eco Pulse",
       "leader": "Ian Hughes",
       "members": ["Grace Barnes", "Finn Rogers", "Ivy Price"],
-      "project": "Urban Micro-Farming Automation",
       "track": "Sustainability",
       "satelliteType": "s2n"
     },
@@ -127,7 +117,6 @@
       "name": "Tech Fusion",
       "leader": "June Henderson",
       "members": ["Rowan Foster", "Quinn Coleman", "Bella Griffin"],
-      "project": "AI Language Translation Earbuds",
       "track": "Open Innovation",
       "satelliteType": "s4n"
     },
@@ -136,7 +125,6 @@
       "name": "Connected Systems",
       "leader": "Thomas Perry",
       "members": ["Audrey Hayes", "Felix Butler", "Clara Simmons"],
-      "project": "Smart City Traffic Management",
       "track": "IoT",
       "satelliteType": "s1n"
     },
@@ -145,7 +133,6 @@
       "name": "Guard Protocol",
       "leader": "Maya Brooks",
       "members": ["Zachary Price", "Alice Ward", "Harrison Gray"],
-      "project": "Biometric Authentication Framework",
       "track": "CyberSecurity",
       "satelliteType": "s2n"
     },
@@ -154,7 +141,6 @@
       "name": "DistributedX",
       "leader": "Oscar Reynolds",
       "members": ["Naomi Howard", "Elliott Powell", "Sadie Bell"],
-      "project": "Decentralized Healthcare Records",
       "track": "Blockchain",
       "satelliteType": "s4n"
     },
@@ -163,7 +149,6 @@
       "name": "GreenLoop",
       "leader": "Ruby Hughes",
       "members": ["Milo Patterson", "Cora Russell", "Silas Jenkins"],
-      "project": "Circular Economy Materials Marketplace",
       "track": "Sustainability",
       "satelliteType": "s1n"
     },
@@ -172,7 +157,6 @@
       "name": "Future Core",
       "leader": "Emmett Richardson",
       "members": ["Lucia Martinez", "August Kelly", "Nova Long"],
-      "project": "Mixed Reality Educational Platform",
       "track": "Open Innovation",
       "satelliteType": "s2n"
     },
@@ -181,7 +165,6 @@
       "name": "DeviceNet",
       "leader": "Wesley Stewart",
       "members": ["Thea Rogers", "Julian Ramirez", "Margot Cooper"],
-      "project": "Medical IoT Monitoring System",
       "track": "IoT",
       "satelliteType": "s4n"
     },
@@ -190,7 +173,6 @@
       "name": "CyberGuard",
       "leader": "Adelaide Turner",
       "members": ["Atticus Brooks", "Georgia Miller", "Vincent Foster"],
-      "project": "Secure IoT Communication Protocol",
       "track": "CyberSecurity",
       "satelliteType": "s1n"
     },
@@ -199,7 +181,6 @@
       "name": "TokenVerse",
       "leader": "Simon Edwards",
       "members": ["Delilah Murphy", "Jasper Bailey", "Elsie Richardson"],
-      "project": "DAO for Community Development Projects",
       "track": "Blockchain",
       "satelliteType": "s2n"
     },
@@ -208,7 +189,6 @@
       "name": "EcoSphere",
       "leader": "Juniper Wells",
       "members": ["Callum Barnes", "Wren Campbell", "Iris Watson"],
-      "project": "Energy Usage Optimization AI",
       "track": "Sustainability",
       "satelliteType": "s4n"
     },
@@ -217,7 +197,6 @@
       "name": "BrainWave",
       "leader": "Maxine Gonzalez",
       "members": ["Otis Coleman", "Sage Peterson", "Poppy Morgan"],
-      "project": "Mental Health Digital Therapeutics",
       "track": "Open Innovation",
       "satelliteType": "s1n"
     }
