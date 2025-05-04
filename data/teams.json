@@ -204,7 +204,7 @@
       "id": "team26",
       "name": "soil_sync",
       "leader": "Abhijeet Yadav",
-      "members": ["Adarsh", "Adarsh"],
+      "members": ["Adarsh"],
       "track": "Sustainability",
       "satelliteType": "s4n"
     },
@@ -252,24 +252,24 @@
       "id": "team32",
       "name": "Tech Titans",
       "leader": "Srihari R",
-      "members": ["S Sandeep Kumar"],
+      "members": ["S Sandeep Kumar", "Adarsha BV", "Manjunatha"],
       "track": "CyberSecurity",
       "satelliteType": "s1n"
     },
     {
       "id": "team33",
       "name": "The NOVA",
-      "leader": "Rohit Kumar",
-      "members": ["Ananya", "Rakesh", "Priya"],
-      "track": "Open Innovation",
+      "leader": "SUmantha",
+      "members": ["Shreesha", "Omkar Prabhu", "Shreyas A"],
+      "track": "Sustainability",
       "satelliteType": "s4n"
     },
     {
       "id": "team34",
       "name": "Tri tech Titans",
-      "leader": "Amit Kumar",
-      "members": ["Sneha", "Vikram", "Ritu"],
-      "track": "IoT",
+      "leader": "Sarvesh",
+      "members": ["Gourav", "Shashank"],
+      "track": "CyberSecurity",
       "satelliteType": "s1n"
     }
   ]
