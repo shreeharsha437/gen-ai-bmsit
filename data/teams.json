@@ -234,10 +234,14 @@
     },
     {
       "id": "team30",
-      "name": "CodeBlue",
-      "leader": "Kavya B S",
-      "members": ["J Suhas", "Imthiyaz K", "Pooja M"],
-      "track": "Blockchain",
+      "name": "ADVAYA",
+      "leader": "Deekshith KS",
+      "members": [
+        "Darshan A M",
+        "Manoj S J",
+        "Dhanush bellary manjunath reddy"
+      ],
+      "track": "Open Innovation",
       "satelliteType": "s1n"
     },
     {
@@ -266,10 +270,10 @@
     },
     {
       "id": "team34",
-      "name": "Tri tech Titans",
-      "leader": "Sarvesh",
-      "members": ["Gourav", "Shashank"],
-      "track": "CyberSecurity",
+      "name": "CodeBlue",
+      "leader": "Kavya BS",
+      "members": ["J Suhas", "Imthiyaz K", "Pooja M"],
+      "track": "Blockchain",
       "satelliteType": "s1n"
     }
   ]
