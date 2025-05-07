@@ -2,8 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react"; // Import icons for mobile menu
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Users,
+  Award,
+  Star,
+  ExternalLink,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Define the prop type
 interface FloatingNavbarProps {
@@ -19,10 +29,92 @@ const navItems = [
   // { name: "FAQ", href: "#faq-section", external: false },
 ];
 
+// Define extras navigation items separately
+const extrasItems = [
+  {
+    name: "Selected Teams",
+    desc: "Finalists list",
+    href: "/final2025",
+    icon: (
+      <Image
+        src="/pokeball.png"
+        alt="Finalists Teams"
+        width={20}
+        height={20}
+        className="object-contain"
+      />
+    ),
+    bgColor: "bg-purple-900/50",
+    borderColor: "border-purple-500/50",
+    textColor: "text-cyan-300",
+  },
+  {
+    name: "Volunteer Squad",
+    desc: "Meet our team",
+    href: "/volunteers",
+    icon: (
+      <Image
+        src="/c1n.svg"
+        alt="Volunteers Cloud"
+        width={20}
+        height={20}
+        className="object-contain"
+      />
+    ),
+    bgColor: "bg-blue-900/50",
+    borderColor: "border-blue-500/50",
+    textColor: "text-pink-300",
+  },
+];
+
 const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showComingSoon, setShowComingSoon] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [extrasMenuOpen, setExtrasMenuOpen] = useState(false);
+
+  // Animation variants for dropdown menu
+  const dropdownVariants = {
+    hidden: {
+      opacity: 0,
+      y: -10,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut",
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -5,
+      scale: 0.97,
+      transition: {
+        duration: 0.2,
+        ease: "easeIn",
+      },
+    },
+  };
+
+  // Animation variants for menu items (staggered children)
+  const menuItemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.05 * custom,
+        duration: 0.3,
+      },
+    }),
+  };
 
   // Scroll listener for background transparency
   useEffect(() => {
@@ -37,8 +129,22 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
+    // Close extras dropdown when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        !target.closest("#extras-dropdown") &&
+        !target.closest("#extras-button")
+      ) {
+        setExtrasMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -59,6 +165,11 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
     }
   };
 
+  // Toggle extras menu
+  const toggleExtrasMenu = () => {
+    setExtrasMenuOpen(!extrasMenuOpen);
+  };
+
   return (
     <>
       <nav
@@ -71,11 +182,17 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
         <div className="container mx-auto px-3 sm:px-6 py-3 flex items-center justify-between h-14 sm:h-16 md:h-20">
           {/* Left Side: Logo Placeholder/Area */}
           <div className="flex items-center h-full">
-            <div
+            <motion.div
               id="navbar-logo-placeholder"
-              className={`relative h-full flex items-center transition-opacity duration-500 ease-in-out ${
-                showLogo ? "opacity-100" : "opacity-0 pointer-events-none"
+              className={`relative h-full flex items-center ${
+                showLogo ? "pointer-events-auto" : "pointer-events-none"
               }`}
+              initial={false}
+              animate={{
+                opacity: showLogo ? 1 : 0,
+                scale: showLogo ? 1 : 0.95,
+              }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               aria-hidden={!showLogo}
             >
               <a
@@ -103,7 +220,7 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                   </span>
                 </span>
               </a>
-            </div>
+            </motion.div>
           </div>
 
           {/* Desktop Navigation - Hidden on mobile */}
@@ -131,86 +248,219 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
               </Button>
             ))}
 
-            {/* Extras Button */}
-            <Button
-              variant="default"
-              size="sm"
-              className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen ml-2 text-xs lg:text-sm"
-              onClick={() => setShowComingSoon(true)}
-            >
-              EXTRA'S!
-            </Button>
+            {/* Extras Dropdown Button - Desktop Only */}
+            <div className="relative">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  id="extras-button"
+                  variant="default"
+                  size="sm"
+                  className={`bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen ml-2 text-xs lg:text-sm flex items-center gap-1 ${
+                    extrasMenuOpen ? "ring-2 ring-purple-400/50" : ""
+                  }`}
+                  onClick={toggleExtrasMenu}
+                >
+                  <Star
+                    className={`w-3 h-3 ${
+                      extrasMenuOpen ? "text-yellow-300" : ""
+                    }`}
+                  />
+                  EXTRA'S
+                  <motion.div
+                    initial={false}
+                    animate={{ rotate: extrasMenuOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="w-3 h-3" />
+                  </motion.div>
+                </Button>
+              </motion.div>
+
+              {/* Extras Dropdown Menu with Animation */}
+              <AnimatePresence>
+                {extrasMenuOpen && (
+                  <motion.div
+                    id="extras-dropdown"
+                    className="absolute right-0 mt-2 w-48 py-2 bg-black/90 backdrop-blur-xl border-2 border-purple-500/50 shadow-lg rounded-md text-white z-50 overflow-hidden"
+                    style={{
+                      clipPath:
+                        "polygon(0% 0%, 97% 0%, 100% 3%, 100% 97%, 97% 100%, 3% 100%, 0% 97%, 0% 3%)",
+                      transformOrigin: "top right",
+                    }}
+                    variants={dropdownVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                  >
+                    <motion.div
+                      variants={menuItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      custom={0}
+                      className="px-4 py-2 border-b border-purple-500/30"
+                    >
+                      <h3 className="font-silkscreen text-xs text-purple-300">
+                        EXPLORE MORE
+                      </h3>
+                    </motion.div>
+
+                    <motion.div
+                      variants={menuItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      custom={1}
+                    >
+                      <Link
+                        href="/final2025"
+                        className="flex items-center gap-2 px-4 py-3 hover:bg-purple-900/30 transition-colors font-bitwise text-sm"
+                      >
+                        <div className="w-8 h-8 flex items-center justify-center bg-purple-900/50 rounded-md border border-purple-500/50 overflow-hidden">
+                          <Image
+                            src="/pokeball.png"
+                            alt="Volunteers Cloud"
+                            width={20}
+                            height={20}
+                            className="object-contain"
+                          />
+                        </div>
+                        <div>
+                          <span className="text-cyan-300">Selected Teams</span>
+                          <p className="text-xs text-gray-400">
+                            Finalists list
+                          </p>
+                        </div>
+                      </Link>
+                    </motion.div>
+
+                    <motion.div
+                      variants={menuItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      custom={2}
+                    >
+                      <Link
+                        href="/volunteers"
+                        className="flex items-center gap-2 px-4 py-3 hover:bg-blue-900/30 transition-colors font-bitwise text-sm"
+                      >
+                        <div className="w-8 h-8 flex items-center justify-center bg-blue-900/50 rounded-md border border-blue-500/50 overflow-hidden">
+                          <Image
+                            src="/c2n.svg"
+                            alt="Volunteers Cloud"
+                            width={20}
+                            height={20}
+                            className="object-contain"
+                          />
+                        </div>
+                        <div>
+                          <span className="text-pink-300">Volunteer Squad</span>
+                          <p className="text-xs text-gray-400">Meet our team</p>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Mobile Menu Button - Shown only on mobile */}
-          <div className="flex items-center space-x-2 md:hidden">
-            <Button
-              variant="default"
-              size="sm"
-              className="bg-gradient-to-r from-pink-500 to-blue-500 text-black hover:from-pink-600 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg font-silkscreen text-xs"
-              onClick={() => setShowComingSoon(true)}
-            >
-              E!
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-              className="text-white hover:bg-white/10"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Menu - Slides in from top */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-black/90 backdrop-blur-lg border-t border-gray-800 px-4 py-3 shadow-lg">
-            <div className="flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => handleNavItemClick(e, item.href)}
-                  className="text-gray-300 hover:text-white py-2 font-silkscreen text-sm transition-colors duration-200 border-b border-gray-800"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Coming Soon Modal */}
-      {showComingSoon && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div
-            className="bg-gray-900 border-4 border-purple-600 p-6 max-w-sm mx-auto rounded-lg"
-            style={{
-              clipPath:
-                "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
-            }}
-          >
-            <h3 className="font-silkscreen text-2xl text-purple-400 mb-4">
-              Coming Soon!
-            </h3>
-            <p className="font-bitwise text-gray-300 mb-6">
-              We're working on making this feature available. Stay tuned for
-              updates!
-            </p>
-            <div className="text-center">
-              <button
-                onClick={() => setShowComingSoon(false)}
-                className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white font-silkscreen text-sm border-2 border-purple-500 transition-colors"
+          <div className="flex items-center md:hidden">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+                className="text-white hover:bg-white/10"
               >
-                Close
-              </button>
-            </div>
+                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </Button>
+            </motion.div>
           </div>
         </div>
-      )}
+
+        {/* Mobile Menu - Slides in from top with animation */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              className="md:hidden bg-black/90 backdrop-blur-lg border-t border-gray-800 px-4 py-3 shadow-lg"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Regular navigation items */}
+              <div className="flex flex-col space-y-2 mb-4">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    variants={menuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={index}
+                  >
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleNavItemClick(e, item.href)}
+                      className="text-gray-300 hover:text-white py-2 font-silkscreen text-sm transition-colors duration-200 border-b border-gray-800 block"
+                    >
+                      {item.name}
+                    </a>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Extras Section Header - Visually distinguished */}
+              <motion.div
+                variants={menuItemVariants}
+                initial="hidden"
+                animate="visible"
+                custom={navItems.length}
+                className="mb-2 mt-5 bg-gradient-to-r from-pink-800/40 to-blue-800/40 px-3 py-1.5 rounded-sm border-l-4 border-l-purple-500"
+              >
+                <h3 className="font-silkscreen text-xs text-purple-300 flex items-center">
+                  <Star className="w-3 h-3 mr-2 text-yellow-300" />
+                  EXTRA'S
+                </h3>
+              </motion.div>
+
+              {/* Extras Navigation Items - Styled differently */}
+              <div className="flex flex-col space-y-3 pl-2">
+                {extrasItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    variants={menuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={navItems.length + index + 1}
+                    className="relative"
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-3 px-4 py-2.5 transition-colors font-bitwise text-sm hover:bg-gray-800/30 rounded-md border-l-2 ${item.borderColor}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div
+                        className={`w-8 h-8 flex items-center justify-center ${item.bgColor} rounded-md border ${item.borderColor} overflow-hidden`}
+                      >
+                        {item.icon}
+                      </div>
+                      <div>
+                        <span className={`${item.textColor}`}>{item.name}</span>
+                        <p className="text-xs text-gray-400">{item.desc}</p>
+                      </div>
+                      <ExternalLink className="w-3 h-3 text-gray-400 ml-auto" />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
     </>
   );
 };
