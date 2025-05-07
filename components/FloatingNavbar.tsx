@@ -37,7 +37,7 @@ const extrasItems = [
     href: "/final2025",
     icon: (
       <Image
-        src="/pokeball.png"
+        src="/s1n.png"
         alt="Finalists Teams"
         width={20}
         height={20}
@@ -54,7 +54,7 @@ const extrasItems = [
     href: "/volunteers",
     icon: (
       <Image
-        src="/c1n.svg"
+        src="/pokeball.png"
         alt="Volunteers Cloud"
         width={20}
         height={20}
@@ -319,7 +319,7 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                       >
                         <div className="w-8 h-8 flex items-center justify-center bg-purple-900/50 rounded-md border border-purple-500/50 overflow-hidden">
                           <Image
-                            src="/pokeball.png"
+                            src="/s1n.png"
                             alt="Volunteers Cloud"
                             width={20}
                             height={20}
@@ -347,7 +347,7 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                       >
                         <div className="w-8 h-8 flex items-center justify-center bg-blue-900/50 rounded-md border border-blue-500/50 overflow-hidden">
                           <Image
-                            src="/c2n.svg"
+                            src="/pokeball.png"
                             alt="Volunteers Cloud"
                             width={20}
                             height={20}
