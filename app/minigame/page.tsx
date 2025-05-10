@@ -14,11 +14,11 @@ import QuickMath from "@/components/minigames/QuickMath";
 
 // --- MODIFIABLE CODES ---
 const GAME_CODES = {
-  slidingPuzzle: "SOMETHING",
-  clickTheTarget: "RANDOM",
-  patternRepeater: "TO BE KEPT",
-  wordScramble: "BY",
-  quickMath: "KNIFE",
+  slidingPuzzle: "5202kcah",
+  clickTheTarget: "nirb",
+  patternRepeater: "seiradnuob",
+  wordScramble: "dnoyed",
+  quickMath: "etavonni",
 };
 // --- END OF MODIFIABLE CODES ---
 
@@ -127,10 +127,10 @@ export default function Page() {
     {
       id: "wordScramble",
       title: "4. Word Scramble",
-      description: `Unscramble the letters to form a common ${GAME_CODES.wordScramble.length}-letter word. The code itself is "${GAME_CODES.wordScramble}".`,
+      description: `Unscramble the letters to form a common ${GAME_CODES.wordScramble.length}-letter word.`,
       component: (
         <WordScramble
-          targetWord="HACK"
+          targetWord="MILKYWAY-GALAXY"
           onWin={() => handleGameWin("wordScramble")}
         />
       ),

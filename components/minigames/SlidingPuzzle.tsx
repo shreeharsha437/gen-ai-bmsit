@@ -1,14 +1,19 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const GRID_SIZE = 3;
-const EMPTY_VALUE = 0; // Represents the empty space, ensure it's not a piece ID
+const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
+const DEFAULT_SIZE = 300;
 
 interface Tile {
-  id: number; // Stable ID for the piece (1-8), or unique ID for empty tile
-  value: number; // The visual number/identifier (1-8 for pieces, EMPTY_VALUE for empty)
-  originalOrder: number; // For bg image slicing (0-7 for pieces)
+  id: number; // Stable ID for the piece (1-9)
+  currentPosition: number; // Current position in the grid (0-8)
+  correctPosition: number; // Correct position in the grid (0-8)
+  isLocked: boolean; // Whether this tile is in the correct position and locked
+  x: number; // For animation coordinates
+  y: number; // For animation coordinates
 }
 
 interface SlidingPuzzleProps {
@@ -16,232 +21,397 @@ interface SlidingPuzzleProps {
   imageUrl: string;
 }
 
-// Fisher-Yates shuffle for Tile objects based on their 'id'
-const shuffleTiles = (array: Tile[]): Tile[] => {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
+// Fisher-Yates shuffle for positions
+const shufflePositions = (count: number): number[] => {
+  const positions = Array.from({ length: count }, (_, i) => i);
+
+  for (let i = positions.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    [positions[i], positions[j]] = [positions[j], positions[i]];
   }
-  return newArray;
+
+  return positions;
 };
 
-const countInversions = (arr: Tile[]): number => {
-  let inversions = 0;
-  const numericValues = arr
-    .map((t) => t.value)
-    .filter((v) => v !== EMPTY_VALUE);
-  for (let i = 0; i < numericValues.length - 1; i++) {
-    for (let j = i + 1; j < numericValues.length; j++) {
-      if (numericValues[i] > numericValues[j]) {
-        inversions++;
-      }
-    }
-  }
-  return inversions;
+// Ensure the puzzle is sufficiently scrambled
+// We want NO pieces in their correct position at start
+const isWellScrambled = (positions: number[]): boolean => {
+  // Count how many pieces are in their correct position
+  const correctPositions = positions.filter((pos, idx) => pos === idx).length;
+
+  // We want NO pieces in their correct position at start
+  return correctPositions === 0;
 };
 
-const generateSolvablePuzzle = (): Tile[] => {
-  let puzzleTiles: Tile[];
-  const initialPieces: Tile[] = Array.from(
-    { length: GRID_SIZE * GRID_SIZE - 1 },
-    (_, i) => ({
-      id: i + 1, // Piece ID 1-8
-      value: i + 1,
-      originalOrder: i,
-    })
-  );
-  const emptyTile: Tile = {
-    id: GRID_SIZE * GRID_SIZE,
-    value: EMPTY_VALUE,
-    originalOrder: -1,
-  }; // Unique ID for empty
+// Generate a well-scrambled puzzle with no pieces in correct positions
+const generateScrambledPuzzle = (): Tile[] => {
+  let shuffledPositions: number[] = [];
 
+  // Keep shuffling until we get a state with NO pieces in correct position
   do {
-    const shuffledPieces = shuffleTiles([...initialPieces]);
-    // Place empty tile randomly or at the end for shuffling
-    const emptyPos = Math.floor(Math.random() * (GRID_SIZE * GRID_SIZE));
-    puzzleTiles = [...shuffledPieces];
-    puzzleTiles.splice(emptyPos, 0, emptyTile);
-  } while (countInversions(puzzleTiles) % 2 !== 0 && GRID_SIZE % 2 !== 0); // Simplified solvability for odd grid; for even grid, row of empty matters.
-  // For 3x3 (odd grid), inversion count must be even.
+    shuffledPositions = shufflePositions(TOTAL_TILES);
+  } while (!isWellScrambled(shuffledPositions));
 
-  return puzzleTiles;
+  // Create tiles with the shuffled positions
+  return Array.from({ length: TOTAL_TILES }, (_, i) => {
+    const currentPos = shuffledPositions[i];
+    const row = Math.floor(currentPos / GRID_SIZE);
+    const col = currentPos % GRID_SIZE;
+
+    return {
+      id: i + 1, // Tile IDs are 1-9
+      currentPosition: currentPos,
+      correctPosition: i,
+      isLocked: false, // No tiles are locked initially
+      x: col * (DEFAULT_SIZE / GRID_SIZE), // For animation
+      y: row * (DEFAULT_SIZE / GRID_SIZE), // For animation
+    };
+  });
 };
 
 const SlidingPuzzle: React.FC<SlidingPuzzleProps> = ({ onSolve, imageUrl }) => {
-  const createSolvedState = (): Tile[] => {
-    const tiles: Tile[] = Array.from(
-      { length: GRID_SIZE * GRID_SIZE - 1 },
-      (_, i) => ({
-        id: i + 1,
-        value: i + 1,
-        originalOrder: i,
+  const [tiles, setTiles] = useState<Tile[]>([]);
+  const [selectedTileId, setSelectedTileId] = useState<number | null>(null);
+  const [secondSelectedTileId, setSecondSelectedTileId] = useState<
+    number | null
+  >(null);
+  const [isSolved, setIsSolved] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [moves, setMoves] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isSwapping, setIsSwapping] = useState(false);
+
+  // Use refs for measurements
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Initialize the puzzle after image is loaded
+  useEffect(() => {
+    if (imageLoaded) {
+      const initialTiles = generateScrambledPuzzle();
+      setTiles(initialTiles);
+      setIsLoading(false);
+    }
+  }, [imageLoaded]);
+
+  // Update positions for animation
+  const updateTilePositions = useCallback(() => {
+    setTiles((currentTiles) =>
+      currentTiles.map((tile) => {
+        const row = Math.floor(tile.currentPosition / GRID_SIZE);
+        const col = tile.currentPosition % GRID_SIZE;
+        return {
+          ...tile,
+          x: col * (DEFAULT_SIZE / GRID_SIZE),
+          y: row * (DEFAULT_SIZE / GRID_SIZE),
+        };
       })
     );
-    tiles.push({
-      id: GRID_SIZE * GRID_SIZE,
-      value: EMPTY_VALUE,
-      originalOrder: -1,
-    });
-    return tiles;
-  };
-
-  const [tiles, setTiles] = useState<Tile[]>(generateSolvablePuzzle());
-  const [isSolved, setIsSolved] = useState(false);
-  const [imgDimensions, setImgDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const img = new Image();
-    img.onload = () => {
-      setImgDimensions({ width: img.width, height: img.height });
-    };
-    img.src = imageUrl;
-  }, [imageUrl]);
-
-  const checkSolved = useCallback((currentTiles: Tile[]) => {
-    const solvedStatePattern = createSolvedState();
-    for (let i = 0; i < solvedStatePattern.length; i++) {
-      if (currentTiles[i].value !== solvedStatePattern[i].value) return false;
-    }
-    return true;
   }, []);
 
-  useEffect(() => {
-    if (checkSolved(tiles)) {
+  // Check if the puzzle is solved
+  const checkSolved = useCallback(() => {
+    if (tiles.length === 0) return false;
+
+    const solved = tiles.every(
+      (tile) => tile.currentPosition === tile.correctPosition
+    );
+
+    if (solved && !isSolved) {
       setIsSolved(true);
-      onSolve();
-    } else {
-      setIsSolved(false);
+      setTimeout(() => onSolve(), 500); // Delay to show completion animation
     }
-  }, [tiles, onSolve, checkSolved]);
 
+    return solved;
+  }, [tiles, isSolved, onSolve]);
+
+  // Update locked status and check for solved state
+  useEffect(() => {
+    if (tiles.length === 0 || isSwapping) return;
+
+    const updatedTiles = tiles.map((tile) => ({
+      ...tile,
+      isLocked: tile.currentPosition === tile.correctPosition,
+    }));
+
+    setTiles(updatedTiles);
+    updateTilePositions();
+    checkSolved();
+  }, [tiles, checkSolved, isSwapping, updateTilePositions]);
+
+  // Process swap when both tiles are selected
+  useEffect(() => {
+    if (
+      selectedTileId !== null &&
+      secondSelectedTileId !== null &&
+      !isSwapping
+    ) {
+      const firstTile = tiles.find((t) => t.id === selectedTileId);
+      const secondTile = tiles.find((t) => t.id === secondSelectedTileId);
+
+      if (firstTile && secondTile) {
+        setIsSwapping(true);
+
+        // Create new tiles array with swapped positions
+        const newTiles = tiles.map((tile) => {
+          if (tile.id === firstTile.id) {
+            return {
+              ...tile,
+              currentPosition: secondTile.currentPosition,
+            };
+          } else if (tile.id === secondTile.id) {
+            return {
+              ...tile,
+              currentPosition: firstTile.currentPosition,
+            };
+          }
+          return tile;
+        });
+
+        setTiles(newTiles);
+        setMoves((moves) => moves + 1);
+
+        // Reset selections and allow animation to complete
+        setTimeout(() => {
+          setSelectedTileId(null);
+          setSecondSelectedTileId(null);
+          setIsSwapping(false);
+        }, 350);
+      }
+    }
+  }, [selectedTileId, secondSelectedTileId, isSwapping, tiles]);
+
+  // Handle tile click for selection
   const handleTileClick = (clickedTileId: number) => {
-    if (isSolved) return;
+    if (isSolved || isSwapping) return;
 
-    const clickedIndex = tiles.findIndex((t) => t.id === clickedTileId);
-    const emptyIndex = tiles.findIndex((t) => t.value === EMPTY_VALUE);
+    // Find the clicked tile
+    const clickedTile = tiles.find((t) => t.id === clickedTileId);
+    if (!clickedTile) return;
 
-    if (clickedIndex === -1 || emptyIndex === -1) return; // Should not happen
-
-    const { row: clickedRow, col: clickedCol } = {
-      row: Math.floor(clickedIndex / GRID_SIZE),
-      col: clickedIndex % GRID_SIZE,
-    };
-    const { row: emptyRow, col: emptyCol } = {
-      row: Math.floor(emptyIndex / GRID_SIZE),
-      col: emptyIndex % GRID_SIZE,
-    };
-
-    const isAdjacent =
-      (Math.abs(clickedRow - emptyRow) === 1 && clickedCol === emptyCol) ||
-      (Math.abs(clickedCol - emptyCol) === 1 && clickedRow === emptyRow);
-
-    if (isAdjacent) {
-      const newTiles = [...tiles];
-      [newTiles[clickedIndex], newTiles[emptyIndex]] = [
-        newTiles[emptyIndex],
-        newTiles[clickedIndex],
-      ];
-      setTiles(newTiles);
+    // If this tile is already selected, deselect it
+    if (clickedTileId === selectedTileId) {
+      setSelectedTileId(null);
+      return;
     }
+
+    // If we don't have a first selection yet, make this the first selection
+    if (selectedTileId === null) {
+      setSelectedTileId(clickedTileId);
+      return;
+    }
+
+    // Otherwise, this is our second selection
+    setSecondSelectedTileId(clickedTileId);
   };
 
   const resetGame = () => {
-    setTiles(generateSolvablePuzzle());
+    setIsLoading(true);
+    setSelectedTileId(null);
+    setSecondSelectedTileId(null);
     setIsSolved(false);
+    setMoves(0);
+    setIsSwapping(false);
+
+    // Short delay to show loading animation
+    setTimeout(() => {
+      const newTiles = generateScrambledPuzzle();
+      setTiles(newTiles);
+      setIsLoading(false);
+    }, 500);
   };
 
+  // Get style for a tile based on its original/correct position
   const getTileStyle = (tile: Tile) => {
-    if (
-      tile.value === EMPTY_VALUE ||
-      !imgDimensions.width ||
-      !imgDimensions.height
-    ) {
-      return { background: "transparent" };
-    }
-    const tileWidth = imgDimensions.width / GRID_SIZE;
-    const tileHeight = imgDimensions.height / GRID_SIZE;
-    const x = (tile.originalOrder % GRID_SIZE) * tileWidth;
-    const y = Math.floor(tile.originalOrder / GRID_SIZE) * tileHeight;
+    const tileWidth = DEFAULT_SIZE / GRID_SIZE;
+    const tileHeight = DEFAULT_SIZE / GRID_SIZE;
+    const row = Math.floor(tile.correctPosition / GRID_SIZE);
+    const col = tile.correctPosition % GRID_SIZE;
 
     return {
       backgroundImage: `url(${imageUrl})`,
-      backgroundSize: `${imgDimensions.width}px ${imgDimensions.height}px`,
-      backgroundPosition: `-${x}px -${y}px`,
+      backgroundSize: `${DEFAULT_SIZE}px ${DEFAULT_SIZE}px`,
+      backgroundPosition: `-${col * tileWidth}px -${row * tileHeight}px`,
     };
   };
 
-  const TILE_DISPLAY_SIZE =
-    Math.min(300, imgDimensions.width || 300) / GRID_SIZE - 4; // approx, accounting for gap
+  // Calculate display size for tiles
+  const TILE_SIZE = DEFAULT_SIZE / GRID_SIZE - 4; // 4px for gap
 
   return (
     <div className="flex flex-col items-center">
-      {isSolved && (
-        <p className="text-green-400 font-bold text-lg mb-4 animate-pulse">
-          Puzzle Solved!
-        </p>
+      {/* Hidden image to preload */}
+      <div className="hidden">
+        <Image
+          src={imageUrl}
+          alt="Puzzle image preload"
+          width={300}
+          height={300}
+          priority
+          onLoadingComplete={() => setImageLoaded(true)}
+          onError={() => {
+            console.error("Failed to load puzzle image");
+            setIsLoading(false);
+          }}
+        />
+      </div>
+
+      {/* Status indicator */}
+      <div className="mb-4 font-silkscreen">
+        {isSolved ? (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-green-400 text-lg animate-pulse px-4 py-2 bg-slate-800/50 rounded-md border border-green-500/30"
+          >
+            QR Code Reconstructed!
+          </motion.div>
+        ) : (
+          <div className="text-cyan-400 text-sm">
+            Moves: <span className="font-bold">{moves}</span> •
+            <span className="ml-2">
+              Correct:{" "}
+              <span className="font-bold">
+                {tiles.filter((t) => t.isLocked).length}
+              </span>
+              /{TOTAL_TILES}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Game board */}
+      {isLoading || !imageLoaded ? (
+        <div className="flex items-center justify-center w-[300px] h-[300px] bg-slate-800/50 rounded-lg">
+          <div className="w-10 h-10 border-4 border-t-transparent border-cyan-400 rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        <div
+          ref={containerRef}
+          className="relative p-1 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg shadow-lg"
+          style={{
+            width: DEFAULT_SIZE,
+            height: DEFAULT_SIZE,
+          }}
+        >
+          {tiles.map((tile) => {
+            const isSelected =
+              tile.id === selectedTileId || tile.id === secondSelectedTileId;
+
+            return (
+              <motion.div
+                key={tile.id}
+                initial={{ opacity: 0.8, scale: 0.9 }}
+                animate={{
+                  opacity: 1,
+                  scale: isSelected ? 1.05 : 1,
+                  filter: tile.isLocked
+                    ? "grayscale(0.5) brightness(0.8)"
+                    : "grayscale(0)",
+                  x: tile.x,
+                  y: tile.y,
+                  zIndex: isSelected ? 10 : 1,
+                  boxShadow: isSelected
+                    ? "0 0 15px rgba(168, 85, 247, 0.5)"
+                    : "none",
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 25,
+                  x: { duration: 0.3 },
+                  y: { duration: 0.3 },
+                }}
+                onClick={() => handleTileClick(tile.id)}
+                className={`
+                  absolute aspect-square flex items-center justify-center
+                  border-2 transition-colors duration-150 rounded-md
+                  ${
+                    tile.isLocked
+                      ? "border-green-500/50"
+                      : isSelected
+                      ? "border-purple-500/70 cursor-pointer"
+                      : "border-slate-600/70 hover:border-blue-400/50 cursor-pointer"
+                  }
+                `}
+                style={{
+                  ...getTileStyle(tile),
+                  width: `${TILE_SIZE}px`,
+                  height: `${TILE_SIZE}px`,
+                }}
+              >
+                {/* Overlay effect for locked tiles */}
+                {tile.isLocked && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 bg-green-500/10 backdrop-blur-[1px] rounded-sm flex items-center justify-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-green-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </motion.div>
+                )}
+
+                {/* Selected indicator */}
+                {isSelected && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className={`absolute inset-0 rounded-sm flex items-center justify-center
+                      ${
+                        tile.id === selectedTileId
+                          ? "bg-purple-500/10"
+                          : "bg-blue-500/10"
+                      }`}
+                  >
+                    <div
+                      className={`h-3 w-3 rounded-full animate-pulse
+                        ${
+                          tile.id === selectedTileId
+                            ? "bg-purple-500"
+                            : "bg-blue-500"
+                        }`}
+                    ></div>
+                  </motion.div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
       )}
-      <div
-        className="grid gap-1 p-1 bg-slate-700 rounded-lg shadow-lg"
+
+      {/* Instruction text */}
+      {!isSolved && !isLoading && imageLoaded && (
+        <div className="mt-3 text-xs text-cyan-300/70 text-center max-w-[300px] bg-slate-800/30 rounded-md p-2 font-bitwise">
+          Click two tiles to swap them. When a piece is in the correct position,
+          it will lock in place.
+        </div>
+      )}
+
+      {/* Reset button */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={resetGame}
+        className="mt-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-silkscreen text-sm rounded-lg shadow transition-colors"
         style={{
-          gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-          width:
-            imgDimensions.width > 0
-              ? `${Math.min(imgDimensions.width, 300)}px`
-              : "300px",
-          height:
-            imgDimensions.height > 0
-              ? `${Math.min(imgDimensions.height, 300)}px`
-              : "300px",
+          clipPath:
+            "polygon(0% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%)",
         }}
       >
-        <AnimatePresence>
-          {tiles.map((tile) => (
-            <motion.div
-              key={tile.id} // Use stable id for framer-motion
-              layout // Enable automatic animation for layout changes
-              initial={{ opacity: 0.8, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              onClick={() =>
-                tile.value !== EMPTY_VALUE && handleTileClick(tile.id)
-              }
-              className={`aspect-square flex items-center justify-center text-xl font-bold 
-                          border border-slate-600 transition-colors duration-150
-                          ${
-                            tile.value === EMPTY_VALUE
-                              ? "bg-slate-800/50 cursor-default"
-                              : "bg-slate-500/30 text-white hover:bg-slate-400/50 cursor-pointer"
-                          }
-                          ${
-                            isSolved && tile.value !== EMPTY_VALUE
-                              ? "!border-green-500 !opacity-100"
-                              : ""
-                          }`}
-              style={{
-                ...getTileStyle(tile),
-                width: `${TILE_DISPLAY_SIZE}px`,
-                height: `${TILE_DISPLAY_SIZE}px`,
-              }}
-            >
-              {/* Optional: Show piece number for debugging
-              {tile.value !== EMPTY_VALUE && (
-                <span className="bg-black/50 text-white px-1 rounded text-xs opacity-60">
-                  {tile.value}
-                </span>
-              )} */}
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-      <button
-        onClick={resetGame}
-        className="mt-6 px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow transition-colors"
-      >
-        Reset Puzzle
-      </button>
+        {isSolved ? "Play Again" : "Reset Puzzle"}
+      </motion.button>
     </div>
   );
 };
