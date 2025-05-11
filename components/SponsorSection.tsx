@@ -23,13 +23,7 @@ const sponsorData: Sponsor[] = [
     websiteUrl: "https://brindavangroup.edu.in/",
     tier: "gold",
   },
-  {
-    id: "g2",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-gold.png",
-    websiteUrl: "#",
-    tier: "gold",
-  },
+
   {
     id: "s1",
     name: "GeeksforGeeks",
@@ -65,19 +59,19 @@ const sponsorData: Sponsor[] = [
     websiteUrl: "#",
     tier: "bronze",
   },
-  {
-    id: "m1",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-micro.png",
-    websiteUrl: "#",
-    tier: "micro",
-  },
-  {
-    id: "m2",
-    name: "SOON",
-    logoUrl: "/sponsors/placeholder-logo-micro.png",
-    tier: "micro",
-  },
+  // {
+  //   id: "m1",
+  //   name: "SOON",
+  //   logoUrl: "/sponsors/placeholder-logo-micro.png",
+  //   websiteUrl: "#",
+  //   tier: "micro",
+  // },
+  // {
+  //   id: "m2",
+  //   name: "SOON",
+  //   logoUrl: "/sponsors/placeholder-logo-micro.png",
+  //   tier: "micro",
+  // },
 ];
 
 // Helper to group sponsors by tier

@@ -230,13 +230,13 @@ const AboutSection: React.FC = () => {
 
       <div className="container mx-auto relative z-10">
         {/* Sponsor ribbon at top */}
-        <div className="w-full mb-8 bg-green-700/80 -mt-4 py-2 px-4 text-center shadow-lg border-y-2 border-green-600">
+        {/* <div className="w-full mb-8 bg-green-700/80 -mt-4 py-2 px-4 text-center shadow-lg border-y-2 border-green-600">
           <p className="font-silkscreen text-white text-sm md:text-base">
             <span className="text-yellow-300">✦</span> We're looking for
             sponsors! Contact us to support innovation{" "}
             <span className="text-yellow-300">✦</span>
           </p>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left column - Logo and buttons */}
@@ -491,7 +491,7 @@ const AboutSection: React.FC = () => {
               </p>
             </div>
 
-            {/* CEO Message Card - New Section */}
+            {/* CEO Message Card - New Section
             <div className="mb-8">
               <h3 className="font-silkscreen text-white text-lg mb-4 text-center md:text-left border-b-2 border-purple-800 pb-1 inline-block">
                 <span className="inline-block w-5 h-5 bg-purple-800 rounded-full mr-2 align-middle"></span>
@@ -506,16 +506,16 @@ const AboutSection: React.FC = () => {
                 }}
               >
                 {/* Background pattern for CEO card */}
-                <div className="absolute inset-0 bg-[url('/pixel-grid.png')] opacity-10 z-0"></div>
+            {/* <div className="absolute inset-0 bg-[url('/pixel-grid.png')] opacity-10 z-0"></div>
 
                 {/* Subtle glowing effect */}
-                <div className="absolute -inset-1 bg-purple-500/20 blur-md rounded-lg z-0"></div>
+            {/*} <div className="absolute -inset-1 bg-purple-500/20 blur-md rounded-lg z-0"></div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
                   <div className="flex flex-col items-center">
                     <div className="relative">
                       {/* CEO Image with premium border */}
-                      <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-purple-400 shadow-lg shadow-purple-500/30">
+            {/*} <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-purple-400 shadow-lg shadow-purple-500/30">
                         <Image
                           src="/team/ceo.png"
                           alt="Dr. Shruti Sharma"
@@ -526,7 +526,7 @@ const AboutSection: React.FC = () => {
                       </div>
 
                       {/* Eevee Pokemon as companion in bottom right */}
-                      <div className="absolute -bottom-4 -right-4 w-12 h-12 rounded-full bg-amber-900/40 border-2 border-amber-400 flex items-center justify-center overflow-hidden">
+            {/*}  <div className="absolute -bottom-4 -right-4 w-12 h-12 rounded-full bg-amber-900/40 border-2 border-amber-400 flex items-center justify-center overflow-hidden">
                         <Image
                           src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png"
                           alt="Eevee"
@@ -548,7 +548,7 @@ const AboutSection: React.FC = () => {
                   <div className="flex-1 mt-4 sm:mt-0">
                     <div className="relative">
                       {/* Decorative quote marks */}
-                      <div className="absolute -top-6 -left-2 text-4xl text-purple-300/30 font-serif">
+            {/*}  <div className="absolute -top-6 -left-2 text-4xl text-purple-300/30 font-serif">
                         "
                       </div>
                       <div className="absolute -bottom-6 -right-2 text-4xl text-purple-300/30 font-serif">
@@ -564,7 +564,7 @@ const AboutSection: React.FC = () => {
                     </div>
 
                     {/* Pixel-style signature element */}
-                    <div className="mt-4 text-right">
+            {/*}  <div className="mt-4 text-right">
                       <div className="inline-block h-5 px-3 bg-purple-700/50 border border-purple-400">
                         <span className="font-silkscreen text-xs text-purple-200">
                           Dr. Shruti Sharma
@@ -574,7 +574,7 @@ const AboutSection: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Team Section - Compact Version */}
             <div className="mb-8">
