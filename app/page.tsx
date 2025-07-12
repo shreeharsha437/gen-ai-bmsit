@@ -8,7 +8,7 @@ import TracksSection from "@/components/TrackSection"; // Keep your original imp
 import TimelineSection from "@/components/TimelineSection"; // Import the Timeline section
 import SponsorsSection from "@/components/SponsorSection"; // Import the Sponsors section
 import AboutSection from "@/components/AboutSection"; // Import the About section
-// import FooterImg from "@/components/FooterImg"; // Import the Footer image component
+import FooterImg from "@/components/FooterImg"; // Import the Footer image component
 
 export default function Home() {
   const [showNavbarLogo, setShowNavbarLogo] = useState(false);
@@ -52,7 +52,7 @@ export default function Home() {
       {/* About Section - keep existing id for navigation */}
       <AboutSection />
       {/* Footer art */}
-      {/* <FooterImg /> */}
+      <FooterImg />
     </main>
   );
 }
