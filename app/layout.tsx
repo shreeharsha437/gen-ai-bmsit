@@ -28,9 +28,9 @@ const pressStart2P = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "BrinHack",
+  title: "Gen AI Club - BMSIT&M",
   description:
-    "BrinHack 2025: Innovate Beyond Boundaries! Join the 24-hour hackathon.",
+    "Join BMSIT&M's Gen AI Club to explore and innovate with Generative AI technologies. Weekly workshops, projects, and hands-on learning with cutting-edge AI tools.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

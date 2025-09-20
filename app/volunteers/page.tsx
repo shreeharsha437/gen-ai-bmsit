@@ -835,7 +835,7 @@ const VolunteersPage = () => {
         <div className="h-8 w-8 md:h-10 md:w-10 relative overflow-hidden rounded-lg hover:shadow-md hover:shadow-blue-900/30 transition-shadow duration-300">
           <Image
             src="/logo.png"
-            alt="BrinHack Logo"
+            alt="BrinHack "
             width={40}
             height={40}
             className="object-contain w-full h-full"
@@ -911,7 +911,7 @@ const VolunteersPage = () => {
               transition={{ duration: 0.5 }}
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Volunteer Squad
+                Gen Ai Members
               </span>
             </motion.h1>
           </div>
@@ -929,7 +929,9 @@ const VolunteersPage = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            Meet the awesome volunteers who make BrinHack possible, each with
+            Meet the awesome members 
+             who make Gen Ai Club
+              possible, each with
             their own unique skills and Pokémon partner!
           </motion.p>
         </div>

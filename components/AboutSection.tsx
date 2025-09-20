@@ -16,6 +16,8 @@ import {
   Coffee,
   ChevronDown,
 } from "lucide-react";
+import { Disclosure } from "@headlessui/react";
+import { ChevronUpIcon } from "@heroicons/react/20/solid";
 
 const PixelButton: React.FC<{
   children: React.ReactNode;
@@ -198,6 +200,33 @@ const FAQItem: React.FC<{
   );
 };
 
+const faqs = [
+  {
+    question: "What kind of workshops does Gen AI Club conduct?",
+    answer: "We conduct hands-on workshops on: \n- Large Language Models (LLMs) like GPT\n- Image Generation with DALL-E and Stable Diffusion\n- Prompt Engineering techniques\n- Fine-tuning and deployment of AI models\n- Building AI-powered applications"
+  },
+  {
+    question: "What are the benefits of joining Gen AI Club?",
+    answer: "Members get access to:\n- Weekly hands-on workshops\n- Industry expert sessions\n- Project mentorship\n- Collaboration opportunities\n- Access to computing resources\n- Certificate of participation"
+  },
+  {
+    question: "When and where do club meetings happen?",
+    answer: "We meet every Saturday from 2:00 PM to 4:00 PM in the CS Department Seminar Hall. Additional workshop sessions are announced through our Discord channel."
+  },
+  {
+    question: "Are there any membership fees?",
+    answer: "There is a nominal annual membership fee of ₹500 which covers workshop materials, cloud computing credits, and event organization costs."
+  },
+  {
+    question: "What projects can I work on?",
+    answer: "Members can work on various projects like:\n- Chatbots and virtual assistants\n- AI-powered web applications\n- Image and video generation tools\n- Text analysis and generation systems\n- Cross-domain AI applications"
+  },
+  {
+    question: "How can I contact the club coordinators?",
+    answer: "You can reach us through:\n- Email: genai.club@bmsit.in\n- Discord: discord.gg/genaiclub\n- Instagram: @bmsit_genaiclub\n- Or visit the CS Department office during college hours"
+  }
+];
+
 const AboutSection: React.FC = () => {
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [showWhatsappInfo, setShowWhatsappInfo] = useState(false);
@@ -268,24 +297,8 @@ const AboutSection: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-8">
-              <PixelButton
-                color="blue"
-                href="https://docs.google.com/document/d/1rQFSE3fO8lPQI2jrH9hYY-wv6eBXbwwGTvtgXZJJICk/edit?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Code className="w-4 h-4 inline-block mr-2" />
-                Code of Conduct
-              </PixelButton>
-              <PixelButton
-                color="yellow"
-                href="https://docs.google.com/document/d/1jRsVsC4R5uvbNcNLh-5wQF5xz2drp_fZvwLbArVc0nM/edit?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FileText className="w-4 h-4 inline-block mr-2" />
-                Instructions
-              </PixelButton>
+              
+              
             </div>
 
             {/* Social Media Section */}
@@ -303,7 +316,7 @@ const AboutSection: React.FC = () => {
                   onMouseLeave={() => setShowEmailInfo(false)}
                 >
                   <a
-                    href="mailto:brinhackathon@brindavancollege.com"
+                    href="mailto:to be updated"
                     className="block"
                   >
                     <div
@@ -330,7 +343,7 @@ const AboutSection: React.FC = () => {
                         Contact via Email:
                       </p>
                       <p className="font-bitwise text-xs text-red-300 truncate">
-                        brinhackathon@brindavancollege.com
+                        to be updated
                       </p>
                     </div>
                   )}
@@ -343,7 +356,7 @@ const AboutSection: React.FC = () => {
                   onMouseLeave={() => setShowWhatsappInfo(false)}
                 >
                   <a
-                    href="https://chat.whatsapp.com/BVzCaAQFlA39aXqvSH9VrL"
+                    href="to be updated"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
@@ -372,7 +385,7 @@ const AboutSection: React.FC = () => {
                         WhatsApp Community:
                       </p>
                       <p className="font-bitwise text-xs text-green-300">
-                        Join our BrinHack community!
+                        Join our group for quick updates!
                       </p>
                     </div>
                   )}
@@ -385,7 +398,7 @@ const AboutSection: React.FC = () => {
                   onMouseLeave={() => setShowInstagramInfo(false)}
                 >
                   <a
-                    href="https://www.instagram.com/brinhack"
+                    href=""
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
@@ -414,7 +427,7 @@ const AboutSection: React.FC = () => {
                         Instagram:
                       </p>
                       <p className="font-bitwise text-xs text-purple-300">
-                        Follow @brinhack for updates!
+                        Follow 
                       </p>
                     </div>
                   )}
@@ -427,7 +440,7 @@ const AboutSection: React.FC = () => {
                   onMouseLeave={() => setShowDevfolioInfo(false)}
                 >
                   <a
-                    href="https://brinhack.devfolio.co/"
+                    href=""
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
@@ -456,7 +469,7 @@ const AboutSection: React.FC = () => {
                         Devfolio:
                       </p>
                       <p className="font-bitwise text-xs text-blue-300">
-                        Official Devfolio page for BrinHack 2025
+                        Official Devfolio page 
                       </p>
                     </div>
                   )}
@@ -475,19 +488,17 @@ const AboutSection: React.FC = () => {
               <div className="flex items-center gap-4 mb-3">
                 <Image
                   src="/iotlogo.png"
-                  alt="Department of IoT & Cyber Security"
+                  alt="Department of Computer Science Engineering"
                   width={50}
                   height={50}
                   className="object-contain"
                 />
                 <h3 className="font-silkscreen text-cyan-400 text-base md:text-lg leading-tight">
-                  Department of IoT &amp; Cyber Security
+                  Department of Computer Science &amp; Engineering
                 </h3>
               </div>
               <p className="text-gray-300 font-bitwise text-sm leading-relaxed">
-                Home to innovation and cutting-edge technology, our department
-                combines IoT, Cyber Security and Blockchain to create solutions
-                for tomorrow's challenges.
+                The Department of Computer Science &amp; Engineering at BMSIT&M is a center for excellence in computing, artificial intelligence, and research. Our department empowers students with strong technical foundations, hands-on experience, and opportunities to innovate in the rapidly evolving world of technology.
               </p>
             </div>
 
@@ -580,14 +591,14 @@ const AboutSection: React.FC = () => {
             <div className="mb-8">
               <h3 className="font-silkscreen text-white text-lg mb-4 text-center md:text-left border-b-2 border-amber-600 pb-1 inline-block">
                 <Users className="inline-block mr-2 w-4 h-4" />
-                Team Behind BrinHack
+                Team Behind Gen AI Club
               </h3>
 
               <div className="space-y-3 mt-4">
                 {/* HOD Card */}
                 <CompactTeamMember
-                  name="Prof. Nazia Nusrath Ul Ain"
-                  role="HOD of IoT Department"
+                  name="DR Ravi Kumar B N"
+                  role="Assistant Professor CSE department"
                   quote="Innovation is the ability to see change as an opportunity."
                   imageUrl="/team/hodic.webp"
                   pokemonId={113}
@@ -595,23 +606,23 @@ const AboutSection: React.FC = () => {
 
                 {/* Event Lead Card */}
                 <CompactTeamMember
-                  name="Ankit Kumar Singh"
-                  role="Event Lead"
-                  quote="I’m not a hero because I want your approval. I do it because I want to."
-                  imageUrl="/team/vL00.png"
+                  name="Ranjith Gowda"
+                  role="President, Gen AI Club"
+                  quote="I'm not a hero because I want your approval. I do it because I want to."
+                  imageUrl="/team/event-lead.png"
                   pokemonId={381}
                 />
 
                 {/* Event Co-Lead Card */}
                 <CompactTeamMember
-                  name="Aditya Srivastava"
-                  role="Event Co-Lead"
+                  name="Shreeharsha"
+                  role="Technical Department"
                   quote="Domain Expansion"
                   imageUrl="/team/vcl.png"
                   pokemonId={4} // Charmander
                 />
 
-                {/* More Team Members Button - Navigate to /volunteers page */}
+                {/* More Team Members Button */}
                 <div className="text-center mt-4">
                   <Link href="/volunteers">
                     <button
@@ -632,7 +643,7 @@ const AboutSection: React.FC = () => {
 
           {/* Right column - About text and map */}
           <div className="flex flex-col">
-            {/* About BrinHack */}
+            {/* About Gen Ai */}
             <div className="mb-8">
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -645,16 +656,16 @@ const AboutSection: React.FC = () => {
                 <h2 className="font-silkscreen text-xl md:text-2xl text-white inline-flex items-center bg-gray-800/50 px-4 py-1 rounded-md border-l-4 border-purple-600 overflow-hidden">
                   <Image
                     src="/logo.png"
-                    alt="BrinHack Logo"
+                    alt="Gen AI Club Logo"
                     width={35}
                     height={35}
                     className="object-contain"
                     onLoad={() => handleImageLoad("logo")}
                   />
                   <span>About </span>{" "}
-                  <span className="text-[#ff00c0] ml-2">Brin</span>
-                  <span className="text-[#26bffd]">Hack</span>
-                  <span className="text-yellow-400 ml-1">2025</span>
+                  <span className="text-[#ff00c0] ml-2">Gen</span>
+                  <span className="text-[#26bffd]">AI</span>
+                  <span className="text-yellow-400 ml-1">Club</span>
                 </h2>
               </motion.div>
 
@@ -666,45 +677,32 @@ const AboutSection: React.FC = () => {
                 className="space-y-4 pl-2"
               >
                 <p className="text-stone-650 font-bitwise text-sm leading-relaxed">
-                  <span className="text-blue-500 font-bold">BrinHack 2025</span>{" "}
+                  <span className="text-blue-500 font-bold">Gen AI Club</span>{" "}
                   is the{" "}
                   <span className="text-purple-800 font-bold">
-                    first-ever hackathon
+                    premier Generative AI community
                   </span>{" "}
-                  organized by Brindavan College of Engineering. Born from a
-                  vision to foster innovation and technological advancement,
-                  this 24-hour event brings together brilliant minds from across
-                  the region.
+                  at BMS Institute of Technology & Management (BMSIT&M). Founded to foster innovation and hands-on learning in artificial intelligence, our club brings together passionate students to explore, build, and collaborate on cutting-edge AI projects.
                 </p>
 
                 <p className="text-stone-650 font-bitwise text-sm leading-relaxed">
-                  With immense hope and willpower, we aim to provide a platform
-                  for students to showcase their talents, transform innovative
-                  ideas into reality, and empower the next generation of tech
-                  leaders.
+                  Our mission is to empower students with practical AI skills, encourage creative problem-solving, and nurture the next generation of AI leaders. Through workshops, seminars, and collaborative projects, we provide a platform for students to transform ideas into impactful solutions.
                 </p>
 
                 <p className="text-stone-650 font-bitwise text-sm leading-relaxed">
-                  Despite being our inaugural event, we've infused BrinHack with
-                  rich cultural elements and a community spirit. We're giving
-                  100% to create an unforgettable experience where participants
-                  can learn, collaborate, and grow while building solutions for
-                  tomorrow's challenges.
+                  As a vibrant and inclusive community, Gen AI Club at BMSIT&M is dedicated to creating opportunities for learning, networking, and growth. We strive to make AI accessible to all, regardless of background or experience level.
                 </p>
 
                 <p className="text-emerald-800 font-bitwise text-sm leading-relaxed">
                   <span className="text-green-800 font-bold border-b border-green-500 pb-0.5 px-1">
-                    We're actively seeking sponsors
+                    Interested in collaborating or supporting us?
                   </span>{" "}
-                  who share our vision for innovation and education. If your
-                  organization would like to sponsor BrinHack or has any
-                  queries, please reach out through our social media channels or
-                  contact the Department of IoT directly.
+                  Reach out to the Gen AI Club team or the Department of Computer Science at BMSIT&M for partnership and sponsorship opportunities.
                 </p>
               </motion.div>
             </div>
 
-            {/* Brindavan College */}
+            {/* BMSIT&M College */}
             <div className="mb-8">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -715,15 +713,15 @@ const AboutSection: React.FC = () => {
               >
                 <div className="flex items-center gap-3 bg-gray-800/80 p-2 rounded">
                   <Image
-                    src="/brce.png"
-                    alt="BrinDavan Logo"
+                    src="/bmsit-logo.png"
+                    alt="BMSIT&M Logo"
                     width={45}
                     height={45}
                     className="object-contain invert"
                     onLoad={() => handleImageLoad("logo")}
                   />
                   <h3 className="font-silkscreen text-xl md:text-2xl text-white">
-                    Brindavan College of Engineering
+                    BMS Institute of Technology & Management
                   </h3>
                 </div>
               </motion.div>
@@ -736,15 +734,12 @@ const AboutSection: React.FC = () => {
                 className="space-y-4 px-2"
               >
                 <p className="text-amber-100 font-bitwise text-sm leading-relaxed">
-                  Located in the tech hub of Bengaluru, our institution is
-                  affiliated with VTU Belagavi, accredited at 'B++' Level by
-                  NAAC, and approved by AICTE. We pride ourselves on fostering
-                  academic excellence and technological innovation.
+                  Located in Yelahanka, Bengaluru, BMSIT&M is an autonomous institution affiliated to VTU, recognized by AICTE, and accredited with an 'A' grade by NAAC. Renowned for its academic excellence and vibrant campus life, BMSIT&M is a hub for innovation and technology-driven education.
                 </p>
                 <div className="flex items-center gap-3">
                   <PixelButton
                     color="green"
-                    href="https://engineering.brindavancollege.edu.in/"
+                    href="https://bmsit.ac.in/"
                   >
                     <ExternalLink className="w-4 h-4 inline-block mr-2" />
                     Visit College Website
@@ -774,7 +769,7 @@ const AboutSection: React.FC = () => {
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 text-red-500 mr-2" />
                       <span className="font-silkscreen text-sm text-white">
-                        Brindavan College of Engineering
+                        BMS Institute of Technology & Management
                       </span>
                     </div>
                     <div className="flex gap-2">
@@ -784,10 +779,10 @@ const AboutSection: React.FC = () => {
                     </div>
                   </div>
                   <iframe
-                    src="https://maps.google.com/maps?q=Brindavan%20College%20of%20Engineering&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=BMS%20Institute%20of%20Technology%20and%20Management&t=&z=15&ie=UTF8&iwloc=&output=embed"
                     className="w-full h-64 border-none"
                     loading="lazy"
-                    title="Brindavan College of Engineering"
+                    title="BMS Institute of Technology & Management"
                   ></iframe>
                 </div>
               </div>
@@ -811,154 +806,109 @@ const AboutSection: React.FC = () => {
 
           <div className="space-y-3">
             <FAQItem
-              question="Is registration free?"
+              question="What is Generative AI?"
               answer={
                 <>
                   <p className="mb-2">
-                    Yes, registration for BrinHack 2025 is completely free.
-                    There is no registration fee to apply.
-                  </p>
-                  <p className="mb-2">
-                    However,{" "}
-                    <span className="text-amber-400 font-semibold">
-                      selected teams
-                    </span>{" "}
-                    will need to pay Rs. 800 per team for accommodation and food
-                    during the 24-hour hackathon.
-                  </p>
-                  <p>
-                    This fee covers all meals, refreshments, and accommodation
-                    for the entire event duration.
-                  </p>
-                </>
-              }
-            />
-
-            <FAQItem
-              question="What kind of teams can be formed?"
-              answer={
-                <>
-                  <p className="mb-2">
-                    Teams can consist of{" "}
-                    <span className="text-amber-400 font-semibold">
-                      2 to 4 members
-                    </span>
-                    .
-                  </p>
-                  <p className="mb-2">
-                    Students from{" "}
-                    <span className="text-amber-400 font-semibold">
-                      any academic year
-                    </span>{" "}
-                    (1st to 4th year) are eligible to participate.
-                  </p>
-                  <p>
-                    Teams can be formed across different departments and
-                    different colleges - inter-college collaboration is
-                    encouraged!
-                  </p>
-                </>
-              }
-            />
-
-            <FAQItem
-              question="Are multi-college teams allowed?"
-              answer={
-                <>
-                  <p className="mb-2">
-                    <span className="text-amber-400 font-semibold">Yes!</span>{" "}
-                    Multi-college teams are not only allowed but actively
-                    encouraged.
-                  </p>
-                  <p className="mb-2">
-                    We believe diverse perspectives lead to better innovation.
-                    Feel free to collaborate with students from different
-                    colleges.
-                  </p>
-                  <p>
-                    Each team member should be registered individually, noting
-                    their team name consistently.
-                  </p>
-                </>
-              }
-            />
-
-            <FAQItem
-              question="What facilities will be provided?"
-              answer={
-                <>
-                  <p className="mb-2">
-                    We provide a comprehensive set of amenities for all
-                    participants:
+                    Generative AI refers to artificial intelligence systems that can create new content including:
                   </p>
                   <ul className="list-disc pl-5 space-y-1 mb-2">
                     <li>
-                      <span className="text-amber-400 font-semibold">
-                        Internet:
-                      </span>{" "}
-                      High-speed Wi-Fi throughout the venue
+                      <span className="text-amber-400 font-semibold">Text:</span>{" "}
+                      Stories, articles, code, and conversations
                     </li>
                     <li>
-                      <span className="text-amber-400 font-semibold">
-                        Power:
-                      </span>{" "}
-                      Multiple power outlets for all teams
+                      <span className="text-amber-400 font-semibold">Images:</span>{" "}
+                      Artwork, designs, and visual content
                     </li>
                     <li>
-                      <span className="text-amber-400 font-semibold">
-                        Meals:
-                      </span>{" "}
-                      All meals and refreshments included
-                    </li>
-                    <li>
-                      <span className="text-amber-400 font-semibold">
-                        Rest Area:
-                      </span>{" "}
-                      Designated spaces for relaxation
-                    </li>
-                    <li>
-                      <span className="text-amber-400 font-semibold">
-                        Technical Support:
-                      </span>{" "}
-                      Mentors available throughout the event
+                      <span className="text-amber-400 font-semibold">Audio:</span>{" "}
+                      Music, voice, and sound effects
                     </li>
                   </ul>
-                  <p>
-                    For any specific requirements, please contact us in advance.
-                  </p>
+                  <p>These AI models learn patterns from existing data to generate new, original content.</p>
                 </>
               }
             />
 
             <FAQItem
-              question="Where is the event taking place?"
+              question="What activities does Gen AI Club organize?"
+              answer={
+                <>
+                  <p className="mb-2">Our club organizes various activities including:</p>
+                  <ul className="list-disc pl-5 space-y-1 mb-2">
+                    <li>
+                      <span className="text-amber-400 font-semibold">Workshops:</span>{" "}
+                      Hands-on sessions with AI tools and frameworks
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">Projects:</span>{" "}
+                      Collaborative AI project development
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">Talks:</span>{" "}
+                      Guest lectures from industry experts
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">Hackathons:</span>{" "}
+                      AI-focused coding competitions
+                    </li>
+                  </ul>
+                </>
+              }
+            />
+
+            <FAQItem
+              question="How can I join the Gen AI Club?"
               answer={
                 <>
                   <p className="mb-2">
-                    BrinHack 2025 will be held at{" "}
-                    <span className="text-amber-400 font-semibold">
-                      Brindavan College of Engineering
-                    </span>
-                    , Bengaluru.
+                    <span className="text-amber-400 font-semibold">Simple Steps:</span>
                   </p>
-                  <p className="mb-2">
-                    Address: Dwarkanagar, Yelahanka, Bengaluru, Karnataka
-                    560063, India.
-                  </p>
-                  <p>
-                    The exact venue building and rooms will be communicated to
-                    selected teams before the event.
-                  </p>
+                  <ul className="list-disc pl-5 space-y-1 mb-2">
+                    <li>Fill out the registration form on our website</li>
+                    
+                    <li>Join our Discord community</li>
+                    <li>Attend the orientation session</li>
+                  </ul>
+                  <p>All BMSIT students are welcome to join!</p>
+                </>
+              }
+            />
+
+            <FAQItem
+              question="What resources do members get access to?"
+              answer={
+                <>
+                  <p className="mb-2">Members get access to:</p>
+                  <ul className="list-disc pl-5 space-y-1 mb-2">
+                    <li>
+                      <span className="text-amber-400 font-semibold">Computing:</span>{" "}
+                      Cloud credits and GPU access
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">Learning:</span>{" "}
+                      Premium AI course materials
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">Tools:</span>{" "}
+                      Professional AI development tools
+                    </li>
+                    <li>
+                      <span className="text-amber-400 font-semibold">Support:</span>{" "}
+                      Mentorship from seniors and faculty
+                    </li>
+                  </ul>
                 </>
               }
             />
           </div>
 
-          {/* CTA button to reach out for more questions */}
+          {/* Updated CTA button */}
           <div className="mt-6 text-center">
             <PixelButton
               color="purple"
-              href="mailto:brinhackathon@brindavancollege.com"
+              href="mailto:genai.club@bmsit.in"
             >
               <MessageSquare className="w-4 h-4 inline-block mr-2" />
               Have more questions? Contact us!

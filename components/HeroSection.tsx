@@ -148,95 +148,53 @@ const HeroSection: React.FC<HeroSectionProps> = ({ showLogo = true }) => {
         <div className="container mx-auto flex flex-col items-center gap-12 text-center lg:flex-row lg:text-left pb-32">
           {/* Left Column: Text Content & Buttons */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start space-y-6">
-            <header className="w-full flex justify-center lg:justify-start py-6">
-              <h1 className="text-4xl md:text-6xl font-major-mono text-white font-bold tracking-wider animate-fadeIn">
-                <span className="text-[#ff00c0]">Brin</span>
-                <span className="text-[#26bffd]">HAck</span>-2025
-              </h1>
-            </header>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text 
+                bg-gradient-to-r from-[#ff00c0] to-[#26bffd]
+                animate-gradient-x animation-delay-150"
+      style={{ fontFamily: "'Press Start 2P', cursive" }}>
+    GEN AI CLUB
+    <span className="block text-base sm:text-lg md:text-xl mt-2 text-gray-400">
+      BMSIT&M
+    </span>
+  </h1>
 
-            {/* Updated the font class for the tagline */}
-            <h2
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white font-['Press_Start_2P'] leading-tight animate-fadeIn"
-              style={{ fontFamily: "'Press Start 2P', cursive" }}
-            >
-              Innovate Beyond <br className="hidden md:block" /> Boundaries
-            </h2>
+  <p className="text-md md:text-lg text-gray-300 max-w-md lg:max-w-none animate-fadeIn animation-delay-300"
+     style={{ fontFamily: "'Silkscreen', monospace" }}>
+    Welcome to Gen AI Club at BMSIT&M, the{" "}
+    <span className="text-lg md:text-xl text-amber-400 font-['Press_Start_2P'] inline-block relative cursor-pointer 
+          hover:text-[#26bffd] transition-colors duration-100 hover:animate-pulse
+          before:content-['✦'] before:absolute before:-left-2 before:opacity-0 before:hover:opacity-100
+          after:content-['✦'] after:absolute after:-right-2 after:opacity-0 after:hover:opacity-100 group">
+      PREMIER
+    </span>{" "}
+    student{" "}
+    <span className="text-emerald-500 text-lg">
+      AI Community
+    </span>{" "}
+    where innovation meets artificial intelligence. Explore the future of AI together.
+  </p>
 
-            {/* For the paragraph text, use Silkscreen as Bytesized font */}
-            <p
-              className="text-md md:text-lg text-gray-300 max-w-md lg:max-w-none animate-fadeIn animation-delay-300"
-              style={{ fontFamily: "'Silkscreen', monospace" }}
-            >
-              Join Brinhack 2025, the{" "}
-              <span
-                className="text-lg md:text-xl text-amber-400  font-['Press_Start_2P'] inline-block relative cursor-pointer 
-                hover:text-[#26bffd] transition-colors duration-100
-                hover:animate-pulse
-                before:content-['✦'] before:absolute before:-left-2 before:opacity-0 before:hover:opacity-100
-                after:content-['✦'] after:absolute after:-right-2 after:opacity-0 after:hover:opacity-100
-                group"
-              >
-                FREE
-              </span>{" "}
-              premier{" "}
-              <span className=" text-emerald-500 text-lg">
-                Beginner Friendly
-              </span>{" "}
-              hackathon where creativity meets technology. Push the limits and
-              build the future.
-              <br />
-              <Link
-                href="#about-section"
-                className="text-purple-400 hover:text-purple-300 relative ml-1
-                after:content-[''] after:absolute after:w-full after:h-[2px] 
-                after:bg-purple-300 after:bottom-0 after:left-0
-                after:scale-x-0 hover:after:scale-x-100
-                after:transition-transform after:duration-300
-                after:origin-left"
-              >
-                Know More
-              </Link>
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fadeIn animation-delay-600 mb-10">
-              {/* For the button text - Adding Link and href */}
-              <Button
-                asChild
-                variant="default"
-                size="lg"
-                className="bg-gradient-to-r from-[#ff00c0] to-[#26bffd] hover:from-[#b700ff] hover:to-[#00a2ff] 
-                text-gray-800 border-2 border-transparent hover:border-[#ff00c0] shadow-[0_0_15px_rgba(255,0,192,0.5)]
-                hover:shadow-[0_0_20px_rgba(38,191,253,0.7)] transition-all duration-300 
-                px-8 py-4 tracking-wider"
-                style={{ fontFamily: "'Press Start 2P', cursive" }}
-              >
-                <Link
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfdxUBGSlcTmYMI6oRXT5PmTjvyH8nFTjWBY-VbYYzVUkKQmg/viewform?usp=header"
-                  target="_blank"
-                >
-                  &gt; Register_Now! 🚀
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="default"
-                size="lg"
-                className="bg-gradient-to-r from-[#26bffd] to-[#ff00c0] hover:from-[#00a2ff] hover:to-[#b700ff]
-                text-gray-800 border-2 border-transparent hover:border-[#26bffd] shadow-[0_0_15px_rgba(38,191,253,0.5)]
-                hover:shadow-[0_0_20px_rgba(255,0,192,0.7)] transition-all duration-300
-                px-8 py-4 tracking-wider"
-                style={{ fontFamily: "'Press Start 2P', cursive" }}
-              >
-                <Link
-                  href="https://www.canva.com/design/DAGkVsC9q2Y/1zCsc8iRLjbrpdrsP-eX_g/view"
-                  target="_blank"
-                >
-                  &gt; Brochure.exe 📡
-                </Link>
-              </Button>
-            </div>
-          </div>
+  <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fadeIn animation-delay-600 mb-10">
+    <Button asChild variant="default" size="lg"
+            className="bg-gradient-to-r from-[#ff00c0] to-[#26bffd] hover:from-[#b700ff] hover:to-[#00a2ff] 
+                     text-gray-800 border-2 border-transparent hover:border-[#ff00c0] shadow-[0_0_15px_rgba(255,0,192,0.5)]
+                     hover:shadow-[0_0_20px_rgba(38,191,253,0.7)] transition-all duration-300 px-8 py-4 tracking-wider"
+            style={{ fontFamily: "'Press Start 2P', cursive" }}>
+      <Link href="#" target="_blank">
+        &gt; Join_Club! 🚀
+      </Link>
+    </Button>
+    <Button asChild variant="default" size="lg"
+            className="bg-gradient-to-r from-[#26bffd] to-[#ff00c0] hover:from-[#00a2ff] hover:to-[#b700ff]
+                     text-gray-800 border-2 border-transparent hover:border-[#26bffd] shadow-[0_0_15px_rgba(38,191,253,0.5)]
+                     hover:shadow-[0_0_20px_rgba(255,0,192,0.7)] transition-all duration-300 px-8 py-4 tracking-wider"
+            style={{ fontFamily: "'Press Start 2P', cursive" }}>
+      <Link href="#" target="_blank">
+        &gt; Discord.exe 📡
+      </Link>
+    </Button>
+  </div>
+</div>
 
           {/* Right Column: Logo with conditional visibility and fixed Tilt component */}
           <div className="w-full lg:w-1/2 flex items-center justify-center mt-10 lg:mt-0">

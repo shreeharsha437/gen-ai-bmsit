@@ -32,13 +32,13 @@ const navItems = [
 // Define extras navigation items separately
 const extrasItems = [
   {
-    name: "Selected Teams",
-    desc: "Finalists list",
-    href: "/final2025",
+    name: "Upcoming Events",
+    desc: "Workshop Schedule",
+    href: "#",
     icon: (
       <Image
         src="/s1n.png"
-        alt="Finalists Teams"
+        alt="Events Calendar"
         width={20}
         height={20}
         className="object-contain"
@@ -49,13 +49,13 @@ const extrasItems = [
     textColor: "text-cyan-300",
   },
   {
-    name: "Volunteer Squad",
+    name: "Club Members",
     desc: "Meet our team",
-    href: "/volunteers",
+    href: "#",
     icon: (
       <Image
         src="/pokeball.png"
-        alt="Volunteers Cloud"
+        alt="Team Members"
         width={20}
         height={20}
         className="object-contain"
@@ -213,10 +213,10 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                 </div>
                 <span className="text-white font-major-mono ml-2 text-xs sm:text-sm transition-colors duration-300">
                   <span className="text-[#ff00c0] group-hover:text-pink-400">
-                    Brin
+                    Gen AI
                   </span>
                   <span className="text-[#26bffd] group-hover:text-blue-300">
-                    HAck
+                    Club
                   </span>
                 </span>
               </a>
@@ -307,33 +307,7 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                       </h3>
                     </motion.div>
 
-                    <motion.div
-                      variants={menuItemVariants}
-                      initial="hidden"
-                      animate="visible"
-                      custom={1}
-                    >
-                      <Link
-                        href="/final2025"
-                        className="flex items-center gap-2 px-4 py-3 hover:bg-purple-900/30 transition-colors font-bitwise text-sm"
-                      >
-                        <div className="w-8 h-8 flex items-center justify-center bg-purple-900/50 rounded-md border border-purple-500/50 overflow-hidden">
-                          <Image
-                            src="/s1n.png"
-                            alt="Volunteers Cloud"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
-                        </div>
-                        <div>
-                          <span className="text-cyan-300">Selected Teams</span>
-                          <p className="text-xs text-gray-400">
-                            Finalists list
-                          </p>
-                        </div>
-                      </Link>
-                    </motion.div>
+                    
 
                     <motion.div
                       variants={menuItemVariants}
@@ -355,7 +329,9 @@ const FloatingNavbar: React.FC<FloatingNavbarProps> = ({ showLogo }) => {
                           />
                         </div>
                         <div>
-                          <span className="text-pink-300">Volunteer Squad</span>
+                          <span className="text-pink-300">Club
+                           Members
+                           </span>
                           <p className="text-xs text-gray-400">Meet our team</p>
                         </div>
                       </Link>

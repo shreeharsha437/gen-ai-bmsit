@@ -13,7 +13,7 @@ const CountdownTimer: React.FC = () => {
   });
 
   useEffect(() => {
-    const targetDate = new Date("2025-05-10T23:59:59");
+    const targetDate = new Date("2025-10-10T23:59:59");
 
     const calculateTimeRemaining = () => {
       const now = new Date();
@@ -69,7 +69,7 @@ const CountdownTimer: React.FC = () => {
           className="text-[10px] sm:text-xs md:text-sm font-silkscreen text-white mb-1 sm:mb-2 
                       px-2 py-0.5 bg-purple-900/90 rounded-full border border-white/30"
         >
-          TIME REMAINING FOR HACKATHON
+          TIME REMAINING FOR INAUGURATION
         </h3>
 
         <div className="flex justify-center space-x-1 sm:space-x-2 mt-1">
@@ -142,21 +142,21 @@ const CountdownTimer: React.FC = () => {
 const tracks = [
   // TOP LAYER - 3 clouds above the date
   {
-    name: "[IoT] - Internet of Things",
+    name: "Large Language Models",
     size: "large",
     cloudType: "c1n",
     layer: "top",
     hoverDelay: "0s",
   },
   {
-    name: "Cyber -Security",
-    size: "medium",
+    name: "Computer Vision AI",
+    size: "medium", 
     cloudType: "c2n",
     layer: "top",
     hoverDelay: "0.3s",
   },
   {
-    name: "Blockchain",
+    name: "Prompt Engineering",
     size: "large",
     cloudType: "c3n",
     layer: "top",
@@ -165,17 +165,17 @@ const tracks = [
 
   // BOTTOM LAYER - 2 clouds below the date
   {
-    name: "Sustainability",
+    name: "AI Applications",
     size: "large",
     cloudType: "c1n",
     layer: "bottom",
     hoverDelay: "0.9s",
   },
   {
-    name: "Open Innovation",
+    name: "AI Ethics",
     size: "medium",
     cloudType: "c2n",
-    layer: "bottom",
+    layer: "bottom", 
     hoverDelay: "1.2s",
   },
 ];

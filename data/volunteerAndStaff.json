@@ -1,163 +1,74 @@
 [
   {
-    "id": "v1",
-    "name": "Sneha Priyadarshy",
+    "id": "",
+    "name": "Hamsashree",
     "role": "FORK",
     "quote": "Push past limits, break the mold, and show them what you're made of",
-    "pokemon_no": 174
+    "pokemon_no": 1
   },
   {
-    "id": "v2",
-    "name": "Sharan Patil",
+    "id": "",
+    "name": "Shreeharsha",
     "role": "FORK",
     "quote": "You're stronger than you think—keep pushing forward.",
-    "pokemon_no": 150
+    "pokemon_no": 1
   },
   {
-    "id": "v3",
-    "name": "Sagar",
+    "id": "",
+    "name": "Deepika",
     "role": "SPOON",
     "quote": "Don't be a version of what others want you to be, be a version of yourself.",
-    "pokemon_no": 248
+    "pokemon_no": 1
   },
   {
-    "id": "v4",
-    "name": "Lohith",
+    "id": "",
+    "name": "Zaid",
     "role": "FORK",
     "quote": "The only thing that overcomes hard luck is hard work.",
     "pokemon_no": 94
   },
   {
-    "id": "v5",
-    "name": "Divyesh",
+    "id": "",
+    "name": "Kushal",
     "role": "FORK",
     "quote": "Play to win, not to survive.",
     "pokemon_no": 111
   },
   {
-    "id": "v6",
-    "name": "Akshay",
+    "id": "",
+    "name": "Archana",
     "role": "SPOON",
-    "quote": "Love the way you lie",
+    "quote": "Believe you can and you're halfway there.",
     "pokemon_no": 149
   },
   {
-    "id": "v7",
-    "name": "Vibhav",
+    "id": "",
+    "name": "Krutika",
     "role": "SPOON",
     "quote": "Fall down 7 times, rise 8. That’s how legends are made.",
     "pokemon_no": 742
   },
+  
   {
-    "id": "v8",
-    "name": "Shree Raksha",
-    "role": "SPOON",
-    "quote": "Chasing dreams in high heels",
-    "pokemon_no": 181
-  },
-  {
-    "id": "v9",
-    "name": "Chaya H G",
-    "role": "SPOON",
-    "quote": "I build what I wish existed",
-    "pokemon_no": 257
-  },
-  {
-    "id": "v10",
-    "name": "Yash Raghav",
-    "role": "FORK",
-    "quote": "No one's existence is a sin",
-    "pokemon_no": 643
-  },
-  {
-    "id": "v11",
-    "name": "Vinayak",
-    "role": "SPOON",
-    "quote": "No comment",
-    "pokemon_no": 593
-  },
-  {
-    "id": "v12",
-    "name": "Ayush",
-    "role": "SPOON",
-    "quote": "Be the person your dog thinks you are.",
-    "pokemon_no": 572
-  },
-  {
-    "id": "v13",
-    "name": "Srujan",
-    "role": "SPOON",
-    "quote": "Your vibe attracts your tribe.",
-    "pokemon_no": 225
-  },
-  {
-    "id": "v14",
-    "name": "Aaron",
-    "role": "FORK",
-    "quote": "I don't need credit, I just need to make sure you're okay.",
-    "pokemon_no": 571
-  },
-  {
-    "id": "v15",
-    "name": "Shubham",
-    "role": "SPOON",
-    "quote": "Wakanda Forever",
-    "pokemon_no": 143
-  },
-  {
-    "id": "v16",
-    "name": "Samyak",
-    "role": "SPOON",
-    "quote": "Confidence is the foundation of elegance.",
-    "pokemon_no": 448
-  },
-  {
-    "id": "v17",
-    "name": "Sumit",
-    "role": "FORK",
-    "quote": "Be yourself. Everyone else is already taken.",
-    "pokemon_no": 659
-  },
-  {
-    "id": "v18",
-    "name": "Vinya",
-    "role": "SPOON",
-    "quote": "Hard work betrays no one",
-    "pokemon_no": 7
-  },
-  {
-    "id": "v19",
-    "name": "Shreya",
-    "role": "FORK",
-    "quote": "Harmony over noise",
-    "pokemon_no": 12
-  },
-  {
-    "id": "v20",
-    "name": "Charan",
-    "role": "SPOON",
-    "quote": "The best view comes after the hardest climb.",
-    "pokemon_no": 333
-  },
-  {
-    "id": "v21",
-    "name": "Shubham",
-    "role": "SPOON",
-    "quote": "Progress, not perfection.",
-    "pokemon_no": 392
-  },
-  {
-    "id": "vL00",
-    "name": "Ankit Kumar Singh",
+    "id": "",
+    "name": "Ranjith Gowda",
     "role": "LEAD",
     "quote": "I’m not a hero because I want your approval. I do it because I want to.",
     "pokemon_no": 381
   },
   {
-    "id": "vcl",
-    "name": "Aditya Srivastava",
+    "id": "",
+    "name": "Brughu",
+    "role": "SPOON",
+    "quote": "Dream big, work hard, stay focused, and surround yourself with good people.",
+    "pokemon_no": 777
+  },
+  {
+    "id": "",
+    "name": "Nandhitha",
     "role": "COLEAD",
-    "quote": "Domain Expansion",
-    "pokemon_no": 4
+    "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+    "pokemon_no": 444
   }
+
 ]
