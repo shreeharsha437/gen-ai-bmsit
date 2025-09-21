@@ -35,8 +35,8 @@ The site is fully responsive with special optimizations for mobile devices:
 First, clone the repository:
 
 ```bash
-git clone https://github.com/AskitEndo/BrinHack2025-site
-cd BrinHack2025-site
+git clone https://github.com/shreeharsha437/gen-ai-bmsit
+cd gen-ai-bmsit
 ```
 
 Then, install dependencies:
